@@ -3,8 +3,6 @@ package test;
 import java.util.Date;
 
 /**
- * Test
- * 
  * @author Jianzhao Li
  */
 public class PrintDate {
