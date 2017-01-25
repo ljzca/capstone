@@ -1,0 +1,104 @@
+<h1>Notes Manager</h1>
+<div ng-controller="noteCtrl">
+	<div><input type="text" placeholder="Search content" ng-change="searchNotes(content)" ng-model="content"></div>
+	<h2>Owned Notes</h2>
+	<div class="table-responsive">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Date Created</th>
+					<th>Content</th>
+					<th>Operation</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="note in ownedNotes">
+					<td style="white-space: normal">{{note.datecreated}}</td>
+					<td style="white-space: normal">{{note.content}}</td>
+					<td>
+						<a class="btn btn-info" ng-click="editNote(note.noteid)">Edit</a>
+						<a class="btn btn-danger" ng-click="deleteNote(note.noteid)">Delete</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<p ng-if="ownedNotes.length === 0">You don't have owned notes</p>
+	<h2>Collaborated Notes</h2>
+	<div class="table-responsive">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Date Created</th>
+					<th>Content</th>
+					<th>Owner</th>
+					<th>Operation</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="note in collaboratedNotes">
+					<td style="white-space: normal">{{note.datecreated}}</td>
+					<td style="white-space: normal">{{note.content}}</td>
+					<td>{{note.owner.username}}</td>
+					<td><a class="btn btn-info" ng-click="editNote(note.noteid)">Edit</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<p ng-if="collaboratedNotes.length === 0">You don't have collaborated notes</p>
+	<span>{{errMsg}}</span><br>
+	<h2 ng-if="isCreation">Create Note</h2>
+	<h2 ng-if="!isCreation">Edit Note</h2>
+	<div>
+		<textarea rows="4" cols="50" ng-model="currentContent"></textarea><br>
+		<div>
+			<div ng-if="editing.collaborators.length > 0">
+				<h3>Collaborators</h3>
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Username</th>
+								<th>Email</th>
+								<th ng-if="isOwner">Operation</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="user in editing.collaborators">
+								<td>{{user.username}}</td>
+								<td>{{user.email}}</td>
+								<td ng-if="isOwner"><a class="btn btn-warning" ng-click="removeCollaborator(user.username)">Remove</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div ng-if="isOwner">
+				<h3>Select Collaborators</h3>
+				<input type="text" placeholder="username or email" ng-change="search(coll)" ng-model="coll">
+				<div class="table-responsive" ng-if="foundUsers.length > 0">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Username</th>
+								<th>Email</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr  ng-repeat="user in foundUsers" ng-click="addCollaborator(user.username)">
+								<td>{{user.username}}</td>
+								<td>{{user.email}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+    	<span ng-if="isCreation">
+			<a class="btn btn-primary" ng-click="createNote()">Create</a>
+		</span>
+		<span ng-if="!isCreation">
+			<a class="btn btn-success" ng-click="saveNote()">Save</a>
+		</span>
+	</div>
+</div>

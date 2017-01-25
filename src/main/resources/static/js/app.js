@@ -1,0 +1,1 @@
+angular.module('noteKeepr', ['ngRoute','ngCookies','base64']);

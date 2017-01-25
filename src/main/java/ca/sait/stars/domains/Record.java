@@ -2,8 +2,18 @@ package ca.sait.stars.domains;
 
 import java.util.Date;
 
-public class Record implements IDomain<Integer> {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
+@Entity
+public class Record {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int recordId;
 	private Date startTime;
 	private Date endTime;
@@ -11,18 +21,20 @@ public class Record implements IDomain<Integer> {
 	private String title;
 	private Date date;
 	private String description;
+	@ManyToOne
+	@JoinColumn(nullable = false)
+	private User owner;
 
 	public Record() {
 
 	}
 
-	public Record(Date startTime, Date endTime, String routeData, String title, Date date, String description) {
-		this.startTime = startTime;
-		this.endTime = endTime;
-		this.routeData = routeData;
-		this.title = title;
-		this.date = date;
-		this.description = description;
+	public Integer getRecordId() {
+		return recordId;
+	}
+
+	public void setRecordId(Integer recordId) {
+		this.recordId = recordId;
 	}
 
 	public Date getStartTime() {
@@ -73,8 +85,11 @@ public class Record implements IDomain<Integer> {
 		this.description = description;
 	}
 
-	@Override
-	public Integer getId() {
-		return recordId;
+	public User getOwner() {
+		return owner;
+	}
+
+	public void setOwner(User owner) {
+		this.owner = owner;
 	}
 }

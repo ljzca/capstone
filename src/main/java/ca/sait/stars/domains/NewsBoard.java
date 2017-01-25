@@ -2,21 +2,19 @@ package ca.sait.stars.domains;
 
 import java.util.Date;
 
-public class NewsBoard implements IDomain<String> {
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity
+public class NewsBoard {
+
+	@Id
 	private String title;
 	private Date date;
 	private String content;
 
 	public NewsBoard() {
 		// TODO Auto-generated constructor stub
-	}
-
-	public NewsBoard(String title, Date date, String content) {
-		super();
-		this.title = title;
-		this.date = date;
-		this.content = content;
 	}
 
 	public String getTitle() {
@@ -41,13 +39,5 @@ public class NewsBoard implements IDomain<String> {
 
 	public void setContent(String content) {
 		this.content = content;
-	}
-
-	// Not quite sure what to do with this method.
-
-	@Override
-	public String getId() {
-		// TODO Auto-generated method stub
-		return title;
 	}
 }

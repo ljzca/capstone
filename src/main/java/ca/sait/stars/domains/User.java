@@ -2,12 +2,20 @@ package ca.sait.stars.domains;
 
 import java.util.List;
 
-public class User implements IDomain<String> {
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
+@Entity
+public class User {
+
+	@Id
 	private String username;
 	private String password;
 	private String email;
 	private boolean isAdmin;
+	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
 	private List<Record> records;
 
 	public String getUsername() {
@@ -49,13 +57,4 @@ public class User implements IDomain<String> {
 	public void setRecords(List<Record> records) {
 		this.records = records;
 	}
-
-	// Not quite sure what to do with this method.
-
-	@Override
-	public String getId() {
-
-		return username;
-	}
-
 }
