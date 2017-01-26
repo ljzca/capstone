@@ -1,4 +1,4 @@
-package ca.sait.stars;
+package ca.sait.stars.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

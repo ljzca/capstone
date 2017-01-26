@@ -14,7 +14,7 @@ public class Record {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int recordId;
+	private Integer recordId;
 	private Date startTime;
 	private Date endTime;
 	private String routeData;
