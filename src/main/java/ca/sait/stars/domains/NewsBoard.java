@@ -13,10 +13,6 @@ public class NewsBoard {
 	private Date date;
 	private String content;
 
-	public NewsBoard() {
-		// TODO Auto-generated constructor stub
-	}
-
 	public String getTitle() {
 		return title;
 	}

@@ -7,11 +7,15 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 @Entity
 public class User {
 
 	@Id
 	private String username;
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
 	private String email;
 	private boolean isAdmin;
@@ -57,4 +61,5 @@ public class User {
 	public void setRecords(List<Record> records) {
 		this.records = records;
 	}
+
 }

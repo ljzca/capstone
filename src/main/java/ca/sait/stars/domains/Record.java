@@ -25,10 +25,6 @@ public class Record {
 	@JoinColumn(nullable = false)
 	private User owner;
 
-	public Record() {
-
-	}
-
 	public Integer getRecordId() {
 		return recordId;
 	}
