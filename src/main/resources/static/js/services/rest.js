@@ -6,7 +6,7 @@ angular.module('noteKeepr')
 		
 		var req = {
 			method: method,
-			url: url,
+			url: 'localhost:8080/rest/' + url,
 			headers: {
 				'Content-Type': contentType,
 				'Authorization': "Basic " + $base64.encode(username + ':' + password),
