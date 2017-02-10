@@ -25,7 +25,7 @@ public interface RecordRepository extends PagingAndSortingRepository<Record, Int
 	<S extends Record> Iterable<S> save(Iterable<S> entities);
 
 	@Override
-	@PreAuthorize("@recordCheck.check(authentication,#i)")
+	@PreAuthorize("@recordInspector.check(authentication,#i)")
 	Record findOne(@Param("i") Integer id);
 
 	@Override
