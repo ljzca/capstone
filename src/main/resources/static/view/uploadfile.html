@@ -1,1 +1,25 @@
-<p>Matt is cool</p>
+<h1>Upload Record</h1>
+<br>
+<div ng-controller = "myCtrl">
+<table>
+	<tr>
+		<td><label>Upload Record File (.csv):</label></td>
+		<td><input type="file" file-model="myFile"/></td>
+	</tr>
+	<tr>
+		<td><label>Title:</label></td>
+		<td><input type=text ng-model="title"></td>
+	</tr>
+	<tr>
+		<td><label>Description:</label></td>
+		<td><input type=text ng-model="description"></td>
+	</tr>
+	<tr>
+		<td><button ng-click="uploadFile()">Upload</button></td>
+	</tr>
+</table>
+
+<p>{{result}}</p>
+<p>{{title}}</p>
+<p>{{description}}</p>
+</div>
