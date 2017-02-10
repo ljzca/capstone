@@ -29,6 +29,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	        .disable();
 	}
 
+	/*
+	 * For testing login
+	 */
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.inMemoryAuthentication()
