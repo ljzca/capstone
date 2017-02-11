@@ -1,39 +1,58 @@
 package ca.sait.stars.domains;
 
+import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 
+/**
+ * The persistent class for the stars_news_board database table.
+ * 
+ */
 @Entity
-public class NewsBoard {
+@Table(name="stars_news_board")
+@NamedQuery(name="NewsBoard.findAll", query="SELECT n FROM NewsBoard n")
+public class NewsBoard implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7887975624261414585L;
 
 	@Id
-	private String title;
-	private Date date;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(unique=true, nullable=false)
+	private Date time;
+
+	@Column(nullable=false)
+	@Lob
 	private String content;
 
+	@Column(nullable=false, length=255)
+	private String title;
+
+	public Date getTime() {
+		return this.time;
+	}
+
+	public void setTime(Date time) {
+		this.time = time;
+	}
+
+	public String getContent() {
+		return this.content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
 	public String getTitle() {
-		return title;
+		return this.title;
 	}
 
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
 }

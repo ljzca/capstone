@@ -1,82 +1,49 @@
 package ca.sait.stars.domains;
 
-import java.util.Date;
+import java.io.Serializable;
+import javax.persistence.*;
+import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 
+/**
+ * The persistent class for the stars_record database table.
+ * 
+ */
 @Entity
-public class Record {
+@Table(name="stars_record")
+@NamedQuery(name="Record.findAll", query="SELECT r FROM Record r")
+public class Record implements Serializable {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer recordId;
-	private Date startTime;
-	private Date endTime;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4417730453088600886L;
+
+	@EmbeddedId
+	private RecordPK id;
+
 	@Lob
-	private String routeData;
-	private String title;
-	private Date date;
 	private String description;
-	@ManyToOne
-	@JoinColumn(nullable = false)
+
+	//bi-directional many-to-one association to User
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="owner", nullable=false, insertable=false, updatable=false)
 	private User owner;
 
-	public Integer getRecordId() {
-		return recordId;
+	//bi-directional many-to-one association to RecordData
+	@OneToMany(mappedBy="record")
+	private List<RecordData> recordData;
+
+	public RecordPK getId() {
+		return this.id;
 	}
 
-	public void setRecordId(Integer recordId) {
-		this.recordId = recordId;
-	}
-
-	public Date getStartTime() {
-		return startTime;
-	}
-
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
-	}
-
-	public Date getEndTime() {
-		return endTime;
-	}
-
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
-	}
-
-	public String getRouteData() {
-		return routeData;
-	}
-
-	public void setRouteData(String routeData) {
-		this.routeData = routeData;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
+	public void setId(RecordPK id) {
+		this.id = id;
 	}
 
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 
 	public void setDescription(String description) {
@@ -84,10 +51,38 @@ public class Record {
 	}
 
 	public User getOwner() {
-		return owner;
+		return this.owner;
 	}
 
 	public void setOwner(User owner) {
 		this.owner = owner;
 	}
+
+	public List<RecordData> getRecordData() {
+		return this.recordData;
+	}
+
+	public void setRecordData(List<RecordData> recordData) {
+		this.recordData = recordData;
+	}
+
+	public RecordData addRecordData(RecordData recordData) {
+		getRecordData().add(recordData);
+		recordData.setRecord(this);
+
+		return recordData;
+	}
+
+	public RecordData removeRecordData(RecordData recordData) {
+		getRecordData().remove(recordData);
+		recordData.setRecord(null);
+
+		return recordData;
+	}
+
+	@Override
+	public String toString() {
+		return id.toString();
+	}
+
 }

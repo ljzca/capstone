@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import ca.sait.stars.domains.Record;
+import ca.sait.stars.domains.RecordPK;
 
 /**
  * This is a record repository interface which will be used to auto generate
@@ -16,32 +17,33 @@ import ca.sait.stars.domains.Record;
  * @author william
  *
  */
-public interface RecordRepository extends PagingAndSortingRepository<Record, Integer> {
+public interface RecordRepository extends PagingAndSortingRepository<Record, RecordPK> {
 
 	@Override
-	<S extends Record> S save(S entity);
+	@PreAuthorize("@recordInspector.checkOwnership(authentication,#s)")
+	<S extends Record> S save(@Param("s") S entity);
 
 	@Override
 	<S extends Record> Iterable<S> save(Iterable<S> entities);
 
 	@Override
-	@PreAuthorize("@recordInspector.check(authentication,#i)")
-	Record findOne(@Param("i") Integer id);
+	@PreAuthorize("@recordInspector.checkOwnership(authentication,#i)")
+	Record findOne(@Param("i") RecordPK id);
 
 	@Override
-	boolean exists(Integer id);
+	boolean exists(RecordPK id);
 
 	@Override
 	Iterable<Record> findAll();
 
 	@Override
-	Iterable<Record> findAll(Iterable<Integer> ids);
+	Iterable<Record> findAll(Iterable<RecordPK> ids);
 
 	@Override
 	long count();
 
 	@Override
-	void delete(Integer id);
+	void delete(RecordPK id);
 
 	@Override
 	void delete(Record entity);

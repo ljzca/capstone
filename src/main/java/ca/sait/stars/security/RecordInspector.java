@@ -28,14 +28,14 @@ public class RecordInspector {
 	 *            record id the user want to access
 	 * @return true if the record belongs the user, false otherwise
 	 */
-	public boolean check(Authentication authentication, int id) {
-		try {
-			for (Record record : ur.findOne(authentication.getName()).getRecords())
-				if (record.getRecordId().intValue() == id)
-					return true;
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+	public boolean checkOwnership(Authentication authentication, int id) {
+//		try {
+//			for (Record record : ur.findOne(authentication.getName()).getRecords())
+//				if (record.getRecordId().intValue() == id)
+//					return true;
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
 		return false;
 	}
 }

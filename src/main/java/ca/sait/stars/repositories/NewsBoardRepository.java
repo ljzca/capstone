@@ -1,9 +1,16 @@
 package ca.sait.stars.repositories;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
+import java.util.Date;
 
+import org.springframework.data.repository.PagingAndSortingRepository;
 import ca.sait.stars.domains.NewsBoard;
 
-public interface NewsBoardRepository extends PagingAndSortingRepository<NewsBoard, String> {
-
+/**
+ * This is a record repository interface which will be used to auto generate
+ * service layer based on annotations and configurations
+ * 
+ * @author william
+ *
+ */
+public interface NewsBoardRepository extends PagingAndSortingRepository<NewsBoard, Date> {
 }
