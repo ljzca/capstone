@@ -45,6 +45,11 @@ angular.module('noteKeepr')
 				templateUrl: 'view/forgot.html',
 				controller: 'forgotCtrl'
 			})
+			
+			.when('/upload', {
+				templateUrl: 'view/uploadfile.html',
+				controller: 'forgotCtrl'
+			})
 	
             .otherwise({
                 templateUrl: "view/404.html"
