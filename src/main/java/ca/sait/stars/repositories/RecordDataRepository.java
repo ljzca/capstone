@@ -11,6 +11,13 @@ import org.springframework.stereotype.Repository;
 import ca.sait.stars.domains.RecordData;
 import ca.sait.stars.domains.RecordDataPK;
 
+/**
+ * This is a record data repository interface which will be used to auto
+ * generate service layer based on annotations and configurations
+ * 
+ * @author william
+ *
+ */
 @Repository
 public interface RecordDataRepository extends PagingAndSortingRepository<RecordData, RecordDataPK> {
 

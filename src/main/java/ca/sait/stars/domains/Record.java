@@ -8,6 +8,8 @@ import java.util.List;
 /**
  * The persistent class for the stars_record database table.
  * 
+ * @author william
+ *
  */
 @Entity
 @Table(name = "stars_record", uniqueConstraints = @UniqueConstraint(columnNames = { "owner", "title" }))

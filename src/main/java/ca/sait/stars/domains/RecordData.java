@@ -6,6 +6,8 @@ import javax.persistence.*;
 /**
  * The persistent class for the stars_record_data database table.
  * 
+ * @author william
+ *
  */
 @Entity
 @Table(name = "stars_record_data", uniqueConstraints = @UniqueConstraint(columnNames = { "owner", "title", "time" }))

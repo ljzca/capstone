@@ -11,6 +11,13 @@ import ca.sait.stars.domains.RecordData;
 import ca.sait.stars.domains.RecordDataPK;
 import ca.sait.stars.domains.RecordPK;
 
+/**
+ * This is a service to convert string id submitted from client in a URL to a
+ * composite key object
+ * 
+ * @author william
+ *
+ */
 @Service
 class CompositePKConverter implements BackendIdConverter {
 

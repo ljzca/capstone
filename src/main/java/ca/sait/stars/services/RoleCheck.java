@@ -7,6 +7,13 @@ import org.springframework.stereotype.Service;
 
 import ca.sait.stars.domains.User;
 
+/**
+ * This class is for checking if user has enough privilege to set a specific
+ * role
+ * 
+ * @author william
+ *
+ */
 @Service
 public class RoleCheck {
 

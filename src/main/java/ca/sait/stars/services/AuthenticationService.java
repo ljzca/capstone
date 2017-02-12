@@ -14,6 +14,13 @@ import org.springframework.stereotype.Service;
 
 import ca.sait.stars.domains.User;
 
+/**
+ * This class provides user details from database (same as JDBCRealm is other
+ * term)
+ * 
+ * @author william
+ *
+ */
 @Service
 public class AuthenticationService implements UserDetailsService {
 

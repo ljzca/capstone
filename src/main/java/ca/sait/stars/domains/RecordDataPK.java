@@ -7,6 +7,8 @@ import javax.persistence.*;
 /**
  * The primary key class for the stars_record_data database table.
  * 
+ * @author william
+ *
  */
 @Embeddable
 public class RecordDataPK implements Serializable {

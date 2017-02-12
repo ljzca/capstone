@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import ca.sait.stars.domains.NewsBoard;
 
 /**
- * This is a record repository interface which will be used to auto generate
+ * This is a news board repository interface which will be used to auto generate
  * service layer based on annotations and configurations
  * 
  * @author william
