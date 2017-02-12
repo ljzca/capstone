@@ -3,14 +3,13 @@ package ca.sait.stars.domains;
 import java.io.Serializable;
 import javax.persistence.*;
 
-
 /**
  * The persistent class for the stars_record_data database table.
  * 
  */
 @Entity
-@Table(name="stars_record_data")
-@NamedQuery(name="RecordData.findAll", query="SELECT r FROM RecordData r")
+@Table(name = "stars_record_data", uniqueConstraints = @UniqueConstraint(columnNames = { "owner", "title", "time" }))
+@NamedQuery(name = "RecordData.findAll", query = "SELECT r FROM RecordData r")
 public class RecordData implements Serializable {
 
 	/**
@@ -21,51 +20,50 @@ public class RecordData implements Serializable {
 	@EmbeddedId
 	private RecordDataPK id;
 
-	@Column(name="c_acc", nullable=false)
+	@Column(name = "c_acc", nullable = false)
 	private double cAcc;
 
-	@Column(name="gps_fix", nullable=false)
+	@Column(name = "gps_fix", nullable = false)
 	private double gpsFix;
 
-	@Column(name="h_acc", nullable=false)
+	@Column(name = "h_acc", nullable = false)
 	private double hAcc;
 
-	@Column(name="h_m_s_l", nullable=false)
+	@Column(name = "h_m_s_l", nullable = false)
 	private double hMSL;
 
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private double heading;
 
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private double lat;
 
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private double lon;
 
-	@Column(name="num_s_v", nullable=false)
+	@Column(name = "num_s_v", nullable = false)
 	private double numSV;
 
-	@Column(name="s_acc", nullable=false)
+	@Column(name = "s_acc", nullable = false)
 	private double sAcc;
 
-	@Column(name="v_acc", nullable=false)
+	@Column(name = "v_acc", nullable = false)
 	private double vAcc;
 
-	@Column(name="vel_d", nullable=false)
+	@Column(name = "vel_d", nullable = false)
 	private double velD;
 
-	@Column(name="vel_e", nullable=false)
+	@Column(name = "vel_e", nullable = false)
 	private double velE;
 
-	@Column(name="vel_n", nullable=false)
+	@Column(name = "vel_n", nullable = false)
 	private double velN;
 
-	//bi-directional many-to-one association to Record
-	@ManyToOne(fetch=FetchType.LAZY)
+	// bi-directional many-to-one association to Record
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({
-		@JoinColumn(name="owner", referencedColumnName="owner", nullable=false, insertable=false, updatable=false),
-		@JoinColumn(name="title", referencedColumnName="title", nullable=false, insertable=false, updatable=false)
-		})
+			@JoinColumn(name = "owner", referencedColumnName = "owner", nullable = false, insertable = false, updatable = false),
+			@JoinColumn(name = "title", referencedColumnName = "title", nullable = false, insertable = false, updatable = false) })
 	private Record record;
 
 	public RecordDataPK getId() {

@@ -1,6 +1,7 @@
 package ca.sait.stars.domains;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.*;
 
 /**
@@ -15,32 +16,37 @@ public class RecordDataPK implements Serializable {
 	 */
 	private static final long serialVersionUID = -5143459958102680778L;
 
-	@Column(insertable=false, updatable=false, unique=true, nullable=false, length=30)
+	@Column(nullable = false, length = 30)
 	private String owner;
 
-	@Column(insertable=false, updatable=false, unique=true, nullable=false, length=255)
+	@Column(nullable = false, length = 255)
 	private String title;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(unique=true, nullable=false)
-	private java.util.Date time;
+	@Column(nullable = false)
+	private Date time;
 
 	public String getOwner() {
 		return this.owner;
 	}
+
 	public void setOwner(String owner) {
 		this.owner = owner;
 	}
+
 	public String getTitle() {
 		return this.title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public java.util.Date getTime() {
+
+	public Date getTime() {
 		return this.time;
 	}
-	public void setTime(java.util.Date time) {
+
+	public void setTime(Date time) {
 		this.time = time;
 	}
 
@@ -51,11 +57,9 @@ public class RecordDataPK implements Serializable {
 		if (!(other instanceof RecordDataPK)) {
 			return false;
 		}
-		RecordDataPK castOther = (RecordDataPK)other;
-		return 
-			this.owner.equals(castOther.owner)
-			&& this.title.equals(castOther.title)
-			&& this.time.equals(castOther.time);
+		RecordDataPK castOther = (RecordDataPK) other;
+		return this.owner.equals(castOther.owner) && this.title.equals(castOther.title)
+				&& this.time.equals(castOther.time);
 	}
 
 	public int hashCode() {
@@ -64,12 +68,12 @@ public class RecordDataPK implements Serializable {
 		hash = hash * prime + this.owner.hashCode();
 		hash = hash * prime + this.title.hashCode();
 		hash = hash * prime + this.time.hashCode();
-		
+
 		return hash;
 	}
 
 	@Override
 	public String toString() {
-		return owner + "&" + title + "&" + time;
+		return owner + "&" + title + "&" + time.getTime();
 	}
 }

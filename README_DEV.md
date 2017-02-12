@@ -27,3 +27,21 @@ To commit to remote, which has been changed by others, you need to merge latest 
  5. Push the change to the remote repo.
 
 Reference: http://stackoverflow.com/questions/19474186/egit-rejected-non-fast-forward
+
+
+# Significance of toString() in domain classes
+
+The toString() returned values are used to represent the ID of the domains in URL.
+
+# Examples of JSON data
+POST to http://localhost:8080/rest/users
+{
+	"username":"user4",
+	"password":"password",
+	"email": "user4@edu.sait.ca",
+	"isAdmin": false
+}
+
+
+
+

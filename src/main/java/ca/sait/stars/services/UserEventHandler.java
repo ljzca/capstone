@@ -1,13 +1,13 @@
-package ca.sait.stars.security;
+package ca.sait.stars.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
 import org.springframework.data.rest.core.annotation.HandleBeforeSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+import ca.sait.stars.components.Encryption;
 import ca.sait.stars.domains.User;
-import ca.sait.stars.utils.EncryptionUtils;
 
 /**
  * This class is used to encrypt the user password
@@ -16,11 +16,11 @@ import ca.sait.stars.utils.EncryptionUtils;
  *
  */
 @RepositoryEventHandler(User.class)
-@Component
+@Service
 public class UserEventHandler {
 
 	@Autowired
-	private EncryptionUtils eu;
+	private Encryption eu;
 
 	/**
 	 * handle password update

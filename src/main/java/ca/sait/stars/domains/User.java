@@ -2,16 +2,18 @@ package ca.sait.stars.domains;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.List;
 
 /**
  * The persistent class for the stars_user database table.
  * 
  */
 @Entity
-@Table(name="stars_user")
-@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+@Table(name = "stars_user")
+@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
 public class User implements Serializable {
 
 	/**
@@ -20,20 +22,21 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 3881890201970857506L;
 
 	@Id
-	@Column(unique=true, nullable=false, length=30)
+	@Column(unique = true, nullable = false, length = 30)
 	private String username;
 
-	@Column(length=255)
+	@Column(length = 255)
 	private String email;
 
-	@Column(name="is_admin", nullable=false)
+	@Column(name = "is_admin", nullable = false)
 	private boolean isAdmin;
 
-	@Column(length=44)
+	@Column(length = 44)
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
 
-	//bi-directional many-to-one association to Record
-	@OneToMany(mappedBy="owner")
+	// bi-directional many-to-one association to Record
+	@OneToMany(mappedBy = "owner")
 	private List<Record> records;
 
 	public String getUsername() {

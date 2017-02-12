@@ -6,6 +6,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Repository;
 
 import ca.sait.stars.domains.Record;
 import ca.sait.stars.domains.RecordPK;
@@ -17,47 +18,67 @@ import ca.sait.stars.domains.RecordPK;
  * @author william
  *
  */
+/*
+ * To invoke method:
+ * 
+ * Use @PreAuthorize(
+ * "@classNameWithFirstLetterInLowerCase.methodName(authentication,#s,otherArguments...)")
+ * annotation with expression language to invoke a method. @Component or other
+ * stereotype is needed for the class. Plus, @Autowired can be used for
+ * accessing other beans, e.g. Repositories
+ */
+@Repository
 public interface RecordRepository extends PagingAndSortingRepository<Record, RecordPK> {
 
 	@Override
-	@PreAuthorize("@recordInspector.checkOwnership(authentication,#s)")
+	@PreAuthorize("#s?.id?.owner == authentication?.name OR hasRole('ADMIN')")
 	<S extends Record> S save(@Param("s") S entity);
 
 	@Override
+	@PreAuthorize("hasRole('ADMIN')")
 	<S extends Record> Iterable<S> save(Iterable<S> entities);
 
 	@Override
-	@PreAuthorize("@recordInspector.checkOwnership(authentication,#i)")
+	@PreAuthorize("#i?.owner == authentication?.name OR hasRole('ADMIN')")
 	Record findOne(@Param("i") RecordPK id);
 
 	@Override
-	boolean exists(RecordPK id);
+	@PreAuthorize("#i?.owner == authentication?.name OR hasRole('ADMIN')")
+	boolean exists(@Param("i") RecordPK id);
 
 	@Override
+	@PreAuthorize("hasRole('ADMIN')")
 	Iterable<Record> findAll();
 
 	@Override
+	@PreAuthorize("hasRole('ADMIN')")
 	Iterable<Record> findAll(Iterable<RecordPK> ids);
 
 	@Override
+	@PreAuthorize("hasRole('ADMIN')")
 	long count();
 
 	@Override
-	void delete(RecordPK id);
+	@PreAuthorize("#i?.owner == authentication?.name OR hasRole('ADMIN')")
+	void delete(@Param("i") RecordPK id);
 
 	@Override
-	void delete(Record entity);
+	@PreAuthorize("#s?.id?.owner == authentication?.name OR hasRole('ADMIN')")
+	void delete(@Param("s") Record entity);
 
 	@Override
+	@PreAuthorize("hasRole('ADMIN')")
 	void delete(Iterable<? extends Record> entities);
 
 	@Override
+	@PreAuthorize("hasRole('ADMIN')")
 	void deleteAll();
 
 	@Override
+	@PreAuthorize("hasRole('ADMIN')")
 	Iterable<Record> findAll(Sort sort);
 
 	@Override
+	@PreAuthorize("hasRole('ADMIN')")
 	Page<Record> findAll(Pageable pageable);
-
 }

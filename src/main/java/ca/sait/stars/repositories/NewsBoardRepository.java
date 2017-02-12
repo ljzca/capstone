@@ -3,6 +3,8 @@ package ca.sait.stars.repositories;
 import java.util.Date;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
+
 import ca.sait.stars.domains.NewsBoard;
 
 /**
@@ -12,5 +14,6 @@ import ca.sait.stars.domains.NewsBoard;
  * @author william
  *
  */
+@Repository
 public interface NewsBoardRepository extends PagingAndSortingRepository<NewsBoard, Date> {
 }

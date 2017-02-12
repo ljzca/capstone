@@ -2,16 +2,16 @@ package ca.sait.stars.domains;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
+import java.util.List;
 
 /**
  * The persistent class for the stars_record database table.
  * 
  */
 @Entity
-@Table(name="stars_record")
-@NamedQuery(name="Record.findAll", query="SELECT r FROM Record r")
+@Table(name = "stars_record", uniqueConstraints = @UniqueConstraint(columnNames = { "owner", "title" }))
+@NamedQuery(name = "Record.findAll", query = "SELECT r FROM Record r")
 public class Record implements Serializable {
 
 	/**
@@ -25,13 +25,13 @@ public class Record implements Serializable {
 	@Lob
 	private String description;
 
-	//bi-directional many-to-one association to User
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="owner", nullable=false, insertable=false, updatable=false)
+	// bi-directional many-to-one association to User
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "owner", nullable = false, insertable = false, updatable = false)
 	private User owner;
 
-	//bi-directional many-to-one association to RecordData
-	@OneToMany(mappedBy="record")
+	// bi-directional many-to-one association to RecordData
+	@OneToMany(mappedBy = "record")
 	private List<RecordData> recordData;
 
 	public RecordPK getId() {

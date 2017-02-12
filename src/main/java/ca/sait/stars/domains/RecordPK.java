@@ -15,10 +15,10 @@ public class RecordPK implements Serializable {
 	 */
 	private static final long serialVersionUID = 5457540082422531295L;
 
-	@Column(insertable=false, updatable=false, unique=true, nullable=false, length=30)
+	@Column(nullable=false, length=30)
 	private String owner;
 
-	@Column(unique=true, nullable=false, length=255)
+	@Column(nullable=false, length=255)
 	private String title;
 
 	public String getOwner() {

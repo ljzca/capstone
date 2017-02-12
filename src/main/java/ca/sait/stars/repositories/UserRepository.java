@@ -6,6 +6,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Repository;
 
 import ca.sait.stars.domains.User;
 
@@ -16,6 +17,7 @@ import ca.sait.stars.domains.User;
  * @author william
  *
  */
+@Repository
 public interface UserRepository extends PagingAndSortingRepository<User, String> {
 
 	/*
