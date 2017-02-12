@@ -1,7 +1,7 @@
 /**
  * 
  */
-function parse(recordId, data){
+function parse(username, title, data){
 			
 			//parsedStrings contains the split clean string data while cleanString is the array that 
 			//contains the header, which is thrown away, and the cleanString.
@@ -24,6 +24,8 @@ function parse(recordId, data){
 			for(i=0;i<parsedStrings.length;i++){
 				var dataObject = parsedString[i].split(",");
 				var dataLine = {
+						username: username,
+						title: title,
 						time: dataObject[0],
 						lat: dataObject[1],
 						lon: dataObject[2],
