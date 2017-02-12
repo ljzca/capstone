@@ -1,17 +1,12 @@
 /**
- * ParsePlus
+ * 
  */
-
-(function(window){
-	'use strict';
-	function getParserInstance(){
-		var Parser = {};
-		
-		Parser.parse = function(recordId, data){
+function parse(recordId, data){
 			
 			//parsedStrings contains the split clean string data while cleanString is the array that 
 			//contains the header, which is thrown away, and the cleanString.
 			
+			//Validation will be placed here once further developed
 			var timeRegex = "^\d{4}[\-]\d{2}[\-]\d{2}[T]\d{2}\:\d{2}\:\d{2}\.\d{2}[Z]$";
 			
 			var parsedStrings = [];
@@ -23,6 +18,9 @@
 			cleanString = data.split(",,");
 			parsedStrings = cleanString.split(" ");
 			
+			
+			//split all the data into individual string lines, then split those lines into their own object which will be placed into
+			//an array of objects to be stringified.
 			for(i=0;i<parsedStrings.length;i++){
 				var dataObject = parsedString[i].split(",");
 				var dataLine = {
@@ -31,7 +29,7 @@
 						lon: dataObject[2],
 						hmsl: dataObject[3],
 						velN: dataObject[4],
-						velE: dataObject[5]
+						velE: dataObject[5],
 						velD: dataObject[6],
 						HAcc: dataObject[7],
 						vAcc: dataObject[8],
@@ -41,20 +39,9 @@
 						gpsFix: dataObject[12],
 						numSV: dataObject[13]
 				}
-				objectArray.push(dataObject);
+				objectArray.push(dataLine);
 			}
-			
-			
-			var strings = JSON.stringify(objectArray);
+			var output = JSON.stringify(objectArray);
 			//Returning the clean strings
-			return parsedStrings;
+			return output;
 		}
-		return getParserInstance;
-	}
-	
-	if(typeof(getParserInstance) === 'undefined'){
-		window.Parser = getParserInstance();		
-	} else {
-		return window.Parser;
-	}
-})(window);
