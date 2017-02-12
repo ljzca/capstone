@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Encryption {
+public class Encryptor {
 
 	private static final String ALGORITHM = "SHA-256";
 

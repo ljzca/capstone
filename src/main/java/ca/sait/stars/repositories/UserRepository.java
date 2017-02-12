@@ -32,7 +32,8 @@ public interface UserRepository extends PagingAndSortingRepository<User, String>
 	 * also be applied during update.
 	 */
 	@Override
-	<S extends User> S save(S entity);
+	@PreAuthorize("@roleCheck.checkRole(authentication,#s)")
+	<S extends User> S save(@Param("s") S entity);
 
 	@Override
 	@PreAuthorize("hasRole('ADMIN')")

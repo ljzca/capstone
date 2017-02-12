@@ -31,7 +31,7 @@ public class User implements Serializable {
 	@Column(name = "is_admin", nullable = false)
 	private boolean isAdmin;
 
-	@Column(length = 44)
+	@Column(length = 60)
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
 

@@ -18,15 +18,6 @@ import ca.sait.stars.domains.RecordPK;
  * @author william
  *
  */
-/*
- * To invoke method:
- * 
- * Use @PreAuthorize(
- * "@classNameWithFirstLetterInLowerCase.methodName(authentication,#s,otherArguments...)")
- * annotation with expression language to invoke a method. @Component or other
- * stereotype is needed for the class. Plus, @Autowired can be used for
- * accessing other beans, e.g. Repositories
- */
 @Repository
 public interface RecordRepository extends PagingAndSortingRepository<Record, RecordPK> {
 
