@@ -49,7 +49,6 @@ angular.module('stars')
 		            			description: $scope.description
 		            		},
 		            		function(result){
-		            			alert("Failure success");
 		            			console.log("*********************** SUCCESS ***************************");
 		            			console.log(result);
 		            			
@@ -59,7 +58,7 @@ angular.module('stars')
 		            			
 		            			try
 		            			{
-			            			for(var i = 0; i < objects.length; i++)
+			            			for(var i = 0; i < objects.length-1; i++)
 			            			{
 				            				sendRequest.send
 				            				(
@@ -70,10 +69,15 @@ angular.module('stars')
 				            	            		objects[i],
 				            	            		function(){
 				            							console.log("*************** GREAT SUCCESS ****************");
-				            							if(loopValid === true)
+//				            							if(loopValid === true)
+//				            								$scope.success = "Record uploaded";
+//				            							else
+//				            								$scope.success = "Error uploading record";
+				            							
+				            							if(i == objects.length-1)
+				            							{
 				            								$scope.success = "Record uploaded";
-				            							else
-				            								$scope.success = "Error uploading record";
+				            							}
 				            									
 				            							
 				            						},
