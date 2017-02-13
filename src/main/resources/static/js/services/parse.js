@@ -21,7 +21,7 @@ angular.module('stars')
 							username: username,
 							title: title,
 							time: dataLine[0]
-					}
+					},
 					lat: dataLine[1],
 					lon: dataLine[2],
 					hmsl: dataLine[3],
@@ -39,7 +39,6 @@ angular.module('stars')
 			}
 			objectArray.push(dataObject);
 		}
-		
 		return objectArray;
     };
 	
