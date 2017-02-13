@@ -1,12 +1,12 @@
 angular.module('stars')
 
-.service("sendRequest",['$base64', '$http', function ($base64, $http) {
+.service("sendRequest",['$base64', '$http', 'constants', function ($base64, $http, constants) {
 
 	this.send = function (method, url, username, password, data, sucess, fail) {
 		
 		var req = {
 			method: method,
-			url: 'http://localhost:8080/rest/' + url,
+			url: constants.rootURL + url,
 			headers: {
 				'Content-Type': 'application/json',
 				'Authorization': "Basic " + $base64.encode(username + ':' + password),

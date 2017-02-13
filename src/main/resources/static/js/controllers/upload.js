@@ -1,6 +1,6 @@
 angular.module('stars')
 
-.controller('upload', ['$scope', '$cookieStore', 'fileUpload', 'sendRequest', 'parser', function($scope, $cookieStore, fileUpload, sendRequest, parser){
+.controller('upload', ['$scope', '$cookieStore', 'fileUpload', 'sendRequest', 'parser', 'constants', function($scope, $cookieStore, fileUpload, sendRequest, parser, constants){
     
     $scope.uploadFile = function(){
         var file = $scope.myFile;
@@ -17,9 +17,13 @@ angular.module('stars')
             		$cookieStore.get('username'),
             		$cookieStore.get('password'),
             		{
-            			owner: $cookieStore.get('username'),
-            			title: $scope.title,
-            			description: $scope.description
+            			id:
+            			{
+            				owner: $cookieStore.get('username'),
+                			title: $scope.title
+            			},
+            			description: $scope.description,
+            			owner: constants.rootURL + "users/" + $cookieStore.get('username')
             		},
             		function(result){
             			console.log("*********************** SUCCESS ***************************");
@@ -27,19 +31,33 @@ angular.module('stars')
             			
             			var objects = parser.parse($cookieStore.get('username'), $scope.title, $scope.result);
             			
-            			forEach(objects)
-            			{
-            				
-            			}
+            			console.log(objects[1]);
+            			
+//            			for( i = 0; i < objects.length; i++)
+//            			{
+//            				
+//            				sendRequest.send
+//            				(
+//            						'POST',
+//            	            		'recordDatas',
+//            	            		$cookieStore.get('username'),
+//            	            		$cookieStore.get('password'),
+//            	            		objects[i],
+//            	            		function(){
+//            							console.log("*************** GREAT SUCCESS ****************");
+//            							
+//            						},
+//            	            		function(){
+//            							console.log("*************** EPIC FAILURE ****************");
+//            						}      		
+//            				);
+//            			}
             		},
             		function(error){
             			console.log("*********************** FAILURE ***************************");
             			console.log(error);
             			
-            			var objects = parser.parse($cookieStore.get('username'), $scope.title, $scope.result);
             			
-            			
-            			console.log(objects);
             		}
             );
         }

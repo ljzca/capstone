@@ -10,6 +10,7 @@ angular.module('stars')
 		var seperateStrings = [];
 		var parsedStrings = [];
 		var objectArray = [];
+		
 		cleanData = data.split(",,\r\n");
 		seperateStrings = cleanData[1].split("\r\n");
 		
@@ -35,8 +36,8 @@ angular.module('stars')
 			}
 			objectArray.push(dataObject);
 		}
-		var output = JSON.stringify(objectArray);
-		return output;
+		
+		return objectArray;
     };
 	
 }]);
