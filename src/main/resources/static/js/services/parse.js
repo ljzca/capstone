@@ -18,7 +18,7 @@ angular.module('stars')
 			var dataLine = seperateStrings[i].split(",");
 			var dataObject = {
 					id: {
-							username: username,
+							owner: username,
 							title: title,
 							time: dataLine[0]
 					},
@@ -38,7 +38,6 @@ angular.module('stars')
 			}
 			objectArray.push(dataObject);
 		}
-		
 		return objectArray;
     };
 	
