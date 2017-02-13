@@ -18,14 +18,14 @@ public class RecordDataPK implements Serializable {
 	 */
 	private static final long serialVersionUID = -5143459958102680778L;
 
-	@Column(nullable = false, length = 30)
+	@Column(nullable = false, insertable = false, updatable = false, length = 30)
 	private String owner;
 
-	@Column(nullable = false, length = 255)
+	@Column(nullable = false, insertable = false, updatable = false, length = 255)
 	private String title;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(nullable = false)
+	@Column(nullable = false, insertable = false, updatable = false, columnDefinition = "TIMESTAMP (6)")
 	private Date time;
 
 	public String getOwner() {
