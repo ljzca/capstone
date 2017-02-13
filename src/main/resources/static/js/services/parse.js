@@ -24,18 +24,17 @@ angular.module('stars')
 					},
 					lat: dataLine[1],
 					lon: dataLine[2],
-					hmsl: dataLine[3],
+					hMSL: dataLine[3],
 					velN: dataLine[4],
 					velE: dataLine[5],
 					velD: dataLine[6],
-					HAcc: dataLine[7],
+					hAcc: dataLine[7],
 					vAcc: dataLine[8],
 					sAcc: dataLine[9],
 					heading: dataLine[10],
 					cAcc: dataLine[11],
 					gpsFix: dataLine[12],
-					numSV: dataLine[13],
-					record: constants.rootURL+'records/'+username+'&'+title
+					numSV: dataLine[13]
 			}
 			objectArray.push(dataObject);
 		}
