@@ -22,17 +22,17 @@ public class RecordData implements Serializable {
 	@EmbeddedId
 	private RecordDataPK id;
 
-	@Column(name = "c_acc", nullable = false)
-	private double cAcc;
+	@Column(nullable = false)
+	private double cacc;
 
-	@Column(name = "gps_fix", nullable = false)
-	private double gpsFix;
+	@Column(nullable = false)
+	private double gpsfix;
 
-	@Column(name = "h_acc", nullable = false)
-	private double hAcc;
+	@Column(nullable = false)
+	private double hacc;
 
-	@Column(name = "h_m_s_l", nullable = false)
-	private double hMSL;
+	@Column(nullable = false)
+	private double hmsl;
 
 	@Column(nullable = false)
 	private double heading;
@@ -43,23 +43,23 @@ public class RecordData implements Serializable {
 	@Column(nullable = false)
 	private double lon;
 
-	@Column(name = "num_s_v", nullable = false)
-	private double numSV;
+	@Column(nullable = false)
+	private double numsv;
 
-	@Column(name = "s_acc", nullable = false)
-	private double sAcc;
+	@Column(nullable = false)
+	private double sacc;
 
-	@Column(name = "v_acc", nullable = false)
-	private double vAcc;
+	@Column(nullable = false)
+	private double vacc;
 
-	@Column(name = "vel_d", nullable = false)
-	private double velD;
+	@Column(nullable = false)
+	private double veld;
 
-	@Column(name = "vel_e", nullable = false)
-	private double velE;
+	@Column(nullable = false)
+	private double vele;
 
-	@Column(name = "vel_n", nullable = false)
-	private double velN;
+	@Column(nullable = false)
+	private double veln;
 
 	// bi-directional many-to-one association to Record
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -76,40 +76,40 @@ public class RecordData implements Serializable {
 		this.id = id;
 	}
 
-	public double getCAcc() {
-		return this.cAcc;
+	public double getCacc() {
+		return cacc;
 	}
 
-	public void setCAcc(double cAcc) {
-		this.cAcc = cAcc;
+	public void setCacc(double cacc) {
+		this.cacc = cacc;
 	}
 
-	public double getGpsFix() {
-		return this.gpsFix;
+	public double getGpsfix() {
+		return gpsfix;
 	}
 
-	public void setGpsFix(double gpsFix) {
-		this.gpsFix = gpsFix;
+	public void setGpsfix(double gpsfix) {
+		this.gpsfix = gpsfix;
 	}
 
-	public double getHAcc() {
-		return this.hAcc;
+	public double getHacc() {
+		return hacc;
 	}
 
-	public void setHAcc(double hAcc) {
-		this.hAcc = hAcc;
+	public void setHacc(double hacc) {
+		this.hacc = hacc;
 	}
 
-	public double getHMSL() {
-		return this.hMSL;
+	public double getHmsl() {
+		return hmsl;
 	}
 
-	public void setHMSL(double hMSL) {
-		this.hMSL = hMSL;
+	public void setHmsl(double hmsl) {
+		this.hmsl = hmsl;
 	}
 
 	public double getHeading() {
-		return this.heading;
+		return heading;
 	}
 
 	public void setHeading(double heading) {
@@ -117,7 +117,7 @@ public class RecordData implements Serializable {
 	}
 
 	public double getLat() {
-		return this.lat;
+		return lat;
 	}
 
 	public void setLat(double lat) {
@@ -125,59 +125,59 @@ public class RecordData implements Serializable {
 	}
 
 	public double getLon() {
-		return this.lon;
+		return lon;
 	}
 
 	public void setLon(double lon) {
 		this.lon = lon;
 	}
 
-	public double getNumSV() {
-		return this.numSV;
+	public double getNumsv() {
+		return numsv;
 	}
 
-	public void setNumSV(double numSV) {
-		this.numSV = numSV;
+	public void setNumsv(double numsv) {
+		this.numsv = numsv;
 	}
 
-	public double getSAcc() {
-		return this.sAcc;
+	public double getSacc() {
+		return sacc;
 	}
 
-	public void setSAcc(double sAcc) {
-		this.sAcc = sAcc;
+	public void setSacc(double sacc) {
+		this.sacc = sacc;
 	}
 
-	public double getVAcc() {
-		return this.vAcc;
+	public double getVacc() {
+		return vacc;
 	}
 
-	public void setVAcc(double vAcc) {
-		this.vAcc = vAcc;
+	public void setVacc(double vacc) {
+		this.vacc = vacc;
 	}
 
-	public double getVelD() {
-		return this.velD;
+	public double getVeld() {
+		return veld;
 	}
 
-	public void setVelD(double velD) {
-		this.velD = velD;
+	public void setVeld(double veld) {
+		this.veld = veld;
 	}
 
-	public double getVelE() {
-		return this.velE;
+	public double getVele() {
+		return vele;
 	}
 
-	public void setVelE(double velE) {
-		this.velE = velE;
+	public void setVele(double vele) {
+		this.vele = vele;
 	}
 
-	public double getVelN() {
-		return this.velN;
+	public double getVeln() {
+		return veln;
 	}
 
-	public void setVelN(double velN) {
-		this.velN = velN;
+	public void setVeln(double veln) {
+		this.veln = veln;
 	}
 
 	public Record getRecord() {
