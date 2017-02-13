@@ -1,4 +1,4 @@
-angular.module('noteKeepr')
+angular.module('stars')
 	
 .config(function ($routeProvider) {
     $routeProvider

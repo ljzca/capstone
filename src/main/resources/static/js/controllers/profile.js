@@ -1,4 +1,4 @@
-angular.module('noteKeepr')
+angular.module('stars')
 
 .controller("profCtrl",["$scope","$cookieStore","$location","sendRequest", function($scope, $cookieStore, $location, sendRequest){
 	

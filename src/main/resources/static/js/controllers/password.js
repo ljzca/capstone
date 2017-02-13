@@ -1,4 +1,4 @@
-angular.module('noteKeepr')
+angular.module('stars')
 
 .controller("passwordCtrl",["$scope","$cookieStore","$location","sendRequest","$route", function($scope, $cookieStore, $location, sendRequest, $route){
 	

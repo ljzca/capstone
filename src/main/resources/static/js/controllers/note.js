@@ -1,4 +1,4 @@
-angular.module('noteKeepr')
+angular.module('stars')
 
 .controller("noteCtrl",["$scope","$cookieStore","$location","sendRequest", function($scope, $cookieStore, $location, sendRequest){
 	
