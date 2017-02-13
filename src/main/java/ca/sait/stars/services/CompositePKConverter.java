@@ -35,26 +35,29 @@ class CompositePKConverter implements BackendIdConverter {
 
 	@Override
 	public Serializable fromRequestId(String id, Class<?> entityType) {
+		try {
+			if (entityType.isAssignableFrom(Record.class)) {
+				int delimiterPos = id.indexOf("&");
+				String username = id.substring(0, delimiterPos), title = id.substring(delimiterPos + 1);
+				RecordPK recordPK = new RecordPK();
+				recordPK.setOwner(username);
+				recordPK.setTitle(title);
+				return recordPK;
+			}
 
-		if (entityType.isAssignableFrom(Record.class)) {
-			int delimiterPos = id.indexOf("&");
-			String username = id.substring(0, delimiterPos), title = id.substring(delimiterPos + 1);
-			RecordPK recordPK = new RecordPK();
-			recordPK.setOwner(username);
-			recordPK.setTitle(title);
-			return recordPK;
-		}
-
-		if (entityType.isAssignableFrom(RecordData.class)) {
-			int firstDelimiterPos = id.indexOf("&"), secondDelimiterPos = id.lastIndexOf("&");
-			String username = id.substring(0, firstDelimiterPos),
-					title = id.substring(firstDelimiterPos + 1, secondDelimiterPos),
-					time = id.substring(secondDelimiterPos + 1);
-			RecordDataPK recordDataPK = new RecordDataPK();
-			recordDataPK.setOwner(username);
-			recordDataPK.setTitle(title);
-			recordDataPK.setTime(new Date(Long.parseLong(time)));
-			return recordDataPK;
+			if (entityType.isAssignableFrom(RecordData.class)) {
+				int firstDelimiterPos = id.indexOf("&"), secondDelimiterPos = id.lastIndexOf("&");
+				String username = id.substring(0, firstDelimiterPos),
+						title = id.substring(firstDelimiterPos + 1, secondDelimiterPos),
+						time = id.substring(secondDelimiterPos + 1);
+				RecordDataPK recordDataPK = new RecordDataPK();
+				recordDataPK.setOwner(username);
+				recordDataPK.setTitle(title);
+				recordDataPK.setTime(new Date(Long.parseLong(time)));
+				return recordDataPK;
+			}
+		} catch (Exception e) {
+			// silent catch
 		}
 
 		return null;

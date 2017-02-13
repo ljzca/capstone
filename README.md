@@ -69,12 +69,12 @@ Date string format standard
 
 Create a record to associate with a user (owner)
 Use post method
+{
+	"id":
 	{
-        "startTime": "2011-11-02T02:50:12.208Z",
-        "endTime": "2011-11-02T02:50:12.208Z",
-        "routeData": "12",
-        "title": "pp",
-        "date": null,
-        "description": "1",
-        "owner": "http://localhost:8080/rest/users/will" // use the url to reference
-	}
+		"owner":"will",
+		"title":"TEST"
+	},
+	"description":"test description",
+	"owner":"http://localhost:8080/rest/users/will"
+}
