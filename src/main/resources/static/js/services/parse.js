@@ -1,6 +1,6 @@
 angular.module('stars')
 
-.service("parser",[function() {
+.service("parser",['constants', function(constants) {
 
 	this.parse = function (username, title, data) {
 		
@@ -17,9 +17,11 @@ angular.module('stars')
 		for(i=0;i<seperateStrings.length;i++){
 			var dataLine = seperateStrings[i].split(",");
 			var dataObject = {
-					username: username,
-					title: title,
-					time: dataLine[0],
+					id: {
+							username: username,
+							title: title,
+							time: dataLine[0]
+					}
 					lat: dataLine[1],
 					lon: dataLine[2],
 					hmsl: dataLine[3],
@@ -32,7 +34,8 @@ angular.module('stars')
 					heading: dataLine[10],
 					cAcc: dataLine[11],
 					gpsFix: dataLine[12],
-					numSV: dataLine[13]
+					numSV: dataLine[13],
+					record: constants.rootURL+'records/'+username+'&'+title
 			}
 			objectArray.push(dataObject);
 		}
