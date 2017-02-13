@@ -18,24 +18,23 @@ angular.module('stars')
 			var dataLine = seperateStrings[i].split(",");
 			var dataObject = {
 					id: {
-							username: username,
+							owner: username,
 							title: title,
 							time: dataLine[0]
 					},
 					lat: dataLine[1],
 					lon: dataLine[2],
 					hmsl: dataLine[3],
-					velN: dataLine[4],
-					velE: dataLine[5],
-					velD: dataLine[6],
-					HAcc: dataLine[7],
-					vAcc: dataLine[8],
-					sAcc: dataLine[9],
+					veln: dataLine[4],
+					vele: dataLine[5],
+					veld: dataLine[6],
+					hacc: dataLine[7],
+					vacc: dataLine[8],
+					sacc: dataLine[9],
 					heading: dataLine[10],
-					cAcc: dataLine[11],
-					gpsFix: dataLine[12],
-					numSV: dataLine[13],
-					record: constants.rootURL+'records/'+username+'&'+title
+					cacc: dataLine[11],
+					gpsfix: dataLine[12],
+					numsv: dataLine[13]
 			}
 			objectArray.push(dataObject);
 		}
