@@ -37,7 +37,7 @@ public class User implements Serializable {
 	private String password;
 
 	// bi-directional many-to-one association to Record
-	@OneToMany(mappedBy = "owner")
+	@OneToMany(cascade=CascadeType.REMOVE, mappedBy = "owner")
 	private List<Record> records;
 
 	public String getUsername() {

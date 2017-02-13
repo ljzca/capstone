@@ -33,7 +33,7 @@ public class Record implements Serializable {
 	private User owner;
 
 	// bi-directional many-to-one association to RecordData
-	@OneToMany(mappedBy = "record")
+	@OneToMany(cascade=CascadeType.REMOVE, mappedBy = "record")
 	private List<RecordData> recordData;
 
 	public RecordPK getId() {
