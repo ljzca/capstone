@@ -31,27 +31,27 @@ angular.module('stars')
             			
             			var objects = parser.parse($cookieStore.get('username'), $scope.title, $scope.result);
             			
-            			console.log(objects[1]);
+            			console.log(objects[0]);
             			
-//            			for( i = 0; i < objects.length; i++)
-//            			{
-//            				
-//            				sendRequest.send
-//            				(
-//            						'POST',
-//            	            		'recordDatas',
-//            	            		$cookieStore.get('username'),
-//            	            		$cookieStore.get('password'),
-//            	            		objects[i],
-//            	            		function(){
-//            							console.log("*************** GREAT SUCCESS ****************");
-//            							
-//            						},
-//            	            		function(){
-//            							console.log("*************** EPIC FAILURE ****************");
-//            						}      		
-//            				);
-//            			}
+            			for( i = 0; i < objects.length; i++)
+            			{
+            				sendRequest.send
+            				(
+            						'POST',
+            	            		'recordDatas',
+            	            		$cookieStore.get('username'),
+            	            		$cookieStore.get('password'),
+            	            		objects[i],
+            	            		function(){
+            							console.log("*************** GREAT SUCCESS ****************");
+            							
+            						},
+            	            		function(error){
+            							console.log("*************** EPIC FAILURE ****************");
+            							console.log(error);
+            						}      		
+            				);
+            			}
             		},
             		function(error){
             			console.log("*********************** FAILURE ***************************");

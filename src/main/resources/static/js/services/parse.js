@@ -21,7 +21,7 @@ angular.module('stars')
 							username: username,
 							title: title,
 							time: dataLine[0]
-					}
+					},
 					lat: dataLine[1],
 					lon: dataLine[2],
 					hmsl: dataLine[3],
@@ -34,8 +34,7 @@ angular.module('stars')
 					heading: dataLine[10],
 					cAcc: dataLine[11],
 					gpsFix: dataLine[12],
-					numSV: dataLine[13],
-					record: constants.rootURL+'records/'+username+'&'+title
+					numSV: dataLine[13]
 			}
 			objectArray.push(dataObject);
 		}
