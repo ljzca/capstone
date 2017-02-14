@@ -12,7 +12,8 @@ angular.module('stars')
 		}else{
 			$scope.navbar = [{display:"Profile",url:"#/profile"},
 							 {display:"Notes",url:"#/note"},
-							 {display:"Bin",url:"#/bin"}];
+							 {display:"Bin",url:"#/bin"},
+							 {display:"Upload",url:"#/upload"}];
 		}
 		
 		$scope.username = $cookieStore.get("username");
