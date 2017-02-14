@@ -9,11 +9,12 @@ import java.util.List;
 
 /**
  * The persistent class for the stars_user database table.
+ * 
  * @author william
  *
  */
 @Entity
-@Table(name = "stars_user")
+@Table(name = "stars_user", uniqueConstraints = @UniqueConstraint(columnNames = { "username" }))
 @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
 public class User implements Serializable {
 
@@ -37,7 +38,7 @@ public class User implements Serializable {
 	private String password;
 
 	// bi-directional many-to-one association to Record
-	@OneToMany(cascade=CascadeType.REMOVE, mappedBy = "owner")
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "owner")
 	private List<Record> records;
 
 	public String getUsername() {
