@@ -1,7 +1,10 @@
 package ca.sait.stars.domains;
 
-import java.io.Serializable;
 import javax.persistence.*;
+
+import org.springframework.data.domain.Persistable;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * The persistent class for the stars_record_data database table.
@@ -12,7 +15,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "stars_record_data", uniqueConstraints = @UniqueConstraint(columnNames = { "owner", "title", "time" }))
 @NamedQuery(name = "RecordData.findAll", query = "SELECT r FROM RecordData r")
-public class RecordData implements Serializable {
+public class RecordData implements Persistable<RecordDataPK> {
 
 	/**
 	 * 
@@ -61,6 +64,10 @@ public class RecordData implements Serializable {
 	@Column(nullable = false)
 	private double veln;
 
+	@Version
+	@JsonIgnore
+	private Long version;
+
 	// bi-directional many-to-one association to Record
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({
@@ -68,6 +75,7 @@ public class RecordData implements Serializable {
 			@JoinColumn(name = "title", referencedColumnName = "title", nullable = false, insertable = false, updatable = false) })
 	private Record record;
 
+	@Override
 	public RecordDataPK getId() {
 		return this.id;
 	}
@@ -191,6 +199,11 @@ public class RecordData implements Serializable {
 	@Override
 	public String toString() {
 		return id.toString();
+	}
+
+	@Override
+	public boolean isNew() {
+		return version == null;
 	}
 
 }

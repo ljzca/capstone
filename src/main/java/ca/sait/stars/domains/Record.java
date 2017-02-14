@@ -1,7 +1,10 @@
 package ca.sait.stars.domains;
 
-import java.io.Serializable;
 import javax.persistence.*;
+
+import org.springframework.data.domain.Persistable;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
 
@@ -14,7 +17,7 @@ import java.util.List;
 @Entity
 @Table(name = "stars_record", uniqueConstraints = @UniqueConstraint(columnNames = { "owner", "title" }))
 @NamedQuery(name = "Record.findAll", query = "SELECT r FROM Record r")
-public class Record implements Serializable {
+public class Record implements Persistable<RecordPK> {
 
 	/**
 	 * 
@@ -27,15 +30,20 @@ public class Record implements Serializable {
 	@Lob
 	private String description;
 
+	@Version
+	@JsonIgnore
+	private Long version;
+
 	// bi-directional many-to-one association to User
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "owner", nullable = false, insertable = false, updatable = false)
 	private User owner;
 
 	// bi-directional many-to-one association to RecordData
-	@OneToMany(cascade=CascadeType.REMOVE, mappedBy = "record")
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "record")
 	private List<RecordData> recordData;
 
+	@Override
 	public RecordPK getId() {
 		return this.id;
 	}
@@ -85,6 +93,11 @@ public class Record implements Serializable {
 	@Override
 	public String toString() {
 		return id.toString();
+	}
+
+	@Override
+	public boolean isNew() {
+		return version == null;
 	}
 
 }
