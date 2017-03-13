@@ -1,3 +1,9 @@
+/**
+ * This controller allows the user to upload a record to their account.
+ * 
+ * @author Matthew Rose
+ */
+
 angular.module('stars')
 
 .controller('upload', ['$scope', '$cookieStore' ,'fileUpload', 'sendRequest', 'parser', 'constants', function($scope, $cookieStore, fileUpload, sendRequest, parser, constants){
@@ -20,7 +26,7 @@ angular.module('stars')
 	            }
 	            else
 	            {
-	            	$scope.fileError = "";
+	            	$scope.fileError = null;
 	            }
 	            if($scope.title == null || $scope.title == "")
 	            {
@@ -29,11 +35,14 @@ angular.module('stars')
 	            }
 	            else
 	            {
-	            	$scope.titleError = "";
+	            	$scope.titleError = null;
 	            }
 	            
 	            if(valid)
 	            {
+	            	$scope.fileError = null;
+	            	$scope.titleError = null;
+	            	$scope.success = "Loading...";
 		            sendRequest.send
 		            (
 		            		'POST',
@@ -76,7 +85,7 @@ angular.module('stars')
 				            							
 				            							if(i == objects.length-1)
 				            							{
-				            								$scope.success = "Record uploaded";
+				            								$scope.success = "Loading...";
 				            							}
 				            									
 				            							
@@ -84,7 +93,7 @@ angular.module('stars')
 				            	            		function(error){
 				            							console.log("*************** EPIC FAILURE ****************");
 				            							console.log(error);
-				            							$scope.success = "Error uploading record 2";
+				            							$scope.success = "Error uploading record";
 				            							loopValid = false;
 				            							
 				            						}      		
@@ -108,7 +117,7 @@ angular.module('stars')
 		            	            		null,
 		            	            		function(){
 		            							console.log("*************** Failed Upload ****************");
-		            							$scope.success = "Error uploading record 3";
+		            							$scope.success = "Error uploading record";
 		            						},
 		            	            		function(error){
 		            							console.log("*************** Failed Upload ****************");
@@ -138,6 +147,35 @@ angular.module('stars')
 	        if($scope.title == null || $scope.title == "")
 	        	$scope.titleError = "Please enter a title.";
         }
+        
+        
+        //******************** Testing the count function ***************************
+        
+        
+        setTimeout(function(){
+//        var record = 
+        sendRequest.send
+        (
+        	'GET',
+        	'records/'+ $cookieStore.get('username') + '&' + $scope.title + '/recordData',
+        	$cookieStore.get('username'),
+    		$cookieStore.get('password'),
+        	null,
+        	function(success)
+        	{
+        		console.log("****** THATS GREAT ********");
+        		console.log(success.data._embedded.recordDatas.length);
+        		$scope.success = "Record uploaded";
+        		$scope.dbComplete = true;
+        	},
+        	function()
+        	{
+        		console.log("****** OH NO **********");
+        	}
+        );
+        
+//        console.log(record.length);
+        }, 10000);
     };
     
     $scope.testFunction = function()

@@ -1,8 +1,10 @@
 package ca.sait.stars.domains;
 
-import java.io.Serializable;
 import javax.persistence.*;
 
+import org.springframework.data.domain.Persistable;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
@@ -16,7 +18,7 @@ import java.util.List;
 @Entity
 @Table(name = "stars_user", uniqueConstraints = @UniqueConstraint(columnNames = { "username" }))
 @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
-public class User implements Serializable {
+public class User implements Persistable<String> {
 
 	/**
 	 * 
@@ -36,6 +38,10 @@ public class User implements Serializable {
 	@Column(length = 60)
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
+
+	@Version
+	@JsonIgnore
+	private Long version;
 
 	// bi-directional many-to-one association to Record
 	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "owner")
@@ -98,6 +104,16 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 		return username;
+	}
+
+	@Override
+	public String getId() {
+		return username;
+	}
+
+	@Override
+	public boolean isNew() {
+		return version == null;
 	}
 
 }
