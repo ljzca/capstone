@@ -3,22 +3,18 @@ angular.module('stars')
 .controller("signupCtrl",["$http","$scope","$cookieStore","$location","sendRequest", function($http, $scope, $cookieStore, $location, sendRequest){
 	
 	$scope.register = function(){
-		console.log($scope.gender.code);
 
+		
+		console.log("Button Clicked!");
 		sendRequest.send(
 			'POST',
-			'http://localhost:8080/noteKeepr-web/rest/user/'+$scope.username,
-			'application/json',
-			$cookieStore.get("username"),
-			$cookieStore.get("password"),
+			'users',
+			null,
+			null,
 			{
 				username: $scope.username,
 				password: $scope.password,
-				firstname: $scope.firstname,
-				lastname: $scope.lastname,
-				email: $scope.email,
-				phonenumber: $scope.phonenumber,
-				gender: $scope.gender.code
+				email: $scope.email
 			},
 			function (result) {
 				$location.path("signedup");
@@ -29,15 +25,4 @@ angular.module('stars')
 				}
             }
 		)};
-	
-	$scope.gender =  {
-		code: 'U',
-		genders: [
-			{id: 'M', name: 'Male'},
-			{id: 'F', name: 'Female'},
-			{id: 'U', name: 'Unknown'},
-			{id: 'N', name: 'Neutral'}
-		]
-	};
-	
 }]);
