@@ -9,8 +9,6 @@ angular.module('stars')
 		sendRequest.send(
 			'POST',
 			'users',
-			null,
-			null,
 			{
 				username: $scope.username,
 				password: $scope.password,
@@ -23,6 +21,8 @@ angular.module('stars')
 				if(error.status === 406){
 					$scope.errMsg = error.data;
 				}
-            }
+            },
+            null,
+            null
 		)};
 }]);
