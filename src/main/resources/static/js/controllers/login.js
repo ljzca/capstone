@@ -1,48 +1,40 @@
 angular.module('stars')
 
-.controller("loginCtrl",["$scope","$cookieStore","$location","$window","sendRequest", function($scope, $cookieStore, $location,$window, sendRequest){
+.controller("loginCtrl",["$scope","$cookieStore","$location","$window","sendRequest", function($scope, $cookieStore, $location, $window, sendRequest){
 
+	
     var selfReflect = function(username,password){
         sendRequest.send(
 			'GET',
-			'http://localhost:8080/noteKeepr-web/rest/user/'+username+'/self',
-			'application/json',
-			username,
-			password,
-			null,
+			'users/'+username+"",
 			function (result) {
 				
-				console.log(result.data);
+				console.log(result);
 				$cookieStore.put("username",username);
 				$cookieStore.put("password",password);
 				
 				var user = result.data;
 				var isAdmin = false;
 				
-				result.data.roles.forEach(function(role){
-					console.log(role.rolename);
-					if(role.rolename === "admin")
-						isAdmin = true;
-				});
-				
-				$cookieStore.put("isAdmin",isAdmin);
-				
-				if(isAdmin){
-					$location.path("admin");
-					$window.location.reload();
-				}
-				else{
-					$location.path("note");
+				if(result.data.isAdmin){
+					isAdmin = true;
+					$cookieStore.put("isAdmin",isAdmin);
+					//TODO
+					//$location.path("admin");
+				} else {
+					$location.path("record");
 					$window.location.reload();
 				}
             },
 			function (error) {
                 $scope.errMsg = "invalid username or password"
-            }
+            },
+            null,
+            username,
+            password
 		)};
 	
 	$scope.login = selfReflect;
-	
 		
 	var username = $cookieStore.get("username");
 	var password = $cookieStore.get("password");
