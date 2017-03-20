@@ -19,10 +19,11 @@ angular.module('stars')
 				if(result.data.isAdmin){
 					isAdmin = true;
 					$cookieStore.put("isAdmin",isAdmin);
+					$location.path("records");
 					//TODO
 					//$location.path("admin");
 				} else {
-					$location.path("record");
+					$location.path("records");
 					$window.location.reload();
 				}
             },

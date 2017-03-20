@@ -7,12 +7,11 @@ angular.module('stars')
 		if($cookieStore.get("isAdmin")){
 			$scope.navbar = [{display:"Profile",url:"#/profile"},
 							 {display:"Users",url:"#/admin"},
-							 {display:"Notes",url:"#/note"},
-							 {display:"Bin",url:"#/bin"}];
+							 {display:"Records",url:"#/records"},
+							 {display:"Upload",url:"#/upload"}];
 		}else{
 			$scope.navbar = [{display:"Profile",url:"#/profile"},
-							 {display:"Notes",url:"#/note"},
-							 {display:"Bin",url:"#/bin"},
+							 {display:"Records",url:"#/records"},
 							 {display:"Upload",url:"#/upload"}];
 		}
 		

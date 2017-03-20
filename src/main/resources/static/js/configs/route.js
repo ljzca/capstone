@@ -12,9 +12,9 @@ angular.module('stars')
                 controller: "binCtrl"
             })
 	
-            .when("/note", {
-                templateUrl: "view/note.html",
-                controller: "noteCtrl"
+            .when("/records", {
+                templateUrl: "view/records.html",
+                controller: "records"
             })
 
             .when("/admin", {
@@ -48,7 +48,7 @@ angular.module('stars')
 			
 			.when('/upload', {
 				templateUrl: 'view/uploadfile.html',
-				controller: 'forgotCtrl'
+				controller: 'upload'
 			})
 	
             .otherwise({

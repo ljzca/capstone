@@ -19,6 +19,7 @@ angular.module('stars')
 	        {
 	            $scope.result = (read.result);
 	            
+	            //Checks for a valid file.
 	            if($scope.result == null || $scope.result == "")
 	            {
 	            	$scope.fileError = "Please select a valid file.";
@@ -28,6 +29,8 @@ angular.module('stars')
 	            {
 	            	$scope.fileError = null;
 	            }
+	            
+	            //Checks for a valid title.
 	            if($scope.title == null || $scope.title == "")
 	            {
 	            	$scope.titleError = "Please enter a title.";
@@ -35,28 +38,18 @@ angular.module('stars')
 	            }
 	            else
 	            {
-	            	$scope.titleError = null;
+	            	$scope.titleError = "";
 	            }
 	            
 	            if(valid)
 	            {
 	            	$scope.fileError = null;
 	            	$scope.titleError = null;
-	            	$scope.success = "Loading...";
+	            	$scope.success = "Uploading...";
 		            sendRequest.send
 		            (
 		            		'POST',
 		            		'records',
-		            		$cookieStore.get('username'),
-		            		$cookieStore.get('password'),
-		            		{
-		            			id:
-		            			{
-		            				owner: $cookieStore.get('username'),
-		                			title: $scope.title
-		            			},
-		            			description: $scope.description
-		            		},
 		            		function(result){
 		            			console.log("*********************** SUCCESS ***************************");
 		            			console.log(result);
@@ -73,30 +66,23 @@ angular.module('stars')
 				            				(
 				            						'POST',
 				            	            		'recordDatas',
-				            	            		$cookieStore.get('username'),
-				            	            		$cookieStore.get('password'),
-				            	            		objects[i],
 				            	            		function(){
 				            							console.log("*************** GREAT SUCCESS ****************");
-//				            							if(loopValid === true)
-//				            								$scope.success = "Record uploaded";
-//				            							else
-//				            								$scope.success = "Error uploading record";
-				            							
+
 				            							if(i == objects.length-1)
 				            							{
-				            								$scope.success = "Loading...";
-				            							}
-				            									
-				            							
+				            								$scope.success = "Uploading...";
+				            							}		
 				            						},
 				            	            		function(error){
 				            							console.log("*************** EPIC FAILURE ****************");
 				            							console.log(error);
 				            							$scope.success = "Error uploading record";
-				            							loopValid = false;
-				            							
-				            						}      		
+				            							loopValid = false;	
+				            						},
+				            						objects[i],
+				            	            		$cookieStore.get('username'),
+				            	            		$cookieStore.get('password')
 				            				);
 			            				
 			            				if(loopValid === false)
@@ -112,9 +98,6 @@ angular.module('stars')
 		            				(
 		            						'DELETE',
 		            	            		'recordDatas/'+ $cookieStorer.get('username') + '&' + $scope.title,
-		            	            		$cookieStore.get('username'),
-		            	            		$cookieStore.get('password'),
-		            	            		null,
 		            	            		function(){
 		            							console.log("*************** Failed Upload ****************");
 		            							$scope.success = "Error uploading record";
@@ -123,9 +106,10 @@ angular.module('stars')
 		            							console.log("*************** Failed Upload ****************");
 		            							console.log(error);
 		            							$scope.success = "Error uploading record";
-
-		            							
-		            						}      		
+		            						},
+		            						null,
+		            	            		$cookieStore.get('username'),
+		            	            		$cookieStore.get('password')
 		            				);
 		            			}
 		            		},
@@ -133,8 +117,17 @@ angular.module('stars')
 		            			console.log("*********************** FAILURE ***************************");
 		            			console.log(error);
 		            			$scope.titleError = "Duplicate record name";
-		            			
-		            		}
+		            		},
+		            		{
+		            			id:
+		            			{
+		            				owner: $cookieStore.get('username'),
+		                			title: $scope.title
+		            			},
+		            			description: $scope.description
+		            		},
+		            		$cookieStore.get('username'),
+		            		$cookieStore.get('password')
 		            );
 	            }
 	        }
@@ -149,38 +142,40 @@ angular.module('stars')
         }
         
         
-        //******************** Testing the count function ***************************
-        
+        //******************** Upload Complete ***************************
         
         setTimeout(function(){
-//        var record = 
-        sendRequest.send
-        (
-        	'GET',
-        	'records/'+ $cookieStore.get('username') + '&' + $scope.title + '/recordData',
-        	$cookieStore.get('username'),
-    		$cookieStore.get('password'),
-        	null,
-        	function(success)
-        	{
-        		console.log("****** THATS GREAT ********");
-        		console.log(success.data._embedded.recordDatas.length);
-        		$scope.success = "Record uploaded";
-        		$scope.dbComplete = true;
-        	},
-        	function()
-        	{
-        		console.log("****** OH NO **********");
-        	}
-        );
-        
-//        console.log(record.length);
+	        sendRequest.send
+	        (
+	        	'GET',
+	        	'records/'+ $cookieStore.get('username') + '&' + $scope.title + '/recordData',
+	        	function(success)
+	        	{
+	        		console.log("****** THATS GREAT ********");
+	        		console.log(success.data._embedded.recordDatas.length);
+	        		$scope.success = "Record uploaded";
+	        		$scope.dbComplete = true;
+	        	},
+	        	function()
+	        	{
+	        		console.log("****** OH NO **********");
+	        	},
+	        	null,
+        		$cookieStore.get('username'),
+        		$cookieStore.get('password')
+	        );
         }, 10000);
     };
     
     $scope.testFunction = function()
     {
     	 $cookieStore.put("username", "matt");
+    	 $cookieStore.put("password", "password");
+    }
+    
+    $scope.testFunction2 = function()
+    {
+    	 $cookieStore.put("username", "steve");
     	 $cookieStore.put("password", "password");
     }
     
