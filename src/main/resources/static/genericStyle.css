@@ -56,4 +56,9 @@ html, body {
 	word-wrap: break-word;
 }
 
+#chart
+{
+    height: 500px;
+    width: 80%;
+}
 
