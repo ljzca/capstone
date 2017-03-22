@@ -38,7 +38,7 @@ angular.module('stars')
                 null,
             	$cookieStore.get('username'),
         		$cookieStore.get('password')
-    		)
+    		);
     }
 
 	//Initializes Google Maps
@@ -96,6 +96,20 @@ angular.module('stars')
 				//-------------- Create the altitude graph ----------------
 				//---------------------------------------------------------
 				
+				
+				//Create the date based on the url to the recordData
+		    	var date = new Date(parseInt($scope.records._embedded.recordDatas[0]._links.recordData.href.substring
+						(
+								$scope.records._embedded.recordDatas[0]._links.recordData.href.lastIndexOf("&") +1
+						)));
+		    	
+		    	var dateString = date.toString();
+		    	
+		    	dateString = date.toString();
+		    	
+		    	//Set the recordDate as a toStrinf of "date" up to the point where it says GMT
+		    	$scope.recordDate = dateString.substring(0, dateString.indexOf("GMT"));
+				
 				//Holds the x-axis
 				var time = [];
 				
@@ -105,21 +119,44 @@ angular.module('stars')
 				//Push the x and y data points for each recordData
 				for(var i = 0; i < $scope.records._embedded.recordDatas.length; i++)
 				{
-					time.push(i);
+					date = new Date(parseInt($scope.records._embedded.recordDatas[i]._links.recordData.href.substring
+							(
+									$scope.records._embedded.recordDatas[i]._links.recordData.href.lastIndexOf("&") +1
+							)));
+					
+					dateString = date.toJSON();
+
+					time.push
+					(
+							dateString.substring(dateString.indexOf("T")+1, dateString.indexOf("T") + 12)
+					);
+					
+//					time.push(i);
 					hmsl.push($scope.records._embedded.recordDatas[i].hmsl);
 				}
 				
 				//Set the name of the record to display to the user
 		    	$scope.recordName = recordName;
 		    	
-		    	//Create the date based on the url to the recordData
-		    	var date = new Date(parseInt($scope.records._embedded.recordDatas[0]._links.recordData.href.substring
-						(
-								$scope.records._embedded.recordDatas[0]._links.recordData.href.lastIndexOf("&") +1
-						)));
-		    	
-		    	//Set the recordDate as a toStrinf of "date" up to the point where it says GMT
-		    	$scope.recordDate = date.toString().substring(0, date.toString().indexOf("GMT"));
+		    	//Set the description of the record to display to the user
+		    	console.log($scope.records);
+		    	sendRequest.send(
+		    				'GET',
+		    				'records/'+ $cookieStore.get('username') + '&' + recordEncodedName,
+		    				function (result) 
+		    				{
+		    					$scope.description = result.data.description;
+		    				},
+		    				function (error) 
+		        			{
+		                    	console.log("It Failed");
+		                        $scope.errMsg = "You haven't logged in";
+		                    },
+		                    null,
+		                	$cookieStore.get('username'),
+		            		$cookieStore.get('password')
+		        		);
+		    				
 		    	
 		    	//Create the graph using time and hmsl
 				createGraph(time, hmsl);
@@ -271,4 +308,3 @@ angular.module('stars')
 		//Gets the record list to be displayed upon the page loading
 		getRecordList();
 }]);
-
