@@ -4,28 +4,18 @@ angular.module('stars')
 
         this.send = function (method, url, sucess, fail, data, username, password) {
 
-            if (username === null || password === null) {
-                var req = {
-                    method: method,
-                    url: constants.rootURL + url,
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    data: data
-                };
-            } else {
-                var req = {
-                    method: method,
-                    url: constants.rootURL + url,
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': "Basic " + $base64.encode(username + ':' + password),
-                    },
-                    data: data,
-                    username: username,
-                    password: password
-                };
-            }
+            var req = {
+                method: method,
+                url: constants.rootURL + url,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: data
+            };
+
+            if (username && password)
+                $http.defaults.headers.common.Authorization = "Basic " + $base64.encode(username + ':' + password);
+
             $http(req).then(sucess, fail);
         };
     }]);
