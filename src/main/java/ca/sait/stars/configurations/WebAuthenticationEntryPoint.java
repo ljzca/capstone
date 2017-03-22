@@ -11,9 +11,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationEn
 import org.springframework.stereotype.Component;
 
 /**
- * I have to commit that to change status code to 403 (instead of 401) might not
- * be the best way to prevent browser from prompting the basic authentication
- * popup. But it works for the Angular front end.
+ * An entry of web client
  * 
  * @author William Li
  *
@@ -31,12 +29,12 @@ public class WebAuthenticationEntryPoint extends BasicAuthenticationEntryPoint {
 	public void commence(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException authException) throws IOException, ServletException {
 		// response.addHeader("WWW-Authenticate", "Basic realm=\"" +
-		// getRealmName() + "\"");
+		// getRealmName() + "\""); // by adding this header, the browser will
+		// prompt user to enter username and password
 		// response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 		// response.getWriter().println("HTTP Status 401 - " +
 		// authException.getMessage());
 
-		response.addHeader("WWW-Authenticate", "Basic realm=\"" + getRealmName() + "\"");
-		response.sendError(HttpServletResponse.SC_FORBIDDEN, authException.getMessage());
+		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
 	}
 }
