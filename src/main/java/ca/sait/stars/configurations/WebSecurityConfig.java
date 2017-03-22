@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
 /**
@@ -24,6 +25,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private UserDetailsService userDetailsService;
+	
+	@Autowired
+	private AuthenticationEntryPoint webAuthenticationEntryPoint;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -33,9 +37,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.sessionManagement()
 			.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 		.and()
+			.httpBasic()
+			.authenticationEntryPoint(webAuthenticationEntryPoint)
+		.and()
 			.csrf()
 			.disable()
-			.httpBasic()
 		;
 	}
 	
