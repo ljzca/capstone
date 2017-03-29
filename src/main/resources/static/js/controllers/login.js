@@ -27,7 +27,7 @@ angular.module('stars')
                         //$location.path("admin");
                     } else {
                         $location.path("records");
-                        $window.location.reload();
+                        // $window.location.reload();
                     }
                 },
                 function (error) {
