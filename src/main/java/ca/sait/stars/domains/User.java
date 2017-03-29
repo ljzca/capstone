@@ -47,6 +47,10 @@ public class User implements Persistable<String> {
 	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "owner")
 	private List<Record> records;
 
+	// bi-directional many-to-one association to Record
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "owner")
+	private List<Gear> gears;
+
 	public String getUsername() {
 		return this.username;
 	}
@@ -85,6 +89,18 @@ public class User implements Persistable<String> {
 
 	public void setRecords(List<Record> records) {
 		this.records = records;
+	}
+
+	public List<Gear> getGears() {
+		return gears;
+	}
+
+	public void setGears(List<Gear> gears) {
+		this.gears = gears;
+	}
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 
 	public Record addRecord(Record record) {

@@ -1,4 +1,4 @@
-package ca.sait.stars.services;
+package ca.sait.stars.domains.handlers;
 
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
 import org.springframework.data.rest.core.annotation.HandleBeforeSave;

@@ -1,4 +1,4 @@
-package ca.sait.stars.configurations;
+package ca.sait.stars.security.entries;
 
 import java.io.IOException;
 

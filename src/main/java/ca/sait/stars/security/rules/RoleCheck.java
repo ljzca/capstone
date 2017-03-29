@@ -1,4 +1,4 @@
-package ca.sait.stars.services;
+package ca.sait.stars.security.rules;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
@@ -29,6 +29,11 @@ public class RoleCheck {
 			// silent catch for non-login registration
 		}
 
+		/*
+		 * At this point, the caller is either recognized as a non-admin user,
+		 * or an anonymous registering user. Thus, if it intends to make itself
+		 * an admin, stop it.
+		 */
 		return user.getIsAdmin() ? false : true;
 	}
 }

@@ -20,7 +20,7 @@ public class RecordPK implements Serializable {
 	@Column(nullable = false, insertable = false, updatable = false, length = 30)
 	private String owner;
 
-	@Column(nullable = false, insertable = false, updatable = false, length = 255)
+	@Column(nullable = false, insertable = false, updatable = false, length = 50)
 	private String title;
 
 	public String getOwner() {
