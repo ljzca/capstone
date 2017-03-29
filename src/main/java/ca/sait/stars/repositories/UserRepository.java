@@ -39,6 +39,14 @@ public interface UserRepository extends PagingAndSortingRepository<User, String>
 	@PreAuthorize("hasRole('ADMIN')")
 	<S extends User> Iterable<S> save(Iterable<S> entities);
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.springframework.data.repository.CrudRepository#findOne(java.io.
+	 * Serializable)
+	 * 
+	 * When the caller is not an admin, check if it is finding its own profile
+	 */
 	@Override
 	@PreAuthorize("#i == authentication?.name OR hasRole('ADMIN')")
 	User findOne(@Param("i") String id);

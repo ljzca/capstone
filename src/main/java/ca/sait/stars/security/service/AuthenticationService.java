@@ -1,4 +1,4 @@
-package ca.sait.stars.services;
+package ca.sait.stars.security.service;
 
 import java.util.ArrayList;
 import java.util.Collection;

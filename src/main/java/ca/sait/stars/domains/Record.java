@@ -43,6 +43,19 @@ public class Record implements Persistable<RecordPK> {
 	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "record")
 	private List<RecordData> recordData;
 
+	// bi-directional many-to-many association to Gear
+	@ManyToMany
+	@JoinTable(name = "stars_record_gear",
+	joinColumns = {
+			@JoinColumn(name = "record_owner", referencedColumnName = "owner", nullable = false),
+			@JoinColumn(name = "title", referencedColumnName = "title", nullable = false)},
+	inverseJoinColumns = {
+			@JoinColumn(name = "make", referencedColumnName = "make", nullable = false),
+			@JoinColumn(name = "type", referencedColumnName = "type", nullable = false),
+			@JoinColumn(name = "gear_owner", referencedColumnName = "owner", nullable = false),
+			@JoinColumn(name = "id", referencedColumnName = "id", nullable = false)})
+	private List<Gear> gears;
+
 	@Override
 	public RecordPK getId() {
 		return this.id;
