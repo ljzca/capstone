@@ -29,8 +29,34 @@ public class User implements Persistable<String> {
 	@Column(unique = true, nullable = false, length = 30)
 	private String username;
 
-	@Column(length = 255)
+	@Column(length = 255, nullable = false)
 	private String email;
+
+	@Column(length = 30, nullable = false)
+	private String firstname;
+
+	@Column(length = 30, nullable = false)
+	private String lastname;
+
+	@Column(name = "sex", nullable = false, length = 8)
+	@Enumerated(EnumType.STRING)
+	private Sex sex;
+
+	private enum Sex {
+		Male, Female, Other, Unknown
+	}
+
+	/**
+	 * inches
+	 */
+	@Column
+	private double height;
+
+	/**
+	 * lbs
+	 */
+	@Column
+	private double weight;
 
 	@Column(name = "is_admin", nullable = false)
 	private boolean isAdmin;
@@ -65,6 +91,46 @@ public class User implements Persistable<String> {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	public Sex getSex() {
+		return sex;
+	}
+
+	public void setSex(Sex sex) {
+		this.sex = sex;
+	}
+
+	public double getHeight() {
+		return height;
+	}
+
+	public void setHeight(double height) {
+		this.height = height;
+	}
+
+	public double getWeight() {
+		return weight;
+	}
+
+	public void setWeight(double weight) {
+		this.weight = weight;
 	}
 
 	public boolean getIsAdmin() {

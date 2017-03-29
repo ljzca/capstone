@@ -64,6 +64,12 @@ public class RecordData implements Persistable<RecordDataPK> {
 	@Column(nullable = false)
 	private double veln;
 
+	/**
+	 * Celsius
+	 */
+	@Column(nullable = false)
+	private double temp;
+
 	@Version
 	@JsonIgnore
 	private Long version;
@@ -186,6 +192,14 @@ public class RecordData implements Persistable<RecordDataPK> {
 
 	public void setVeln(double veln) {
 		this.veln = veln;
+	}
+
+	public double getTemp() {
+		return temp;
+	}
+
+	public void setTemp(double temp) {
+		this.temp = temp;
 	}
 
 	public Record getRecord() {
