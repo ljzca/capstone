@@ -40,7 +40,33 @@
 			<option ng-repeat="option in gender.genders" value="{{option.id}}">{{option.name}}</option>
 		</select>
 	</div>
+	
+	<div class="form-group">
+		<label for="he">Height</label>
+		<input style="width:300px" type="text" class="form-control" id="he" placeholder="Height" ng-model="height">
+	</div>
+	
+	<div class="form-group">
+		<label for="we">Weight</label>
+		<input style="width:300px" type="text" class="form-control" id="we" placeholder="Weight" ng-model="weight">
+	</div>
+	
+	<div class="form-group">
+		<label for="su">Suit</label>
+		<select style="width:300px" id="su" ng-model="suit.code" class="form-control">
+			<option ng-repeat="option in suit.suits" value="{{option.id}}">{{option.name}}</option>
+		</select>
+	</div>
+	
+	<label for="sm">Suit Model</label>
+		<input style="width:300px" type="text" class="form-control" id="sm" placeholder="Suit Model" ng-model="suitmodel">
+	</div>
 
+	<div class="form-group">
+		<label for="pn">Phone Number</label>
+		<input style="width:300px" type="text" class="form-control" id="pn" placeholder="Phone Number" ng-model="phonenumber">
+	</div>
+	
 	<div ng-repeat="msg in errMsg.messages">{{msg}}</div>
 	<div>{{notice}}</div>
 	<a class="btn btn-success" ng-click="updateProfile()">Save</a>

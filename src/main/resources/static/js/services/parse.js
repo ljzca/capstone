@@ -4,6 +4,7 @@ angular.module('stars')
 
 	this.parse = function (username, title, data) {
 		
+//		var timeRegex = "^\d{4}[\-]\d{2}[\-]\d{2}[T]\d{2}\:\d{2}\:\d{2}\.\d{2}[Z]$";
 		console.log(data);
 		
 		var cleanData = [];
@@ -16,11 +17,12 @@ angular.module('stars')
 		
 		for(i=0;i<seperateStrings.length;i++){
 			var dataLine = seperateStrings[i].split(",");
+			var convertToMs = new Date(dataLine[0]);
 			var dataObject = {
 					id: {
 							owner: username,
 							title: title,
-							time: dataLine[0]
+							time: convertToMs.getTime()
 					},
 					lat: dataLine[1],
 					lon: dataLine[2],
