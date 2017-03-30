@@ -4,6 +4,14 @@ angular.module('stars')
 	
 	$scope.username = $cookieStore.get("username");
 		
+	$scope.gender =  {
+			code: 'Male',
+			genders: [
+				{id: 'Male', name: 'Male'},
+				{id: 'Female', name: 'Female'}
+			]
+		};
+	
     var selfReflect = function(){
         sendRequest.send(
 			'GET',
@@ -12,8 +20,13 @@ angular.module('stars')
 				console.log(result.data);
 				
 				$scope.username = $cookieStore.get("username");
-//				$scope.password = $cookieStore.get("password");
+				$scope.password = $cookieStore.get("password");
 				$scope.email = result.data.email;
+				$scope.firstname = result.data.firstname;
+				$scope.lastname = result.data.lastname;
+				$scope.gender.code = result.data.sex;
+				$scope.height = result.data.height;
+				$scope.weight = result.data.weight;
             },
 			function (error) {
             	console.log("Error!");
@@ -36,7 +49,7 @@ angular.module('stars')
 					$cookieStore.put("password",$scope.password);
 				}
 				$scope.errMsg = null;
-				$scope.notice = "You have updated your password";
+				$scope.notice = "You have updated your profile";
 				$scope.confirmpassword = "";
 				$scope.password = "";
 				$scope.currentpassword = "";
@@ -54,6 +67,11 @@ angular.module('stars')
 				username: $cookieStore.get("username"),
 				password: $scope.password,
 				email: $scope.email,
+				firstname: $scope.firstname,
+				lastname: $scope.lastname,
+				sex: $scope.gender.code,
+				height: $scope.height,
+				weight: $scope.weight
 			},
 			$cookieStore.get("username"),
 			$cookieStore.get("password")
