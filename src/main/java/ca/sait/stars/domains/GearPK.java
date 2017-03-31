@@ -18,7 +18,7 @@ public class GearPK implements Serializable {
 	private static final long serialVersionUID = 6641100107954248015L;
 
 	@Column(nullable = false, insertable = false, updatable = false, length = 30)
-	private String make;
+	private String name;
 
 	@Column(nullable = false, insertable = false, updatable = false, length = 30)
 	private String type;
@@ -29,12 +29,12 @@ public class GearPK implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
-	public String getMake() {
-		return this.make;
+	public String getName() {
+		return this.name;
 	}
 
-	public void setMake(String make) {
-		this.make = make;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getType() {
@@ -66,7 +66,7 @@ public class GearPK implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + id;
-		result = prime * result + ((make == null) ? 0 : make.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		result = prime * result + ((owner == null) ? 0 : owner.hashCode());
 		return result;
@@ -83,10 +83,10 @@ public class GearPK implements Serializable {
 		GearPK other = (GearPK) obj;
 		if (id != other.id)
 			return false;
-		if (make == null) {
-			if (other.make != null)
+		if (name == null) {
+			if (other.name != null)
 				return false;
-		} else if (!make.equals(other.make))
+		} else if (!name.equals(other.name))
 			return false;
 		if (type == null) {
 			if (other.type != null)
@@ -103,6 +103,6 @@ public class GearPK implements Serializable {
 
 	@Override
 	public String toString() {
-		return make + "&" + type + "&" + owner + "&" + id;
+		return name + "&" + type + "&" + owner + "&" + id;
 	}
 }

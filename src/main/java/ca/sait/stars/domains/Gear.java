@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *
  */
 @Entity
-@Table(name = "stars_gear", uniqueConstraints = @UniqueConstraint(columnNames = { "make", "type", "owner", "id" }))
+@Table(name = "stars_gear", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "type", "owner", "id" }))
 @NamedQuery(name = "Gear.findAll", query = "SELECT g FROM Gear g")
 public class Gear implements Persistable<GearPK> {
 
@@ -43,7 +43,7 @@ public class Gear implements Persistable<GearPK> {
 	// bi-directional many-to-one association to Model
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({
-			@JoinColumn(name = "make", referencedColumnName = "make", nullable = false, insertable = false, updatable = false),
+			@JoinColumn(name = "name", referencedColumnName = "name", nullable = false, insertable = false, updatable = false),
 			@JoinColumn(name = "type", referencedColumnName = "type", nullable = false, insertable = false, updatable = false) })
 	private Model model;
 

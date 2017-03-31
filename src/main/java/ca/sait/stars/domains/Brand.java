@@ -15,7 +15,7 @@ import java.util.List;
  *
  */
 @Entity
-@Table(name = "stars_brand", uniqueConstraints = @UniqueConstraint(columnNames = { "make" }))
+@Table(name = "stars_brand", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
 @NamedQuery(name = "Brand.findAll", query = "SELECT b FROM Brand b")
 public class Brand implements Persistable<String> {
 
@@ -26,7 +26,7 @@ public class Brand implements Persistable<String> {
 
 	@Id
 	@Column(unique = true, nullable = false, length = 30)
-	private String make;
+	private String name;
 
 	@Lob
 	private String description;
@@ -36,15 +36,15 @@ public class Brand implements Persistable<String> {
 	private Long version;
 
 	// bi-directional many-to-one association to Record
-	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "make")
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "name")
 	private List<Model> models;
 
-	public String getMake() {
-		return this.make;
+	public String getName() {
+		return this.name;
 	}
 
-	public void setMake(String make) {
-		this.make = make;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getDescription() {
@@ -65,12 +65,12 @@ public class Brand implements Persistable<String> {
 
 	@Override
 	public String toString() {
-		return make;
+		return name;
 	}
 
 	@Override
 	public String getId() {
-		return make;
+		return name;
 	}
 
 	@Override

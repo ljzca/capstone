@@ -49,6 +49,7 @@ public class UserTest {
 	@Test
 	public void createUser() throws Exception {
 		String userJson = json(new User());
+		System.out.println(this.getClass().getClassLoader().getResourceAsStream("/test/user.json").read());
 
 		this.mockMvc.perform(post("/users").headers(getJsonHeader()).content(userJson)).andExpect(status().isCreated());
 	}

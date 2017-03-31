@@ -94,5 +94,6 @@ public class JsonConverter {
 		user.setRecords(records);
 
 		System.out.println(toJson(user));
+		System.out.println(user.getClass().getClassLoader().getResourceAsStream("test/user.json").read());
 	}
 }

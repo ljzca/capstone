@@ -18,17 +18,17 @@ public class ModelPK implements Serializable {
 	private static final long serialVersionUID = 6641100107954248015L;
 
 	@Column(nullable = false, insertable = false, updatable = false, length = 30)
-	private String make;
+	private String name;
 
 	@Column(nullable = false, insertable = false, updatable = false, length = 30)
 	private String type;
 
-	public String getMake() {
-		return this.make;
+	public String getName() {
+		return this.name;
 	}
 
-	public void setMake(String make) {
-		this.make = make;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getType() {
@@ -47,13 +47,13 @@ public class ModelPK implements Serializable {
 			return false;
 		}
 		ModelPK castOther = (ModelPK) other;
-		return this.make.equals(castOther.make) && this.type.equals(castOther.type);
+		return this.name.equals(castOther.name) && this.type.equals(castOther.type);
 	}
 
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 17;
-		hash = hash * prime + this.make.hashCode();
+		hash = hash * prime + this.name.hashCode();
 		hash = hash * prime + this.type.hashCode();
 
 		return hash;
@@ -61,6 +61,6 @@ public class ModelPK implements Serializable {
 
 	@Override
 	public String toString() {
-		return make + "&" + type;
+		return name + "&" + type;
 	}
 }

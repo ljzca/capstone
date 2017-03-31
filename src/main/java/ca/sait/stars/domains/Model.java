@@ -15,7 +15,7 @@ import java.util.List;
  *
  */
 @Entity
-@Table(name = "stars_model", uniqueConstraints = @UniqueConstraint(columnNames = { "make", "type" }))
+@Table(name = "stars_model", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "type" }))
 @NamedQuery(name = "Model.findAll", query = "SELECT m FROM Model m")
 public class Model implements Persistable<ModelPK> {
 
@@ -36,8 +36,8 @@ public class Model implements Persistable<ModelPK> {
 
 	// bi-directional many-to-one association to Brand
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "make", nullable = false, insertable = false, updatable = false)
-	private Brand make;
+	@JoinColumn(name = "name", nullable = false, insertable = false, updatable = false)
+	private Brand name;
 
 	// bi-directional many-to-one association to Gear
 	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "model")
@@ -60,12 +60,12 @@ public class Model implements Persistable<ModelPK> {
 		this.description = description;
 	}
 
-	public Brand getMake() {
-		return make;
+	public Brand getName() {
+		return name;
 	}
 
-	public void setMake(Brand make) {
-		this.make = make;
+	public void setName(Brand name) {
+		this.name = name;
 	}
 
 	public List<Gear> getGear() {

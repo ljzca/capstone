@@ -50,7 +50,7 @@ public class Record implements Persistable<RecordPK> {
 			@JoinColumn(name = "record_owner", referencedColumnName = "owner", nullable = false),
 			@JoinColumn(name = "title", referencedColumnName = "title", nullable = false)},
 	inverseJoinColumns = {
-			@JoinColumn(name = "make", referencedColumnName = "make", nullable = false),
+			@JoinColumn(name = "name", referencedColumnName = "name", nullable = false),
 			@JoinColumn(name = "type", referencedColumnName = "type", nullable = false),
 			@JoinColumn(name = "gear_owner", referencedColumnName = "owner", nullable = false),
 			@JoinColumn(name = "id", referencedColumnName = "id", nullable = false)})

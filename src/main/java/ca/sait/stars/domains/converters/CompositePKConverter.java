@@ -70,9 +70,9 @@ class CompositePKConverter implements BackendIdConverter {
 
 			if (entityType.isAssignableFrom(Model.class)) {
 				int delimiterPos = id.indexOf("&");
-				String make = id.substring(0, delimiterPos), type = id.substring(delimiterPos + 1);
+				String name = id.substring(0, delimiterPos), type = id.substring(delimiterPos + 1);
 				ModelPK modelPK = new ModelPK();
-				modelPK.setMake(make);
+				modelPK.setName(name);
 				modelPK.setType(type);
 				return modelPK;
 			}
@@ -80,7 +80,7 @@ class CompositePKConverter implements BackendIdConverter {
 			if (entityType.isAssignableFrom(Gear.class)) {
 				String[] ids = id.split("&");
 				GearPK gearPK = new GearPK();
-				gearPK.setMake(ids[0]);
+				gearPK.setName(ids[0]);
 				gearPK.setType(ids[1]);
 				gearPK.setOwner(ids[2]);
 				gearPK.setId(Integer.parseInt(ids[ids.length - 1]));
