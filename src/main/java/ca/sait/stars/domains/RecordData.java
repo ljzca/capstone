@@ -26,49 +26,73 @@ public class RecordData implements Persistable<RecordDataPK> {
 	private RecordDataPK id;
 
 	@Column(nullable = false)
-	private double cacc;
+	private double latitude;
 
 	@Column(nullable = false)
-	private double gpsfix;
+	private double longitude;
 
 	@Column(nullable = false)
-	private double hacc;
+	private double pitch;
 
 	@Column(nullable = false)
-	private double hmsl;
+	private double yaw;
 
 	@Column(nullable = false)
-	private double heading;
+	private double roll;
 
+	/**
+	 * ground velocity
+	 */
 	@Column(nullable = false)
-	private double lat;
+	private double gvelocity;
 
+	/**
+	 * vertical velocity
+	 */
 	@Column(nullable = false)
-	private double lon;
+	private double vvelocity;
 
+	/**
+	 * flight velocity
+	 */
 	@Column(nullable = false)
-	private double numsv;
+	private double fvelocity;
 
+	/**
+	 * x axis accelerate
+	 */
 	@Column(nullable = false)
-	private double sacc;
+	private double xaccel;
 
+	/**
+	 * y axis accelerate
+	 */
 	@Column(nullable = false)
-	private double vacc;
+	private double yaccel;
 
+	/**
+	 * z axis accelerate
+	 */
 	@Column(nullable = false)
-	private double veld;
+	private double zaccel;
 
+	/**
+	 * angle of attack
+	 */
 	@Column(nullable = false)
-	private double vele;
+	private double aoa;
 
+	/**
+	 * glide ratio
+	 */
 	@Column(nullable = false)
-	private double veln;
+	private double gratio;
 
 	/**
 	 * Celsius
 	 */
 	@Column(nullable = false)
-	private double temp;
+	private double temperature;
 
 	@Version
 	@JsonIgnore
@@ -90,116 +114,116 @@ public class RecordData implements Persistable<RecordDataPK> {
 		this.id = id;
 	}
 
-	public double getCacc() {
-		return cacc;
+	public double getLatitude() {
+		return latitude;
 	}
 
-	public void setCacc(double cacc) {
-		this.cacc = cacc;
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
 	}
 
-	public double getGpsfix() {
-		return gpsfix;
+	public double getLongitude() {
+		return longitude;
 	}
 
-	public void setGpsfix(double gpsfix) {
-		this.gpsfix = gpsfix;
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
 	}
 
-	public double getHacc() {
-		return hacc;
+	public double getPitch() {
+		return pitch;
 	}
 
-	public void setHacc(double hacc) {
-		this.hacc = hacc;
+	public void setPitch(double pitch) {
+		this.pitch = pitch;
 	}
 
-	public double getHmsl() {
-		return hmsl;
+	public double getYaw() {
+		return yaw;
 	}
 
-	public void setHmsl(double hmsl) {
-		this.hmsl = hmsl;
+	public void setYaw(double yaw) {
+		this.yaw = yaw;
 	}
 
-	public double getHeading() {
-		return heading;
+	public double getRoll() {
+		return roll;
 	}
 
-	public void setHeading(double heading) {
-		this.heading = heading;
+	public void setRoll(double roll) {
+		this.roll = roll;
 	}
 
-	public double getLat() {
-		return lat;
+	public double getGvelocity() {
+		return gvelocity;
 	}
 
-	public void setLat(double lat) {
-		this.lat = lat;
+	public void setGvelocity(double gvelocity) {
+		this.gvelocity = gvelocity;
 	}
 
-	public double getLon() {
-		return lon;
+	public double getVvelocity() {
+		return vvelocity;
 	}
 
-	public void setLon(double lon) {
-		this.lon = lon;
+	public void setVvelocity(double vvelocity) {
+		this.vvelocity = vvelocity;
 	}
 
-	public double getNumsv() {
-		return numsv;
+	public double getFvelocity() {
+		return fvelocity;
 	}
 
-	public void setNumsv(double numsv) {
-		this.numsv = numsv;
+	public void setFvelocity(double fvelocity) {
+		this.fvelocity = fvelocity;
 	}
 
-	public double getSacc() {
-		return sacc;
+	public double getXaccel() {
+		return xaccel;
 	}
 
-	public void setSacc(double sacc) {
-		this.sacc = sacc;
+	public void setXaccel(double xaccel) {
+		this.xaccel = xaccel;
 	}
 
-	public double getVacc() {
-		return vacc;
+	public double getYaccel() {
+		return yaccel;
 	}
 
-	public void setVacc(double vacc) {
-		this.vacc = vacc;
+	public void setYaccel(double yaccel) {
+		this.yaccel = yaccel;
 	}
 
-	public double getVeld() {
-		return veld;
+	public double getZaccel() {
+		return zaccel;
 	}
 
-	public void setVeld(double veld) {
-		this.veld = veld;
+	public void setZaccel(double zaccel) {
+		this.zaccel = zaccel;
 	}
 
-	public double getVele() {
-		return vele;
+	public double getAoa() {
+		return aoa;
 	}
 
-	public void setVele(double vele) {
-		this.vele = vele;
+	public void setAoa(double aoa) {
+		this.aoa = aoa;
 	}
 
-	public double getVeln() {
-		return veln;
+	public double getGratio() {
+		return gratio;
 	}
 
-	public void setVeln(double veln) {
-		this.veln = veln;
+	public void setGratio(double gratio) {
+		this.gratio = gratio;
 	}
 
-	public double getTemp() {
-		return temp;
+	public double getTemperature() {
+		return temperature;
 	}
 
-	public void setTemp(double temp) {
-		this.temp = temp;
+	public void setTemperature(double temperature) {
+		this.temperature = temperature;
 	}
 
 	public Record getRecord() {
