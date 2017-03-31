@@ -2,6 +2,7 @@ angular.module('stars')
 
 .controller("navCtrl",["$scope","$cookieStore","$location","$window","sendRequest", function($scope, $cookieStore, $location, $window, sendRequest){
 	
+	console.log($cookieStore.get("username"));
 	if($cookieStore.get("username")){
 		
 		if($cookieStore.get("isAdmin")){
