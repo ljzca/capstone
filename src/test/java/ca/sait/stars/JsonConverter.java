@@ -1,14 +1,10 @@
 package ca.sait.stars;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
-
-import ca.sait.stars.domains.Record;
-import ca.sait.stars.domains.User;
+import org.junit.Ignore;
 
 /**
- * To convert an object to json
+ * To convert an object to json (follows jaxb standard)
  * 
  * @author William Li
  *
@@ -17,6 +13,7 @@ import ca.sait.stars.domains.User;
  * I eventually find out that this converter cannot work with HAL. However, it's
  * fine to do general purposed Entity to JSON convertion (like jackson).
  */
+@Ignore
 public class JsonConverter {
 
 	public static String toJson(Object t) throws Exception {
@@ -81,19 +78,5 @@ public class JsonConverter {
 
 		sb.append("}");
 		return sb.toString();
-	}
-
-	public static void main(String[] args) throws Exception {
-		User user = new User();
-		List<Record> records = new ArrayList<>();
-		Record record1 = new Record(), record2 = new Record();
-		record1.setDescription("dd");
-		record2.setDescription("dd");
-		records.add(record1);
-		records.add(record2);
-		user.setRecords(records);
-
-		System.out.println(toJson(user));
-		System.out.println(user.getClass().getClassLoader().getResourceAsStream("test/user.json").read());
 	}
 }
