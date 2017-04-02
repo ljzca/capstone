@@ -39,6 +39,9 @@ public class StarsApplication {
         @Value("${spring.profiles.active}")
         private String environment;
 
+        @Value("${init.admin.create}")
+        private String create;
+
         @Value("${init.admin.username}")
         private String username;
 
@@ -59,15 +62,18 @@ public class StarsApplication {
 
         @PostConstruct
         public void initAdminUser() {
-            switch (environment) {
-                case "development":
-                    initAdminUnderDevelopment();
-                    break;
-                case "production":
-                    initAdminUnderProduction();
-                    break;
-                default:
-                    throw new RuntimeException("No such profile, please check spring.profiles.active value in src/main/resources/application.properties. Velue allowed: \"production\", \"development\"");
+
+            if ("true".equalsIgnoreCase(create)) {
+                switch (environment) {
+                    case "development":
+                        initAdminUnderDevelopment();
+                        break;
+                    case "production":
+                        initAdminUnderProduction();
+                        break;
+                    default:
+                        throw new RuntimeException("No such profile, please check spring.profiles.active value in src/main/resources/application.properties. Velue allowed: \"production\", \"development\"");
+                }
             }
         }
 
