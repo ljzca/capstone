@@ -1,13 +1,13 @@
 angular.module('stars')
 
-    .controller("loginCtrl", ["$scope", "$cookieStore", "$location", "$window", "sendRequest", function ($scope, $cookieStore, $location, $window, sendRequest) {
+    .controller("loginCtrl", ["$scope", "$cookieStore", "$location", "$window", "sendRequest",  function ($scope, $cookieStore, $location, $window, sendRequest) {
 
         var selfReflect = function (username, password) {
             sendRequest.send(
                 'GET',
-                'users/' + username + "",
+                'users/' + username,
                 function (result) {
-
+                	
                     console.log(result);
                     $cookieStore.put("username", username);
                     $cookieStore.put("password", password);
@@ -27,7 +27,7 @@ angular.module('stars')
                         //$location.path("admin");
                     } else {
                         $location.path("records");
-                        // $window.location.reload();
+                         $window.location.reload();
                     }
                 },
                 function (error) {
@@ -41,7 +41,6 @@ angular.module('stars')
         };
 
         $scope.login = selfReflect;
-
         var username = $cookieStore.get("username");
         var password = $cookieStore.get("password");
 
