@@ -18,6 +18,9 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 
 import static ca.sait.stars.HttpRequestHelper.*;
 
+/**
+ * @author william
+ */
 @RunWith(SpringRunner.class)
 /*
  * WebEnvironment.DEFINED_PORT Makes test to run on a real servlet environment
@@ -27,36 +30,54 @@ import static ca.sait.stars.HttpRequestHelper.*;
 @SpringBootTest(webEnvironment = WebEnvironment.DEFINED_PORT)
 public class UserTest {
 
-	private MockMvc mockMvc;
+    private MockMvc mockMvc;
 
-	@Autowired
-	private ResourceReader rr;
+    @Autowired
+    private ResourceReader rr;
 
-	@Autowired
-	private WebApplicationContext webApplicationContext;
+    @Autowired
+    private WebApplicationContext webApplicationContext;
 
-	/*
-	 * This is used to enable filters (thus, it enables security test)
-	 */
-	@Autowired
-	private FilterChainProxy filterChainProxy;
+    /*
+     * This is used to enable filters (thus, it enables security test)
+     */
+    @Autowired
+    private FilterChainProxy filterChainProxy;
 
-	@Before
-	public void setUp() {
-		MockitoAnnotations.initMocks(this);
-		this.mockMvc = webAppContextSetup(webApplicationContext).dispatchOptions(true).addFilters(filterChainProxy)
-				.build();
-	}
+    @Before
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+        this.mockMvc = webAppContextSetup(webApplicationContext).dispatchOptions(true).addFilters(filterChainProxy)
+                .build();
+    }
 
-	@Test
-	public void createUser() throws Exception {
-		this.mockMvc.perform(post("/rest/users").headers(getJsonHeader()).content(rr.readFromTest("user.json")))
-				.andExpect(status().isCreated());
-	}
+    @Test
+    public void createUser() throws Exception {
+        this.mockMvc.perform(post("/rest/users").headers(getJsonHeader()).content(rr.readFromTest("user.json")))
+                .andExpect(status().isCreated());
 
-	@Test
-	public void getAllUsers() throws Exception {
-		mockMvc.perform(get("/rest/users").headers(getBasicAuthAdminHeader())).andExpect(status().isOk());
-	}
+        this.mockMvc.perform(get("/rest/users/user").headers(getBasicAuthUserHeader())).andExpect(status().isOk())
+                .andExpect(jsonPath("$.lastname").value("Li"));
+    }
 
+    @Test
+    public void deleteUser() throws Exception {
+        this.mockMvc.perform(get("/rest/users/user").headers(getBasicAuthAdminHeader())).andExpect(status().isOk());
+
+        this.mockMvc.perform(delete("/rest/users/user").headers(getBasicAuthAdminHeader()))
+                .andExpect(status().isNoContent());
+
+        this.mockMvc.perform(get("/rest/users/user").headers(getBasicAuthAdminHeader()))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void updateUser() throws Exception {
+
+    }
+
+    @Test
+    public void getAllUsers() throws Exception {
+        this.mockMvc.perform(get("/rest/users").headers(getBasicAuthAdminHeader())).andExpect(status().isOk());
+    }
 }

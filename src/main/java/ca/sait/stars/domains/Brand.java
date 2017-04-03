@@ -19,62 +19,62 @@ import java.util.List;
 @NamedQuery(name = "Brand.findAll", query = "SELECT b FROM Brand b")
 public class Brand implements Persistable<String> {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6167947869322943372L;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -6167947869322943372L;
 
-	@Id
-	@Column(unique = true, nullable = false, length = 30)
-	private String name;
+    @Id
+    @Column(unique = true, nullable = false, length = 30)
+    private String name;
 
-	@Lob
-	private String description;
+    @Lob
+    private String description;
 
-	@Version
-	@JsonIgnore
-	private Long version;
+    @Version
+    @JsonIgnore
+    private Long version;
 
-	// bi-directional many-to-one association to Record
-	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "name")
-	private List<Model> models;
+    // bi-directional many-to-one association to Record
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "name")
+    private List<Model> models;
 
-	public String getName() {
-		return this.name;
-	}
+    public String getName() {
+        return this.name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getDescription() {
-		return this.description;
-	}
+    public String getDescription() {
+        return this.description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public List<Model> getModels() {
-		return this.models;
-	}
+    public List<Model> getModels() {
+        return this.models;
+    }
 
-	public void setModels(List<Model> models) {
-		this.models = models;
-	}
+    public void setModels(List<Model> models) {
+        this.models = models;
+    }
 
-	@Override
-	public String toString() {
-		return name;
-	}
+    @Override
+    public String toString() {
+        return name;
+    }
 
-	@Override
-	public String getId() {
-		return name;
-	}
+    @Override
+    public String getId() {
+        return name;
+    }
 
-	@Override
-	public boolean isNew() {
-		return version == null;
-	}
+    @Override
+    public boolean isNew() {
+        return version == null;
+    }
 }

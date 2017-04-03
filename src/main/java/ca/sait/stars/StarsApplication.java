@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  * Application entrance
@@ -31,7 +32,9 @@ public class StarsApplication {
     public class autoInit {
 
         /*
-         * can't use @Autowired CrudRepository<User, String> because spring will reuse UserRepository. Thus, the security constaints will be enforced, and cause failure to check AuthenticationObject in SecurityContext.
+         * can't use @Autowired CrudRepository<User, String> because spring will
+         * reuse UserRepository. Thus, the security constaints will be enforced,
+         * and cause failure to check AuthenticationObject in SecurityContext.
          */
         @Autowired
         JdbcTemplate jdbcTemplate;
@@ -65,14 +68,15 @@ public class StarsApplication {
 
             if ("true".equalsIgnoreCase(create)) {
                 switch (environment) {
-                    case "development":
-                        initAdminUnderDevelopment();
-                        break;
-                    case "production":
-                        initAdminUnderProduction();
-                        break;
-                    default:
-                        throw new RuntimeException("No such profile, please check spring.profiles.active value in src/main/resources/application.properties. Velue allowed: \"production\", \"development\"");
+                case "development":
+                    initAdminUnderDevelopment();
+                    break;
+                case "production":
+                    initAdminUnderProduction();
+                    break;
+                default:
+                    throw new RuntimeException(
+                            "No such profile, please check spring.profiles.active value in src/main/resources/application.properties. Velue allowed: \"production\", \"development\"");
                 }
             }
         }
@@ -80,13 +84,19 @@ public class StarsApplication {
         private void initAdminUnderDevelopment() {
             User admin = instantiateAdmin();
 
-            jdbcTemplate.update("INSERT INTO stars_user(username, firstname, lastname, email, password, sex, is_admin, version, height, weight) VALUES (?,?,?,?,?,?,?,?,?,?)", admin.getUsername(), admin.getFirstname(), admin.getLastname(), admin.getEmail(), admin.getPassword(), admin.getSex().toString(), admin.getIsAdmin(), 1, 0, 0);
+            jdbcTemplate.update(
+                    "INSERT INTO stars_user(username, firstname, lastname, email, password, sex, is_admin, version, height, weight) VALUES (?,?,?,?,?,?,?,?,?,?)",
+                    admin.getUsername(), admin.getFirstname(), admin.getLastname(), admin.getEmail(),
+                    admin.getPassword(), admin.getSex().toString(), admin.getIsAdmin(), 1, 0, 0);
         }
 
         private void initAdminUnderProduction() {
             if (jdbcTemplate.queryForList("SELECT * FROM stars_user WHERE username = ?", username).isEmpty()) {
                 User admin = instantiateAdmin();
-                jdbcTemplate.update("INSERT INTO stars_user(username, firstname, lastname, email, password, sex, is_admin, version, height, weight) VALUES (?,?,?,?,?,?,?,?,?,?)", admin.getUsername(), admin.getFirstname(), admin.getLastname(), admin.getEmail(), admin.getPassword(), admin.getSex().toString(), admin.getIsAdmin(), 1, 0, 0);
+                jdbcTemplate.update(
+                        "INSERT INTO stars_user(username, firstname, lastname, email, password, sex, is_admin, version, height, weight) VALUES (?,?,?,?,?,?,?,?,?,?)",
+                        admin.getUsername(), admin.getFirstname(), admin.getLastname(), admin.getEmail(),
+                        admin.getPassword(), admin.getSex().toString(), admin.getIsAdmin(), 1, 0, 0);
             }
         }
 
@@ -97,23 +107,24 @@ public class StarsApplication {
             admin.setLastname(lastname);
             admin.setAdmin(true);
             admin.setEmail(email);
-            admin.setPassword(password);
+            admin.setPassword(new BCryptPasswordEncoder().encode(password));
 
             switch (sex.toLowerCase()) {
-                case "male":
-                    admin.setSex(User.Sex.Male);
-                    break;
-                case "female":
-                    admin.setSex(User.Sex.Female);
-                    break;
-                case "other":
-                    admin.setSex(User.Sex.Other);
-                    break;
-                case "unknown":
-                    admin.setSex(User.Sex.Unknown);
-                    break;
-                default:
-                    throw new RuntimeException("No such sex predefined. Please use: \"male\", \"female\", \"other\", \"unknown\"");
+            case "male":
+                admin.setSex(User.Sex.Male);
+                break;
+            case "female":
+                admin.setSex(User.Sex.Female);
+                break;
+            case "other":
+                admin.setSex(User.Sex.Other);
+                break;
+            case "unknown":
+                admin.setSex(User.Sex.Unknown);
+                break;
+            default:
+                throw new RuntimeException(
+                        "No such sex predefined. Please use: \"male\", \"female\", \"other\", \"unknown\"");
             }
 
             return admin;

@@ -19,22 +19,22 @@ import org.springframework.stereotype.Component;
 @Component
 public class WebAuthenticationEntryPoint extends BasicAuthenticationEntryPoint {
 
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		setRealmName("S.T.A.R.S");
-		super.afterPropertiesSet();
-	}
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        setRealmName("S.T.A.R.S");
+        super.afterPropertiesSet();
+    }
 
-	@Override
-	public void commence(HttpServletRequest request, HttpServletResponse response,
-			AuthenticationException authException) throws IOException, ServletException {
-		// response.addHeader("WWW-Authenticate", "Basic realm=\"" +
-		// getRealmName() + "\""); // by adding this header, the browser will
-		// prompt user to enter username and password
-		// response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-		// response.getWriter().println("HTTP Status 401 - " +
-		// authException.getMessage());
+    @Override
+    public void commence(HttpServletRequest request, HttpServletResponse response,
+            AuthenticationException authException) throws IOException, ServletException {
+        // response.addHeader("WWW-Authenticate", "Basic realm=\"" +
+        // getRealmName() + "\""); // by adding this header, the browser will
+        // prompt user to enter username and password
+        // response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        // response.getWriter().println("HTTP Status 401 - " +
+        // authException.getMessage());
 
-		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
-	}
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
+    }
 }

@@ -29,13 +29,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AuthenticationEntryPoint webAuthenticationEntryPoint;
-    
+
     @Value("${spring.profiles.active}")
     private String environment;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        
+
         http
 //            // To enable password encoder, this won't work
 //            .userDetailsService(userDetailsService)
@@ -46,36 +46,36 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .authenticationEntryPoint(webAuthenticationEntryPoint)
         .and()
             .csrf()
-            .disable()
-        ;
+            .disable();
 
         /*
          * to make H2 database console displayed
          */
-        if("development".equals(environment))
-            http.headers().frameOptions().sameOrigin();
+        if ("development".equals(environment))
+            http
+                .headers()
+                .frameOptions()
+                .sameOrigin();
     }
 
     @Autowired
-    public void configAuthentication(AuthenticationManagerBuilder auth)
-        throws Exception {
+    public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
 
         auth
             .userDetailsService(userDetailsService)
-            .passwordEncoder(new BCryptPasswordEncoder())
-        ;
-        
+            .passwordEncoder(new BCryptPasswordEncoder());
+
         /*
-         * this is how to make inMemory users. Note: no "ROLE_" as a prefix of the role "ROLE_ADMIN", instead, just use "ADMIN"
+         * this is how to make inMemory users. Note: no "ROLE_" as a prefix of
+         * the role "ROLE_ADMIN", instead, just use "ADMIN"
          */
 //        auth
-//            .inMemoryAuthentication()
-//                .withUser("admin")
-//                .password("password")
-//                .roles("ADMIN")
-//            .and()
-//                .withUser("user")
-//                .password("password")
-//        ;
+//        .inMemoryAuthentication()
+//            .withUser("admin")
+//            .password("password")
+//            .roles("ADMIN")
+//        .and()
+//            .withUser("user")
+//            .password("password");
     }
 }

@@ -19,48 +19,48 @@ import ca.sait.stars.domains.Brand;
 @Repository
 public interface BrandRepository extends PagingAndSortingRepository<Brand, String> {
 
-	@Override
-	@PreAuthorize("hasRole('ADMIN')")
-	<S extends Brand> S save(S entity);
+    @Override
+    @PreAuthorize("hasRole('ADMIN')")
+    <S extends Brand> S save(S entity);
 
-	@Override
-	@PreAuthorize("hasRole('ADMIN')")
-	<S extends Brand> Iterable<S> save(Iterable<S> entities);
+    @Override
+    @PreAuthorize("hasRole('ADMIN')")
+    <S extends Brand> Iterable<S> save(Iterable<S> entities);
 
-	@Override
-	Brand findOne(String id);
+    @Override
+    Brand findOne(String id);
 
-	@Override
-	boolean exists(String id);
+    @Override
+    boolean exists(String id);
 
-	@Override
-	Iterable<Brand> findAll();
+    @Override
+    Iterable<Brand> findAll();
 
-	@Override
-	Iterable<Brand> findAll(Iterable<String> ids);
+    @Override
+    Iterable<Brand> findAll(Iterable<String> ids);
 
-	@Override
-	long count();
+    @Override
+    long count();
 
-	@Override
-	@PreAuthorize("hasRole('ADMIN')")
-	void delete(String id);
+    @Override
+    @PreAuthorize("hasRole('ADMIN')")
+    void delete(String id);
 
-	@Override
-	@PreAuthorize("hasRole('ADMIN')")
-	void delete(Brand entity);
+    @Override
+    @PreAuthorize("hasRole('ADMIN')")
+    void delete(Brand entity);
 
-	@Override
-	@PreAuthorize("hasRole('ADMIN')")
-	void delete(Iterable<? extends Brand> entities);
+    @Override
+    @PreAuthorize("hasRole('ADMIN')")
+    void delete(Iterable<? extends Brand> entities);
 
-	@Override
-	@PreAuthorize("hasRole('ADMIN')")
-	void deleteAll();
+    @Override
+    @PreAuthorize("hasRole('ADMIN')")
+    void deleteAll();
 
-	@Override
-	Iterable<Brand> findAll(Sort sort);
+    @Override
+    Iterable<Brand> findAll(Sort sort);
 
-	@Override
-	Page<Brand> findAll(Pageable pageable);
+    @Override
+    Page<Brand> findAll(Pageable pageable);
 }

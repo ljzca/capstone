@@ -21,55 +21,55 @@ import ca.sait.stars.domains.RecordDataPK;
 @Repository
 public interface RecordDataRepository extends PagingAndSortingRepository<RecordData, RecordDataPK> {
 
-	@Override
-	@PreAuthorize("#s?.id?.owner == authentication?.name OR hasRole('ADMIN')")
-	<S extends RecordData> S save(@Param("s") S entity);
+    @Override
+    @PreAuthorize("#s?.id?.owner == authentication?.name OR hasRole('ADMIN')")
+    <S extends RecordData> S save(@Param("s") S entity);
 
-	@Override
-	@PreAuthorize("hasRole('ADMIN')")
-	<S extends RecordData> Iterable<S> save(Iterable<S> entities);
+    @Override
+    @PreAuthorize("hasRole('ADMIN')")
+    <S extends RecordData> Iterable<S> save(Iterable<S> entities);
 
-	@Override
-	@PreAuthorize("#i?.owner == authentication?.name OR hasRole('ADMIN')")
-	RecordData findOne(@Param("i") RecordDataPK id);
+    @Override
+    @PreAuthorize("#i?.owner == authentication?.name OR hasRole('ADMIN')")
+    RecordData findOne(@Param("i") RecordDataPK id);
 
-	@Override
-	@PreAuthorize("#i?.owner == authentication?.name OR hasRole('ADMIN')")
-	boolean exists(@Param("i") RecordDataPK id);
+    @Override
+    @PreAuthorize("#i?.owner == authentication?.name OR hasRole('ADMIN')")
+    boolean exists(@Param("i") RecordDataPK id);
 
-	@Override
-	@PreAuthorize("hasRole('ADMIN')")
-	Iterable<RecordData> findAll();
+    @Override
+    @PreAuthorize("hasRole('ADMIN')")
+    Iterable<RecordData> findAll();
 
-	@Override
-	@PreAuthorize("hasRole('ADMIN')")
-	Iterable<RecordData> findAll(Iterable<RecordDataPK> ids);
+    @Override
+    @PreAuthorize("hasRole('ADMIN')")
+    Iterable<RecordData> findAll(Iterable<RecordDataPK> ids);
 
-	@Override
-	@PreAuthorize("hasRole('ADMIN')")
-	long count();
+    @Override
+    @PreAuthorize("hasRole('ADMIN')")
+    long count();
 
-	@Override
-	@PreAuthorize("#i?.owner == authentication?.name OR hasRole('ADMIN')")
-	void delete(@Param("i") RecordDataPK id);
+    @Override
+    @PreAuthorize("#i?.owner == authentication?.name OR hasRole('ADMIN')")
+    void delete(@Param("i") RecordDataPK id);
 
-	@Override
-	@PreAuthorize("#s?.id?.owner == authentication?.name OR hasRole('ADMIN')")
-	void delete(@Param("s") RecordData entity);
+    @Override
+    @PreAuthorize("#s?.id?.owner == authentication?.name OR hasRole('ADMIN')")
+    void delete(@Param("s") RecordData entity);
 
-	@Override
-	@PreAuthorize("hasRole('ADMIN')")
-	void delete(Iterable<? extends RecordData> entities);
+    @Override
+    @PreAuthorize("hasRole('ADMIN')")
+    void delete(Iterable<? extends RecordData> entities);
 
-	@Override
-	@PreAuthorize("hasRole('ADMIN')")
-	void deleteAll();
+    @Override
+    @PreAuthorize("hasRole('ADMIN')")
+    void deleteAll();
 
-	@Override
-	@PreAuthorize("hasRole('ADMIN')")
-	Iterable<RecordData> findAll(Sort sort);
+    @Override
+    @PreAuthorize("hasRole('ADMIN')")
+    Iterable<RecordData> findAll(Sort sort);
 
-	@Override
-	@PreAuthorize("hasRole('ADMIN')")
-	Page<RecordData> findAll(Pageable pageable);
+    @Override
+    @PreAuthorize("hasRole('ADMIN')")
+    Page<RecordData> findAll(Pageable pageable);
 }

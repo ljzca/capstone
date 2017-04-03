@@ -19,71 +19,71 @@ import java.util.List;
 @NamedQuery(name = "Model.findAll", query = "SELECT m FROM Model m")
 public class Model implements Persistable<ModelPK> {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2138350065961289313L;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -2138350065961289313L;
 
-	@EmbeddedId
-	private ModelPK id;
+    @EmbeddedId
+    private ModelPK id;
 
-	@Lob
-	private String description;
+    @Lob
+    private String description;
 
-	@Version
-	@JsonIgnore
-	private Long version;
+    @Version
+    @JsonIgnore
+    private Long version;
 
-	// bi-directional many-to-one association to Brand
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "name", nullable = false, insertable = false, updatable = false)
-	private Brand name;
+    // bi-directional many-to-one association to Brand
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "name", nullable = false, insertable = false, updatable = false)
+    private Brand name;
 
-	// bi-directional many-to-one association to Gear
-	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "model")
-	private List<Gear> gear;
+    // bi-directional many-to-one association to Gear
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "model")
+    private List<Gear> gear;
 
-	@Override
-	public ModelPK getId() {
-		return this.id;
-	}
+    @Override
+    public ModelPK getId() {
+        return this.id;
+    }
 
-	public void setId(ModelPK id) {
-		this.id = id;
-	}
+    public void setId(ModelPK id) {
+        this.id = id;
+    }
 
-	public String getDescription() {
-		return this.description;
-	}
+    public String getDescription() {
+        return this.description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public Brand getName() {
-		return name;
-	}
+    public Brand getName() {
+        return name;
+    }
 
-	public void setName(Brand name) {
-		this.name = name;
-	}
+    public void setName(Brand name) {
+        this.name = name;
+    }
 
-	public List<Gear> getGear() {
-		return gear;
-	}
+    public List<Gear> getGear() {
+        return gear;
+    }
 
-	public void setGear(List<Gear> gear) {
-		this.gear = gear;
-	}
+    public void setGear(List<Gear> gear) {
+        this.gear = gear;
+    }
 
-	@Override
-	public String toString() {
-		return id.toString();
-	}
+    @Override
+    public String toString() {
+        return id.toString();
+    }
 
-	@Override
-	public boolean isNew() {
-		return version == null;
-	}
+    @Override
+    public boolean isNew() {
+        return version == null;
+    }
 
 }

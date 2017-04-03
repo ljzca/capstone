@@ -16,7 +16,7 @@ import java.util.List;
  *
  */
 @Entity
-@Table(name = "stars_user", uniqueConstraints = @UniqueConstraint(columnNames = {"username"}))
+@Table(name = "stars_user", uniqueConstraints = @UniqueConstraint(columnNames = { "username" }))
 @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
 public class User implements Persistable<String> {
 

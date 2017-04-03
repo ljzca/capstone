@@ -17,23 +17,23 @@ import ca.sait.stars.domains.User;
 @Service
 public class RoleCheck {
 
-	@Autowired
-	private CrudRepository<User, String> ur;
+    @Autowired
+    private CrudRepository<User, String> ur;
 
-	public boolean checkRole(Authentication authentication, User user) {
-		try {
-			User caller = ur.findOne(authentication.getName());
-			if (caller.getIsAdmin())
-				return true;
-		} catch (Exception e) {
-			// silent catch for non-login registration
-		}
+    public boolean checkRole(Authentication authentication, User user) {
+        try {
+            User caller = ur.findOne(authentication.getName());
+            if (caller.getIsAdmin())
+                return true;
+        } catch (Exception e) {
+            // silent catch for non-login registration
+        }
 
-		/*
-		 * At this point, the caller is either recognized as a non-admin user,
-		 * or an anonymous registering user. Thus, if it intends to make itself
-		 * an admin, stop it.
-		 */
-		return user.getIsAdmin() ? false : true;
-	}
+        /*
+         * At this point, the caller is either recognized as a non-admin user,
+         * or an anonymous registering user. Thus, if it intends to make itself
+         * an admin, stop it.
+         */
+        return !user.getIsAdmin();
+    }
 }

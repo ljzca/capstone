@@ -20,48 +20,48 @@ import ca.sait.stars.domains.ModelPK;
 @Repository
 public interface ModelRepository extends PagingAndSortingRepository<Model, ModelPK> {
 
-	@Override
-	@PreAuthorize("hasRole('ADMIN')")
-	<S extends Model> S save(S entity);
+    @Override
+    @PreAuthorize("hasRole('ADMIN')")
+    <S extends Model> S save(S entity);
 
-	@Override
-	@PreAuthorize("hasRole('ADMIN')")
-	<S extends Model> Iterable<S> save(Iterable<S> entities);
+    @Override
+    @PreAuthorize("hasRole('ADMIN')")
+    <S extends Model> Iterable<S> save(Iterable<S> entities);
 
-	@Override
-	Model findOne(ModelPK id);
+    @Override
+    Model findOne(ModelPK id);
 
-	@Override
-	boolean exists(ModelPK id);
+    @Override
+    boolean exists(ModelPK id);
 
-	@Override
-	Iterable<Model> findAll();
+    @Override
+    Iterable<Model> findAll();
 
-	@Override
-	Iterable<Model> findAll(Iterable<ModelPK> ids);
+    @Override
+    Iterable<Model> findAll(Iterable<ModelPK> ids);
 
-	@Override
-	long count();
+    @Override
+    long count();
 
-	@Override
-	@PreAuthorize("hasRole('ADMIN')")
-	void delete(ModelPK id);
+    @Override
+    @PreAuthorize("hasRole('ADMIN')")
+    void delete(ModelPK id);
 
-	@Override
-	@PreAuthorize("hasRole('ADMIN')")
-	void delete(Model entity);
+    @Override
+    @PreAuthorize("hasRole('ADMIN')")
+    void delete(Model entity);
 
-	@Override
-	@PreAuthorize("hasRole('ADMIN')")
-	void delete(Iterable<? extends Model> entities);
+    @Override
+    @PreAuthorize("hasRole('ADMIN')")
+    void delete(Iterable<? extends Model> entities);
 
-	@Override
-	@PreAuthorize("hasRole('ADMIN')")
-	void deleteAll();
+    @Override
+    @PreAuthorize("hasRole('ADMIN')")
+    void deleteAll();
 
-	@Override
-	Iterable<Model> findAll(Sort sort);
+    @Override
+    Iterable<Model> findAll(Sort sort);
 
-	@Override
-	Page<Model> findAll(Pageable pageable);
+    @Override
+    Page<Model> findAll(Pageable pageable);
 }

@@ -17,71 +17,72 @@ import ca.sait.stars.domains.User;
 /**
  * This class provides user details from database (same as JDBCRealm is other
  * term)
- * 
+ *
  * @author william
  *
  */
 @Service
 public class AuthenticationService implements UserDetailsService {
 
-	@Autowired
-	private CrudRepository<User, String> cr;
+    @Autowired
+    private CrudRepository<User, String> cr;
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		final User user = cr.findOne(username);
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        final User user = cr.findOne(username);
 
-		if (user == null)
-			throw new UsernameNotFoundException("username not found");
+        if (user == null) {
+            throw new UsernameNotFoundException("username not found");
+        }
 
-		return new UserDetails() {
+        return new UserDetails() {
 
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 725882968690752981L;
+            /**
+             *
+             */
+            private static final long serialVersionUID = 725882968690752981L;
 
-			@Override
-			public boolean isEnabled() {
-				return true;
-			}
+            @Override
+            public boolean isEnabled() {
+                return true;
+            }
 
-			@Override
-			public boolean isCredentialsNonExpired() {
-				return true;
-			}
+            @Override
+            public boolean isCredentialsNonExpired() {
+                return true;
+            }
 
-			@Override
-			public boolean isAccountNonLocked() {
-				return true;
-			}
+            @Override
+            public boolean isAccountNonLocked() {
+                return true;
+            }
 
-			@Override
-			public boolean isAccountNonExpired() {
-				return true;
-			}
+            @Override
+            public boolean isAccountNonExpired() {
+                return true;
+            }
 
-			@Override
-			public String getUsername() {
-				return user.getUsername();
-			}
+            @Override
+            public String getUsername() {
+                return user.getUsername();
+            }
 
-			@Override
-			public String getPassword() {
-				return user.getPassword();
-			}
+            @Override
+            public String getPassword() {
+                return user.getPassword();
+            }
 
-			@Override
-			public Collection<? extends GrantedAuthority> getAuthorities() {
-				Collection<GrantedAuthority> authoritys = new ArrayList<>();
-				/*
-				 * Although, the prefix 'ROLE_' is not specified in
-				 * authorization declaration, it is implicitly added. So, the
-				 * roles that returns need to have 'ROLE_' at front
-				 */
-				authoritys.add(new SimpleGrantedAuthority(user.getIsAdmin() ? "ROLE_ADMIN" : "ROLE_USER"));
-				return authoritys;
-			}
-		};
-	}
+            @Override
+            public Collection<? extends GrantedAuthority> getAuthorities() {
+                Collection<GrantedAuthority> authoritys = new ArrayList<>();
+                /*
+                 * Although, the prefix 'ROLE_' is not specified in
+                 * authorization declaration, it is implicitly added. So, the
+                 * roles that returns need to have 'ROLE_' at front
+                 */
+                authoritys.add(new SimpleGrantedAuthority(user.getIsAdmin() ? "ROLE_ADMIN" : "ROLE_USER"));
+                return authoritys;
+            }
+        };
+    }
 }

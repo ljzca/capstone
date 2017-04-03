@@ -17,231 +17,231 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @NamedQuery(name = "RecordData.findAll", query = "SELECT r FROM RecordData r")
 public class RecordData implements Persistable<RecordDataPK> {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2179632862300221506L;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -2179632862300221506L;
 
-	@EmbeddedId
-	private RecordDataPK id;
+    @EmbeddedId
+    private RecordDataPK id;
 
-	@Column(nullable = false)
-	private double latitude;
+    @Column(nullable = false)
+    private double latitude;
 
-	@Column(nullable = false)
-	private double longitude;
+    @Column(nullable = false)
+    private double longitude;
 
-	@Column(nullable = false)
-	private double pitch;
+    @Column(nullable = false)
+    private double pitch;
 
-	@Column(nullable = false)
-	private double yaw;
+    @Column(nullable = false)
+    private double yaw;
 
-	@Column(nullable = false)
-	private double roll;
+    @Column(nullable = false)
+    private double roll;
 
-	/**
-	 * ground velocity
-	 */
-	@Column(nullable = false)
-	private double gvelocity;
+    /**
+     * ground velocity
+     */
+    @Column(nullable = false)
+    private double gvelocity;
 
-	/**
-	 * vertical velocity
-	 */
-	@Column(nullable = false)
-	private double vvelocity;
+    /**
+     * vertical velocity
+     */
+    @Column(nullable = false)
+    private double vvelocity;
 
-	/**
-	 * flight velocity
-	 */
-	@Column(nullable = false)
-	private double fvelocity;
+    /**
+     * flight velocity
+     */
+    @Column(nullable = false)
+    private double fvelocity;
 
-	/**
-	 * x axis accelerate
-	 */
-	@Column(nullable = false)
-	private double xaccel;
+    /**
+     * x axis accelerate
+     */
+    @Column(nullable = false)
+    private double xaccel;
 
-	/**
-	 * y axis accelerate
-	 */
-	@Column(nullable = false)
-	private double yaccel;
+    /**
+     * y axis accelerate
+     */
+    @Column(nullable = false)
+    private double yaccel;
 
-	/**
-	 * z axis accelerate
-	 */
-	@Column(nullable = false)
-	private double zaccel;
+    /**
+     * z axis accelerate
+     */
+    @Column(nullable = false)
+    private double zaccel;
 
-	/**
-	 * angle of attack
-	 */
-	@Column(nullable = false)
-	private double aoa;
+    /**
+     * angle of attack
+     */
+    @Column(nullable = false)
+    private double aoa;
 
-	/**
-	 * glide ratio
-	 */
-	@Column(nullable = false)
-	private double gratio;
+    /**
+     * glide ratio
+     */
+    @Column(nullable = false)
+    private double gratio;
 
-	/**
-	 * Celsius
-	 */
-	@Column(nullable = false)
-	private double temperature;
+    /**
+     * Celsius
+     */
+    @Column(nullable = false)
+    private double temperature;
 
-	@Version
-	@JsonIgnore
-	private Long version;
+    @Version
+    @JsonIgnore
+    private Long version;
 
-	// bi-directional many-to-one association to Record
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumns({
-			@JoinColumn(name = "owner", referencedColumnName = "owner", nullable = false, insertable = false, updatable = false),
-			@JoinColumn(name = "title", referencedColumnName = "title", nullable = false, insertable = false, updatable = false) })
-	private Record record;
+    // bi-directional many-to-one association to Record
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumns({
+            @JoinColumn(name = "owner", referencedColumnName = "owner", nullable = false, insertable = false, updatable = false),
+            @JoinColumn(name = "title", referencedColumnName = "title", nullable = false, insertable = false, updatable = false) })
+    private Record record;
 
-	@Override
-	public RecordDataPK getId() {
-		return this.id;
-	}
+    @Override
+    public RecordDataPK getId() {
+        return this.id;
+    }
 
-	public void setId(RecordDataPK id) {
-		this.id = id;
-	}
+    public void setId(RecordDataPK id) {
+        this.id = id;
+    }
 
-	public double getLatitude() {
-		return latitude;
-	}
+    public double getLatitude() {
+        return latitude;
+    }
 
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
-	}
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
 
-	public double getLongitude() {
-		return longitude;
-	}
+    public double getLongitude() {
+        return longitude;
+    }
 
-	public void setLongitude(double longitude) {
-		this.longitude = longitude;
-	}
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
 
-	public double getPitch() {
-		return pitch;
-	}
+    public double getPitch() {
+        return pitch;
+    }
 
-	public void setPitch(double pitch) {
-		this.pitch = pitch;
-	}
+    public void setPitch(double pitch) {
+        this.pitch = pitch;
+    }
 
-	public double getYaw() {
-		return yaw;
-	}
+    public double getYaw() {
+        return yaw;
+    }
 
-	public void setYaw(double yaw) {
-		this.yaw = yaw;
-	}
+    public void setYaw(double yaw) {
+        this.yaw = yaw;
+    }
 
-	public double getRoll() {
-		return roll;
-	}
+    public double getRoll() {
+        return roll;
+    }
 
-	public void setRoll(double roll) {
-		this.roll = roll;
-	}
+    public void setRoll(double roll) {
+        this.roll = roll;
+    }
 
-	public double getGvelocity() {
-		return gvelocity;
-	}
+    public double getGvelocity() {
+        return gvelocity;
+    }
 
-	public void setGvelocity(double gvelocity) {
-		this.gvelocity = gvelocity;
-	}
+    public void setGvelocity(double gvelocity) {
+        this.gvelocity = gvelocity;
+    }
 
-	public double getVvelocity() {
-		return vvelocity;
-	}
+    public double getVvelocity() {
+        return vvelocity;
+    }
 
-	public void setVvelocity(double vvelocity) {
-		this.vvelocity = vvelocity;
-	}
+    public void setVvelocity(double vvelocity) {
+        this.vvelocity = vvelocity;
+    }
 
-	public double getFvelocity() {
-		return fvelocity;
-	}
+    public double getFvelocity() {
+        return fvelocity;
+    }
 
-	public void setFvelocity(double fvelocity) {
-		this.fvelocity = fvelocity;
-	}
+    public void setFvelocity(double fvelocity) {
+        this.fvelocity = fvelocity;
+    }
 
-	public double getXaccel() {
-		return xaccel;
-	}
+    public double getXaccel() {
+        return xaccel;
+    }
 
-	public void setXaccel(double xaccel) {
-		this.xaccel = xaccel;
-	}
+    public void setXaccel(double xaccel) {
+        this.xaccel = xaccel;
+    }
 
-	public double getYaccel() {
-		return yaccel;
-	}
+    public double getYaccel() {
+        return yaccel;
+    }
 
-	public void setYaccel(double yaccel) {
-		this.yaccel = yaccel;
-	}
+    public void setYaccel(double yaccel) {
+        this.yaccel = yaccel;
+    }
 
-	public double getZaccel() {
-		return zaccel;
-	}
+    public double getZaccel() {
+        return zaccel;
+    }
 
-	public void setZaccel(double zaccel) {
-		this.zaccel = zaccel;
-	}
+    public void setZaccel(double zaccel) {
+        this.zaccel = zaccel;
+    }
 
-	public double getAoa() {
-		return aoa;
-	}
+    public double getAoa() {
+        return aoa;
+    }
 
-	public void setAoa(double aoa) {
-		this.aoa = aoa;
-	}
+    public void setAoa(double aoa) {
+        this.aoa = aoa;
+    }
 
-	public double getGratio() {
-		return gratio;
-	}
+    public double getGratio() {
+        return gratio;
+    }
 
-	public void setGratio(double gratio) {
-		this.gratio = gratio;
-	}
+    public void setGratio(double gratio) {
+        this.gratio = gratio;
+    }
 
-	public double getTemperature() {
-		return temperature;
-	}
+    public double getTemperature() {
+        return temperature;
+    }
 
-	public void setTemperature(double temperature) {
-		this.temperature = temperature;
-	}
+    public void setTemperature(double temperature) {
+        this.temperature = temperature;
+    }
 
-	public Record getRecord() {
-		return this.record;
-	}
+    public Record getRecord() {
+        return this.record;
+    }
 
-	public void setRecord(Record record) {
-		this.record = record;
-	}
+    public void setRecord(Record record) {
+        this.record = record;
+    }
 
-	@Override
-	public String toString() {
-		return id.toString();
-	}
+    @Override
+    public String toString() {
+        return id.toString();
+    }
 
-	@Override
-	public boolean isNew() {
-		return version == null;
-	}
+    @Override
+    public boolean isNew() {
+        return version == null;
+    }
 
 }
