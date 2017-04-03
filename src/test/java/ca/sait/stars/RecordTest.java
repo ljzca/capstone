@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 import static ca.sait.stars.HttpRequestHelper.*;
 
 /**
- * This is a User CRUD test
+ * This is a Record CRUD test
  * 
  * @author william
  */
@@ -30,12 +30,12 @@ import static ca.sait.stars.HttpRequestHelper.*;
  * features-testing.html#boot-features-testing-spring-applications)
  */
 @SpringBootTest(webEnvironment = WebEnvironment.DEFINED_PORT)
-public class UserTest {
+public class RecordTest {
 
     private MockMvc mockMvc;
 
-    @Autowired
-    private ResourceReader rr;
+//    @Autowired
+//    private ResourceReader rr;
 
     @Autowired
     private WebApplicationContext webApplicationContext;
@@ -54,40 +54,22 @@ public class UserTest {
     }
 
     @Test
-    public void createUser() throws Exception {
-        this.mockMvc.perform(post("/rest/users").headers(getJsonHeader()).content(rr.readFromTest("user_create.json")))
-                .andExpect(status().isCreated());
-
-        this.mockMvc.perform(get("/rest/users/user_create").headers(getBasicAuthHeader("user_create", "password")))
-                .andExpect(status().isOk()).andExpect(jsonPath("$.lastname").value("Li"));
+    public void createRecord() throws Exception {
+        // TODO
     }
 
     @Test
-    public void deleteUser() throws Exception {
-        this.mockMvc.perform(post("/rest/users").headers(getJsonHeader()).content(rr.readFromTest("user_delete.json")))
-                .andExpect(status().isCreated());
-
-        this.mockMvc.perform(get("/rest/users/user_delete").headers(getBasicAuthAdminHeader()))
-                .andExpect(status().isOk());
-
-        this.mockMvc.perform(delete("/rest/users/user_delete").headers(getBasicAuthAdminHeader()))
-                .andExpect(status().isNoContent());
-
-        this.mockMvc.perform(get("/rest/users/user_delete").headers(getBasicAuthAdminHeader()))
-                .andExpect(status().isNotFound());
+    public void deleteRecord() throws Exception {
+        // TODO
     }
 
     @Test
-    public void updateUser() throws Exception {
-        this.mockMvc.perform(patch("/rest/users/admin").content(rr.readFromTest("user_update.json"))
-                .headers(getBasicAuthAdminHeader())).andExpect(status().isNoContent());
-
-        this.mockMvc.perform(get("/rest/users/admin").headers(getBasicAuthAdminHeader()))
-                .andExpect(jsonPath("$.firstname").value("Will"));
+    public void updateRecord() throws Exception {
+        // TODO
     }
 
     @Test
-    public void getAllUsers() throws Exception {
-        this.mockMvc.perform(get("/rest/users").headers(getBasicAuthAdminHeader())).andExpect(status().isOk());
+    public void getAllRecords() throws Exception {
+        this.mockMvc.perform(get("/rest/records").headers(getBasicAuthAdminHeader())).andExpect(status().isOk());
     }
 }

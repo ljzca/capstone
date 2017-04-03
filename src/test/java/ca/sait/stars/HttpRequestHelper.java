@@ -16,27 +16,21 @@ import org.springframework.http.MediaType;
 @Ignore
 public class HttpRequestHelper {
 
-	public static HttpHeaders getBasicAuthAdminHeader() {
-		return new ChainedHttpHeader(getJsonHeader())
-				.add(HttpHeaders.AUTHORIZATION,
-						getBasicAuthValue("admin", "password"))
-				.get();
-	}
+    public static HttpHeaders getBasicAuthAdminHeader() {
+        return getBasicAuthHeader("admin", "password");
+    }
 
-	public static HttpHeaders getBasicAuthUserHeader() {
-		return new ChainedHttpHeader(getJsonHeader())
-				.add(HttpHeaders.AUTHORIZATION,
-						getBasicAuthValue("user", "password"))
-				.get();
-	}
+    public static HttpHeaders getBasicAuthHeader(String username, String password) {
+        return new ChainedHttpHeader(getJsonHeader())
+                .add(HttpHeaders.AUTHORIZATION, getBasicAuthValue(username, password)).get();
+    }
 
-	public static HttpHeaders getJsonHeader() {
-		return new ChainedHttpHeader().add(HttpHeaders.CONTENT_TYPE, new MediaType(MediaType.APPLICATION_JSON.getType(),
-					MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8")).toString())
-				.get();
-	}
+    public static HttpHeaders getJsonHeader() {
+        return new ChainedHttpHeader().add(HttpHeaders.CONTENT_TYPE, new MediaType(MediaType.APPLICATION_JSON.getType(),
+                MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8")).toString()).get();
+    }
 
-	private static String getBasicAuthValue(String username, String password) {
-		return "Basic " + new String(Base64.getEncoder().encode((username + ":" + password).getBytes()));
-	}
+    private static String getBasicAuthValue(String username, String password) {
+        return "Basic " + new String(Base64.getEncoder().encode((username + ":" + password).getBytes()));
+    }
 }
