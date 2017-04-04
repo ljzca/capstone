@@ -93,6 +93,12 @@ public class RecordData implements Persistable<RecordDataPK> {
      */
     @Column(nullable = false)
     private double temperature;
+    
+    /**
+     * degree
+     */
+    @Column(nullable = false)
+    private double heading;
 
     @Version
     @JsonIgnore
@@ -226,7 +232,15 @@ public class RecordData implements Persistable<RecordDataPK> {
         this.temperature = temperature;
     }
 
-    public Record getRecord() {
+    public double getHeading() {
+		return heading;
+	}
+
+	public void setHeading(double heading) {
+		this.heading = heading;
+	}
+
+	public Record getRecord() {
         return this.record;
     }
 
