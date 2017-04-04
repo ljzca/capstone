@@ -17,193 +17,231 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @NamedQuery(name = "RecordData.findAll", query = "SELECT r FROM RecordData r")
 public class RecordData implements Persistable<RecordDataPK> {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2179632862300221506L;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -2179632862300221506L;
 
-	@EmbeddedId
-	private RecordDataPK id;
+    @EmbeddedId
+    private RecordDataPK id;
 
-	@Column(nullable = false)
-	private double cacc;
+    @Column(nullable = false)
+    private double latitude;
 
-	@Column(nullable = false)
-	private double gpsfix;
+    @Column(nullable = false)
+    private double longitude;
 
-	@Column(nullable = false)
-	private double hacc;
+    @Column(nullable = false)
+    private double pitch;
 
-	@Column(nullable = false)
-	private double hmsl;
+    @Column(nullable = false)
+    private double yaw;
 
-	@Column(nullable = false)
-	private double heading;
+    @Column(nullable = false)
+    private double roll;
 
-	@Column(nullable = false)
-	private double lat;
+    /**
+     * ground velocity
+     */
+    @Column(nullable = false)
+    private double gvelocity;
 
-	@Column(nullable = false)
-	private double lon;
+    /**
+     * vertical velocity
+     */
+    @Column(nullable = false)
+    private double vvelocity;
 
-	@Column(nullable = false)
-	private double numsv;
+    /**
+     * flight velocity
+     */
+    @Column(nullable = false)
+    private double fvelocity;
 
-	@Column(nullable = false)
-	private double sacc;
+    /**
+     * x axis accelerate
+     */
+    @Column(nullable = false)
+    private double xaccel;
 
-	@Column(nullable = false)
-	private double vacc;
+    /**
+     * y axis accelerate
+     */
+    @Column(nullable = false)
+    private double yaccel;
 
-	@Column(nullable = false)
-	private double veld;
+    /**
+     * z axis accelerate
+     */
+    @Column(nullable = false)
+    private double zaccel;
 
-	@Column(nullable = false)
-	private double vele;
+    /**
+     * angle of attack
+     */
+    @Column(nullable = false)
+    private double aoa;
 
-	@Column(nullable = false)
-	private double veln;
+    /**
+     * glide ratio
+     */
+    @Column(nullable = false)
+    private double gratio;
 
-	@Version
-	@JsonIgnore
-	private Long version;
+    /**
+     * Celsius
+     */
+    @Column(nullable = false)
+    private double temperature;
 
-	// bi-directional many-to-one association to Record
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumns({
-			@JoinColumn(name = "owner", referencedColumnName = "owner", nullable = false, insertable = false, updatable = false),
-			@JoinColumn(name = "title", referencedColumnName = "title", nullable = false, insertable = false, updatable = false) })
-	private Record record;
+    @Version
+    @JsonIgnore
+    private Long version;
 
-	@Override
-	public RecordDataPK getId() {
-		return this.id;
-	}
+    // bi-directional many-to-one association to Record
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumns({
+            @JoinColumn(name = "owner", referencedColumnName = "owner", nullable = false, insertable = false, updatable = false),
+            @JoinColumn(name = "title", referencedColumnName = "title", nullable = false, insertable = false, updatable = false) })
+    private Record record;
 
-	public void setId(RecordDataPK id) {
-		this.id = id;
-	}
+    @Override
+    public RecordDataPK getId() {
+        return this.id;
+    }
 
-	public double getCacc() {
-		return cacc;
-	}
+    public void setId(RecordDataPK id) {
+        this.id = id;
+    }
 
-	public void setCacc(double cacc) {
-		this.cacc = cacc;
-	}
+    public double getLatitude() {
+        return latitude;
+    }
 
-	public double getGpsfix() {
-		return gpsfix;
-	}
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
 
-	public void setGpsfix(double gpsfix) {
-		this.gpsfix = gpsfix;
-	}
+    public double getLongitude() {
+        return longitude;
+    }
 
-	public double getHacc() {
-		return hacc;
-	}
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
 
-	public void setHacc(double hacc) {
-		this.hacc = hacc;
-	}
+    public double getPitch() {
+        return pitch;
+    }
 
-	public double getHmsl() {
-		return hmsl;
-	}
+    public void setPitch(double pitch) {
+        this.pitch = pitch;
+    }
 
-	public void setHmsl(double hmsl) {
-		this.hmsl = hmsl;
-	}
+    public double getYaw() {
+        return yaw;
+    }
 
-	public double getHeading() {
-		return heading;
-	}
+    public void setYaw(double yaw) {
+        this.yaw = yaw;
+    }
 
-	public void setHeading(double heading) {
-		this.heading = heading;
-	}
+    public double getRoll() {
+        return roll;
+    }
 
-	public double getLat() {
-		return lat;
-	}
+    public void setRoll(double roll) {
+        this.roll = roll;
+    }
 
-	public void setLat(double lat) {
-		this.lat = lat;
-	}
+    public double getGvelocity() {
+        return gvelocity;
+    }
 
-	public double getLon() {
-		return lon;
-	}
+    public void setGvelocity(double gvelocity) {
+        this.gvelocity = gvelocity;
+    }
 
-	public void setLon(double lon) {
-		this.lon = lon;
-	}
+    public double getVvelocity() {
+        return vvelocity;
+    }
 
-	public double getNumsv() {
-		return numsv;
-	}
+    public void setVvelocity(double vvelocity) {
+        this.vvelocity = vvelocity;
+    }
 
-	public void setNumsv(double numsv) {
-		this.numsv = numsv;
-	}
+    public double getFvelocity() {
+        return fvelocity;
+    }
 
-	public double getSacc() {
-		return sacc;
-	}
+    public void setFvelocity(double fvelocity) {
+        this.fvelocity = fvelocity;
+    }
 
-	public void setSacc(double sacc) {
-		this.sacc = sacc;
-	}
+    public double getXaccel() {
+        return xaccel;
+    }
 
-	public double getVacc() {
-		return vacc;
-	}
+    public void setXaccel(double xaccel) {
+        this.xaccel = xaccel;
+    }
 
-	public void setVacc(double vacc) {
-		this.vacc = vacc;
-	}
+    public double getYaccel() {
+        return yaccel;
+    }
 
-	public double getVeld() {
-		return veld;
-	}
+    public void setYaccel(double yaccel) {
+        this.yaccel = yaccel;
+    }
 
-	public void setVeld(double veld) {
-		this.veld = veld;
-	}
+    public double getZaccel() {
+        return zaccel;
+    }
 
-	public double getVele() {
-		return vele;
-	}
+    public void setZaccel(double zaccel) {
+        this.zaccel = zaccel;
+    }
 
-	public void setVele(double vele) {
-		this.vele = vele;
-	}
+    public double getAoa() {
+        return aoa;
+    }
 
-	public double getVeln() {
-		return veln;
-	}
+    public void setAoa(double aoa) {
+        this.aoa = aoa;
+    }
 
-	public void setVeln(double veln) {
-		this.veln = veln;
-	}
+    public double getGratio() {
+        return gratio;
+    }
 
-	public Record getRecord() {
-		return this.record;
-	}
+    public void setGratio(double gratio) {
+        this.gratio = gratio;
+    }
 
-	public void setRecord(Record record) {
-		this.record = record;
-	}
+    public double getTemperature() {
+        return temperature;
+    }
 
-	@Override
-	public String toString() {
-		return id.toString();
-	}
+    public void setTemperature(double temperature) {
+        this.temperature = temperature;
+    }
 
-	@Override
-	public boolean isNew() {
-		return version == null;
-	}
+    public Record getRecord() {
+        return this.record;
+    }
+
+    public void setRecord(Record record) {
+        this.record = record;
+    }
+
+    @Override
+    public String toString() {
+        return id.toString();
+    }
+
+    @Override
+    public boolean isNew() {
+        return version == null;
+    }
 
 }

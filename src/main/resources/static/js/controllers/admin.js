@@ -3,48 +3,34 @@ angular.module('stars')
 .controller("adminCtrl",["$scope","$cookieStore","$location","sendRequest", function($scope, $cookieStore, $location, sendRequest){
 	
 	$scope.isCreation = true;
-	
 	$scope.username = "";
 	$scope.password = "";
 	$scope.firstname = "";
 	$scope.lastname = "";
 	$scope.email = "";
-	$scope.phonenumber = "";
 	
 	$scope.gender =  {
 		code: 'U',
 		genders: [
 			{id: 'M', name: 'Male'},
-			{id: 'F', name: 'Female'},
-			{id: 'U', name: 'Unknown'},
-			{id: 'N', name: 'Neutral'}
+			{id: 'F', name: 'Female'}
 		]
 	};
-	
 	
     var getUsers = function(){
         sendRequest.send(
 			'GET',
-			'http://localhost:8080/noteKeepr-web/rest/user',
-			'application/json',
-			$cookieStore.get("username"),
-			$cookieStore.get("password"),
-			null,
+			'users',
 			function (result) {
 				console.log(result.data);
-				result.data.forEach(function(user){
-					user.isAdmin = false;
-					user.roles.forEach(function(role){
-						if(role.rolename === "admin"){
-							user.isAdmin = true;
-						}
-					});
-				});
-				$scope.users = result.data;
+				$scope.users = result.data._embedded.users;
             },
 			function (error) {
                 $scope.notice = "You don't have admin privilege to see other uses";
-            }
+            },
+            null,
+			$cookieStore.get("username"),
+			$cookieStore.get("password")
 		)};
 	
 	getUsers();
@@ -52,28 +38,23 @@ angular.module('stars')
 	$scope.promoteUser = function(username){
         sendRequest.send(
 			'PUT',
-			'http://localhost:8080/noteKeepr-web/rest/user/'+username+'/promote',
-			'application/json',
-			$cookieStore.get("username"),
-			$cookieStore.get("password"),
-			null,
+			'users/'+username,
 			function (result) {
 				getUsers();
 				$scope.notice = "You successfully promoted "+username;
             },
 			function (error) {
                 $scope.notice = "You don't have admin privilege to promote a user";
-            }
-		)};
+            },
+			null,
+			$cookieStore.get("username"),
+			$cookieStore.get("password")
+        )};
 	
 	$scope.demoteUser = function(username){
         sendRequest.send(
 			'PUT',
-			'http://localhost:8080/noteKeepr-web/rest/user/'+username+'/demote',
-			'application/json',
-			$cookieStore.get("username"),
-			$cookieStore.get("password"),
-			null,
+			'users/'+username,
 			function (result) {
 				getUsers();
 				$scope.notice = "You successfully demoted "+username;
@@ -84,7 +65,10 @@ angular.module('stars')
 				}else{
 					$scope.notice = "You don't have admin privilege to demote a user";
 				}
-            }
+            },
+			null,
+			$cookieStore.get("username"),
+			$cookieStore.get("password")
 		)};
 	
 	$scope.editUser = function(username){
@@ -98,7 +82,6 @@ angular.module('stars')
 				$scope.firstname = user.firstname;
 				$scope.lastname = user.lastname;
 				$scope.email = user.email;
-				$scope.phonenumber = user.phonenumber;
 				$scope.gender.code = user.gender;
 			}
 		});
@@ -108,19 +91,7 @@ angular.module('stars')
 		
         sendRequest.send(
 			'PUT',
-			'http://localhost:8080/noteKeepr-web/rest/user/'+$scope.username,
-			'application/json',
-			$cookieStore.get("username"),
-			$cookieStore.get("password"),
-			{
-				username: $scope.username,
-				password: $scope.password,
-				firstname: $scope.firstname,
-				lastname: $scope.lastname,
-				email: $scope.email,
-				phonenumber: $scope.phonenumber,
-				gender: $scope.gender.code
-			},
+			'users/'+$scope.username,
 			function (result) {
 				$scope.isCreation = true;
 				if($scope.username===$cookieStore.get("username") && $scope.password)
@@ -133,7 +104,7 @@ angular.module('stars')
 				$scope.lastname = "";
 				$scope.email = "";
 				$scope.phonenumber = "";
-				$scope.gender.code = 'U';
+				$scope.gender.code = 'M';
 				$scope.notice = username + " has been successfully updated";
 				$scope.errMsg = null;
             },
@@ -144,17 +115,24 @@ angular.module('stars')
 				}else{
 					$scope.notice = "You may have just lost admin privilege to edit the user";
 				}
-            }
+            },
+			{
+				username: $scope.username,
+				password: $scope.password,
+				firstname: $scope.firstname,
+				lastname: $scope.lastname,
+				email: $scope.email,
+				phonenumber: $scope.phonenumber,
+				gender: $scope.gender.code
+			},
+			$cookieStore.get("username"),
+			$cookieStore.get("password")
 		)};
 	
 	$scope.deleteUser = function(username){
         sendRequest.send(
 			'DELETE',
-			'http://localhost:8080/noteKeepr-web/rest/user/'+username,
-			'application/json',
-			$cookieStore.get("username"),
-			$cookieStore.get("password"),
-			null,
+			'users/'+username,
 			function (result) {
 				getUsers();
 				$scope.notice = "You successfully deleted "+username;
@@ -165,26 +143,17 @@ angular.module('stars')
 				}else{
 					$scope.notice = "You may have just lost admin privilege to deleted the user";
 				}
-            }
+            },
+            null,
+			$cookieStore.get("username"),
+			$cookieStore.get("password")
 		)};
 	
 	$scope.createUser = function(){
 
 		sendRequest.send(
 			'POST',
-			'http://localhost:8080/noteKeepr-web/rest/user',
-			'application/json',
-			$cookieStore.get("username"),
-			$cookieStore.get("password"),
-			{
-				username: $scope.username,
-				password: $scope.password,
-				firstname: $scope.firstname,
-				lastname: $scope.lastname,
-				email: $scope.email,
-				phonenumber: $scope.phonenumber,
-				gender: $scope.gender.code
-			},
+			'users',
 			function (result) {
 				getUsers();
 				
@@ -207,7 +176,18 @@ angular.module('stars')
 				}else{
 					$scope.notice = "You may have just lost admin privilege to create a user";
 				}
-            }
+            },
+			{
+				username: $scope.username,
+				password: $scope.password,
+				firstname: $scope.firstname,
+				lastname: $scope.lastname,
+				email: $scope.email,
+				phonenumber: $scope.phonenumber,
+				gender: $scope.gender.code
+			},
+			$cookieStore.get("username"),
+			$cookieStore.get("password")
 		)};
 	
 }]);

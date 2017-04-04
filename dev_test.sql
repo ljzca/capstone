@@ -58,5 +58,78 @@ insert into stars_record_data(owner, time, title, c_acc, gps_fix, h_acc, h_m_s_l
 insert into stars_record_data(owner, time, title, c_acc, gps_fix, h_acc, h_m_s_l, heading, lat, lon, num_s_v, s_acc, v_acc, vel_d, vel_e, vel_n) values ('will',STR_TO_DATE('2016-09-10 17:35:33.80','%Y-%m-%d %H:%i:%s.%f'),'TEST2',52.0812735,-114.0160906,921.162,-0.09,-0.05,-0.09,2.610,2.729,0.29,0.00000,114.84650,3,6);
 insert into stars_record_data(owner, time, title, c_acc, gps_fix, h_acc, h_m_s_l, heading, lat, lon, num_s_v, s_acc, v_acc, vel_d, vel_e, vel_n) values ('will',STR_TO_DATE('2016-09-10 17:35:34.00','%Y-%m-%d %H:%i:%s.%f'),'TEST2',52.0812733,-114.0160910,921.094,0.12,0.01,0.02,2.533,2.682,0.26,0.00000,114.84652,3,6);
 
+INSERT INTO `stars_brand`
+(`name`,
+`description`,
+`version`)
+VALUES
+('Squirrel','Test',0),
+('Phoenix Fly','Test',0),
+('Tony Suit','Test',0),
+('S-Fly','Test',0);
 
+INSERT INTO `stars_model`
+(`name`,
+`type`,
+`description`,
+`version`)
+VALUES
+('Squirrel',
+'Jackson5',
+'Test',
+0),
+('Phoenix Fly',
+'Phoenix Fly Test Model',
+'test',
+0),
+('Tony Suit',
+'Tony Suit Test Model',
+'test',
+0),
+('S-Fly',
+'S-Fly Test Model',
+'Test',
+0);
+
+INSERT INTO `stars_model`
+(`name`,
+`type`,
+`description`,
+`version`)
+VALUES
+('Squirrel',
+'Modular6',
+'Test',
+0);
+
+
+INSERT INTO `stars_gear`
+(`id`,
+`name`,
+`owner`,
+`type`,
+`description`,
+`version`)
+VALUES
+(1,
+'Squirrel',
+'admin',
+'Jackson5',
+'Test',
+0);
+
+INSERT INTO `stars_gear`
+(`id`,
+`name`,
+`owner`,
+`type`,
+`description`,
+`version`)
+VALUES
+(2,
+'Squirrel',
+'admin',
+'Modular6',
+'Test',
+0);
 

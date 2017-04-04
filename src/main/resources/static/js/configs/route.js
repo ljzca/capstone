@@ -1,17 +1,17 @@
 angular.module('stars')
-	
-.config(function ($routeProvider) {
-    $routeProvider
+
+    .config(function ($routeProvider) {
+        $routeProvider
             .when("/", {
                 templateUrl: "view/login.html",
                 controller: "loginCtrl"
             })
-	
-	        .when("/bin", {
-                templateUrl: "view/bin.html",
-                controller: "binCtrl"
+
+            .when("/gear", {
+                templateUrl: "view/gear.html",
+                controller: "gearCtrl"
             })
-	
+
             .when("/records", {
                 templateUrl: "view/records.html",
                 controller: "records"
@@ -21,37 +21,37 @@ angular.module('stars')
                 templateUrl: "view/admin.html",
                 controller: "adminCtrl"
             })
-		
-			.when("/profile", {
+
+            .when("/profile", {
                 templateUrl: "view/profile.html",
                 controller: "profCtrl"
             })
-			
-			.when("/signup", {
+
+            .when("/signup", {
                 templateUrl: "view/signup.html",
                 controller: "signupCtrl"
             })
-	
-			.when("/signedup", {
+
+            .when("/signedup", {
                 templateUrl: "view/signedup.html"
             })
-	
-			.when('/password/:token', {
-				templateUrl: 'view/password.html',
-				controller: 'passwordCtrl'
-			})
-	
-			.when('/forgot', {
-				templateUrl: 'view/forgot.html',
-				controller: 'forgotCtrl'
-			})
-			
-			.when('/upload', {
-				templateUrl: 'view/uploadfile.html',
-				controller: 'upload'
-			})
-	
+
+            .when('/password/:token', {
+                templateUrl: 'view/password.html',
+                controller: 'passwordCtrl'
+            })
+
+            .when('/forgot', {
+                templateUrl: 'view/forgot.html',
+                controller: 'forgotCtrl'
+            })
+
+            .when('/upload', {
+                templateUrl: 'view/uploadfile.html',
+                controller: 'upload'
+            })
+
             .otherwise({
                 templateUrl: "view/404.html"
             })
-});
+    });

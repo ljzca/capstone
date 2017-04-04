@@ -1,0 +1,44 @@
+<h1>Gear</h1>
+
+<div ng-controller="gearCtrl">
+
+	<table id="gearTable" class="table table-hover"></table>
+	<thead>
+		<tr>
+			<th>Company</th>
+			<th>Model</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		<!-- <div ng-repeat="gear in gearList" class="gear-list"> -->
+		<tr>
+			<!--<td>
+				<div class="form-group">
+					<select style="width:300px" id="sm" ng-model="selectedBrand" ng-change="getModels(selectedBrand)" class="form-control">
+						<option ng-repeat="brand in brands" value={{brand.id}}>{{brand.id}}</option>
+					</select>
+				</div>
+			</td> -->
+			<td>
+				<div class="form-group">
+					<select style="width:300px" ng-model="selectedBrand" ng-change="getModels()" ng-options="brand.id for brand in brands" class="form-control">
+					</select>
+				</div>
+			</td>
+			<td>
+				<div class="form-group">
+					<select style="width:300px" id="sm" ng-model="selectedModel" ng-options="model for model in models" class="form-control">
+					</select>
+				</div>
+			</td>
+			<td>
+				<div class="form-group">
+					<input style="width:300px" id="gr" placeholder="Gear Description" class="form-control">
+				</div>
+			</td>
+		</tr>
+		<!-- </div> -->
+	</tbody>
+
+</div>
