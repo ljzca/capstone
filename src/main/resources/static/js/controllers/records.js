@@ -1,7 +1,44 @@
+/**
+ * 
+ * This JavaScript file controls the record.html page
+ * @author Matthew Rose
+ * 
+ */
+
+//Predefine the function
+var setHeading;
+var createFilter;
+var alertNum;
+var createXY;
+var clickIndex;
+var myBarChart;
+var setIndex;
+var ctx;
+var chartDraw = function(){};
+var extendCTX;
+var globalIndex;
+
+var trashLines;
+
+//Determines whether or not lock the data coming from the graph
+var dataLock = 0;
+	
 angular.module('stars')
 
-.controller("records",["$scope","$cookieStore","$location","sendRequest", function($scope, $cookieStore, $location, sendRequest)
+.controller("records",["$scope","$cookieStore","$location","sendRequest", "$timeout", function($scope, $cookieStore, $location, sendRequest, $timeout)
 {
+	
+	var freezeData = function()
+	{
+		if($scope.recordName === undefined)
+		{
+			globalIndex = undefined;
+			chartDraw(undefined);
+		}
+	};
+	
+	freezeData();
+	
 	//The co-ordinates of the current record
 	$scope.coordinates;
 	
@@ -77,6 +114,9 @@ angular.module('stars')
     	//Create the encoded record name in order to query the database
 		var recordEncodedName = encodeURIComponent(recordName);
 		
+		globalIndex = undefined;
+		$scope.storedAltitude = null;
+		
 		//The max Latitude and Longitude values
 		var maxLat,	minLat, maxLon, minLon;
 		
@@ -91,9 +131,10 @@ angular.module('stars')
 				//Holds the coordinates for the current record
 				var coordinates = [];
 				
+				trashLines = 1;
 				
 				//---------------------------------------------------------
-				//-------------- Create the altitude graph ----------------
+				//-------------- Create the graph ----------------
 				//---------------------------------------------------------
 				
 				
@@ -105,63 +146,146 @@ angular.module('stars')
 		    	
 		    	var dateString = date.toString();
 		    	
+		    	var dateMili = date.getTime();
+		    	
 		    	dateString = date.toString();
 		    	
-		    	//Set the recordDate as a toStrinf of "date" up to the point where it says GMT
+		    	//Set the recordDate as a toString of "date" up to the point where it says GMT
 		    	$scope.recordDate = dateString.substring(0, dateString.indexOf("GMT"));
 				
-				//Holds the x-axis
-				var time = [];
-				
-				//Holds the y-axis
-				var hmsl = [];
-				
-				//Push the x and y data points for each recordData
-				for(var i = 0; i < $scope.records._embedded.recordDatas.length; i++)
-				{
-					date = new Date(parseInt($scope.records._embedded.recordDatas[i]._links.recordData.href.substring
-							(
-									$scope.records._embedded.recordDatas[i]._links.recordData.href.lastIndexOf("&") +1
-							)));
+		    	/**
+		    	 * 
+		    	 * Create the X Y axis for the graph
+		    	 * 
+		    	 */
+		    	createXY = function()
+		    	{
+					//Holds the x-axis
+					var xAxis = [];
 					
-					dateString = date.toJSON();
-
-					time.push
-					(
-							dateString.substring(dateString.indexOf("T")+1, dateString.indexOf("T") + 12)
-					);
+					//Holds the y-axis
+					var yAxis = [];
 					
-//					time.push(i);
-					hmsl.push($scope.records._embedded.recordDatas[i].hmsl);
-				}
-				
-				//Set the name of the record to display to the user
-		    	$scope.recordName = recordName;
+					
+					
+					//Push the x and y data points for each recordData
+					for(var i = 0; i < $scope.records._embedded.recordDatas.length; i++)
+					{
+						date = new Date(parseInt($scope.records._embedded.recordDatas[i]._links.recordData.href.substring
+								(
+										$scope.records._embedded.recordDatas[i]._links.recordData.href.lastIndexOf("&") +1
+								)));
+						
+						//Set dateString to be a time from 0
+						dateString = date.getTime() - dateMili;
+						
+						//Create a date from the dateString
+						var newDate = new Date(dateString);
+						
+						//Convert dateString to a JSON date from newDate
+						dateString = newDate.toJSON();
+						
+						//Push the xAxis data to the array 
+						var xAxisData;
+						
+//						var baseDistance = 
+//						
+//						switch($scope.filterSetting)
+//						{
+//							case "1": 
+//								xAxisData = newDate.toJSON().substring(dateString.indexOf("T")+1, dateString.indexOf("T") + 12);
+//								break;
+//							case "2":
+//								var R = 6371e3; // metres
+//								var latRad1 = lat1.toRadians();
+//								var latRad2 = lat2.toRadians();
+//								var latDis = (lat2-lat1).toRadians();
+//								var lonDis = (lon2-lon1).toRadians();
+//
+//								var a = Math.sin(latDis/2) * Math.sin(latDis/2) +
+//								        Math.cos(latRad1) * Math.cos(latRad2) *
+//								        Math.sin(lonDis/2) * Math.sin(lonDis/2);
+//								var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+//
+//								var d = R * c;
+//								
+//								
+//								
+//								xAxisData = $scope.records._embedded.recordDatas[i].lat;
+//								break;
+//							default:
+//								yAxisData = newDate.toJSON().substring(dateString.indexOf("T")+1, dateString.indexOf("T") + 12);
+//								break;
+//						}
+						
+						
+						xAxis.push
+						(
+								newDate.toJSON().substring(dateString.indexOf("T")+1, dateString.indexOf("T") + 12)
+						);
+						
+						//Push the yAxis to the array
+						var yAxisData;
+						switch($scope.filterSetting)
+						{
+							case "1": 
+								yAxisData = $scope.records._embedded.recordDatas[i].hmsl;
+								break;
+							case "2": 
+								yAxisData = $scope.records._embedded.recordDatas[i].lat;
+								break;
+							case "3": 
+								yAxisData = $scope.records._embedded.recordDatas[i].lon;
+								break;
+							default:
+								yAxisData = $scope.records._embedded.recordDatas[i].hmsl;
+								break;
+						}
+						
+						yAxis.push(yAxisData);
+					}
+					// ----------------------------------------------------------------------------------------------
+					if($scope.recordName === undefined)
+						{
+							dataLock = 0;
+							freezeData();
+							chartDraw(undefined);
+						}
+					//Set the name of the record to display to the user
+			    	$scope.recordName = recordName;
+			    	
+			    	//Set the description of the record to display to the user
+			    	sendRequest.send(
+			    				'GET',
+			    				'records/'+ $cookieStore.get('username') + '&' + recordEncodedName,
+			    				function (result) 
+			    				{
+			    					$scope.description = result.data.description;
+			    				},
+			    				function (error) 
+			        			{
+			                    	console.log("It Failed");
+			                        $scope.errMsg = "You haven't logged in";
+			                    },
+			                    null,
+			                	$cookieStore.get('username'),
+			            		$cookieStore.get('password')
+			        		);
+			    				
+			    	
+			    	//Create the graph using the x and y axis
+					createGraph(xAxis, yAxis);
 		    	
-		    	//Set the description of the record to display to the user
-		    	console.log($scope.records);
-		    	sendRequest.send(
-		    				'GET',
-		    				'records/'+ $cookieStore.get('username') + '&' + recordEncodedName,
-		    				function (result) 
-		    				{
-		    					$scope.description = result.data.description;
-		    				},
-		    				function (error) 
-		        			{
-		                    	console.log("It Failed");
-		                        $scope.errMsg = "You haven't logged in";
-		                    },
-		                    null,
-		                	$cookieStore.get('username'),
-		            		$cookieStore.get('password')
-		        		);
-		    				
+					if(trashLines === 1)
+					{
+						chartDraw(globalIndex);
+						dataLock = 0;
+						freezeData();
+					}
+		    	}
+				
+		    	createXY();
 		    	
-		    	//Create the graph using time and hmsl
-				createGraph(time, hmsl);
-				
-				
 				//---------------------------------------------------------
 				//------------------- Create the map ----------------------
 				//---------------------------------------------------------
@@ -222,10 +346,15 @@ angular.module('stars')
             null,
         	$cookieStore.get('username'),
     		$cookieStore.get('password')
-		)};
+		)
+    };
 		
 		
-		//Creates the graph to display data
+		/**
+		 * 
+		 * Creates the graph to display data
+		 * 
+		 */
 		var createGraph = function(labels, data)
 		{
 			//Holds the HTML element of <canvas>
@@ -237,10 +366,17 @@ angular.module('stars')
 			//If the chart has been rendered before, remove the chart
 			if($scope.renderChart == 1)
 			{
-				var removeCanvas = document.getElementById("myChart");
+				var removeCanvas = document.getElementById("myChart"); 
+				chartDraw(undefined);
+
 				divTag.removeChild(removeCanvas);
 			}
-		
+			else
+			{
+				createFilter();
+				$scope.filterSetting = 1;
+			}
+			
 			//Create a <canvas> element
 			canvas = document.createElement("canvas");
 			
@@ -252,59 +388,251 @@ angular.module('stars')
 			
 			//Set renderChart to 1 to indicate a chart has been created
 			$scope.renderChart = 1;
+						
+			//Set  the onClick function for the graph
+			canvas.onclick = function(evt)
+			{
+				freezeData = function()
+				{
+					if(dataLock === 0)
+					{
+						globalIndex = $scope.index;
+						
+						if($scope.storedAltitude !== undefined)
+						{
+							$scope.$apply(function()
+							{
+								$scope.storedAltitude = "Stored Altitude: " + $scope.records._embedded.recordDatas[$scope.index].hmsl;
+							});
+							
+							dataLock = 1;
+						}
+					}
+					else
+					{
+						globalIndex = undefined;
+						$scope.$apply(function()
+						{
+							$scope.storedAltitude = null;
+						})
+						
+						dataLock = 0;
+						
+					}
+				}
+				freezeData();
+					
+			};
 		
 			//Sets the data that the graph will be showing, as well as how it will appear
+			var yLabel;
+			
+			switch($scope.filterSetting)
+			{
+				case "1":
+					yLabel = "Altitude";
+					break;
+				case "2":
+					yLabel = "Latitude";
+					break;
+				case "3":
+					yLabel = "Longitude";
+					break;
+				default:
+					yLabel = "Altitude";
+					break;
+			}
+			
 			var data = {
 			    labels: labels,
 			    datasets: [
 			        {
-			            label: "Altitude",
+			            label: yLabel,
 			            fill: true,
 			            lineTension: 0.1,
-			            backgroundColor: "rgba(75,192,192,0.4)",
-			            borderColor: "rgba(75,192,192,1)",
+			            backgroundColor: "rgba(251,151,28,0.41)",
+			            borderColor: "rgba(0,0,0,1)",
 			            borderCapStyle: 'butt',
 			            borderDash: [],
 			            borderDashOffset: 0.0,
 			            borderJoinStyle: 'miter',
-			            pointBorderColor: "rgba(75,192,192,1)",
-			            pointBackgroundColor: "#fff",
+			            pointBorderColor: "rgba(60,60,60,1)",
+			            pointBackgroundColor:  "rgba(251,151,28,0.41)",
 			            pointBorderWidth: 1,
 			            pointHoverRadius: 5,
-			            pointHoverBackgroundColor: "rgba(75,192,192,1)",
-			            pointHoverBorderColor: "rgba(220,220,220,1)",
+			            pointHoverBackgroundColor: "rgba(251,151,28,0.41)",
+			            pointHoverBorderColor: "rgba(0,0,0,1)",
 			            pointHoverBorderWidth: 2,
 			            pointRadius: 1,
 			            pointHitRadius: 10,
 			            data: data,
 			            spanGaps: false,
 			        }
-			    ]
+			    ],
+			    lineAtIndex: 2
 			};
-
-			//Create the chart and add the data variable, as well add more additional options
-			var myBarChart = Chart.Line(canvas,{data:data, options: 
-				{
-					responsive: true, 
-					maintainAspectRatio: false,
-					
-					//Scales the x-axis labels
-					scales: 
+			
+			//Configure all of the graphs options
+			var config = 
+			{
+					type:'line',
+					data:data, options: 
 					{
-			            xAxes: [{
-			                afterTickToLabelConversion: function(data){
-			                    var xLabels = data.ticks;
-		
-			                    xLabels.forEach(function (labels, i) {
-			                        if (i % 2 == 1){
-			                            xLabels[i] = '';
-			                        }
-			                    });
-			                } 
-			            }]   
-		        }}});
+						responsive: true, 
+						maintainAspectRatio: false,
+						
+						tooltips: {
+						      mode: 'index',
+						      intersect: false
+						    },
+						
+						//Scales the x-axis labels
+						scales: 
+						{
+				            xAxes: 
+				            [{
+				                afterTickToLabelConversion: function(data)
+				                {
+				                    var xLabels = data.ticks;
+			
+				                    xLabels.forEach(function (labels, i) 
+				                    	{
+				                        	if (i % 2 == 1){
+				                        		xLabels[i] = '';
+				                        }
+				                    });
+				                } 
+				            }]   
+						}
+					}
+			}
+
+			
+			var originalLineDraw = Chart.controllers.line.prototype.draw;
+			
+			chartDraw = function(lineIndex)
+			{
+			  Chart.helpers.extend(Chart.controllers.line.prototype, {
+			    draw: function() {
+			      originalLineDraw.apply(this, arguments);
+
+			      var chart = this.chart;
+			      extendCTX = chart.chart.ctx;
+
+			      var index = chart.config.data.lineAtIndex;
+			      if (index) 
+			      {
+			        var xaxis = chart.scales['x-axis-0'];
+			        var yaxis = chart.scales['y-axis-0'];
+			        extendCTX.save();
+			        extendCTX.beginPath();
+			        extendCTX.moveTo(xaxis.getPixelForValue(undefined, lineIndex), yaxis.top);
+			        extendCTX.strokeStyle = '#ff0000';
+			        extendCTX.lineTo(xaxis.getPixelForValue(undefined, lineIndex), yaxis.bottom);
+			        extendCTX.stroke();
+			        extendCTX.restore();
+			      }
+			    }
+			  }); 
+			}
+			
+			//Create the chart with the config options
+			canvas = document.getElementById("myChart").getContext("2d");
+			myBarChart = new Chart(canvas, config);
 		};
 		
 		//Gets the record list to be displayed upon the page loading
 		getRecordList();
+		
+		
+		setIndex = function(index)
+		{
+			$scope.index = index;
+		}
+		
+		
+		setHeading= function()
+		{	
+			$scope.$apply(function()
+			{
+				$scope.indexData = $scope.records._embedded.recordDatas[$scope.index]
+				if($scope.indexData === undefined)
+					$scope.heading = 0;
+				else
+					$scope.heading = $scope.indexData.hmsl;
+				chartDraw($scope.index);
+			});
+		}
+		
+		/**
+		 * 
+		 * Creates the filter for the view record page
+		 * 
+		 */
+		createFilter= function()
+		{
+			 var form = document.createElement("FORM");
+			    var row = document.createElement("input");
+			    var textnode = document.createTextNode("Altitude");
+
+			    var row2 = document.createElement("input");
+			    var textnode2 = document.createTextNode("Latitude");
+
+			    var row3 = document.createElement("input");
+			    var textnode3 = document.createTextNode("Longitude");
+
+			    form.appendChild(row);
+			    form.appendChild(textnode);
+			    
+			    form.appendChild(row2);
+			    form.appendChild(textnode2);
+			    
+			    form.appendChild(row3);
+			    form.appendChild(textnode3);
+			    
+			    document.getElementById("form").appendChild(form);
+			    
+			    for(var i = 0; i < 3; i++)
+			    {
+			    	 document.getElementsByTagName("input")[i].setAttribute("type", "radio");
+			    	 document.getElementsByTagName("input")[i].setAttribute("value", "" + (i+1));
+			    	 document.getElementsByTagName("input")[i].setAttribute("name", "formTest");
+			    	 document.getElementsByTagName("input")[i].setAttribute("onClick", "alertNum();");
+			    }
+			    
+			    if($scope.filterSetting === "1" || $scope.filterSetting == null)
+			    {
+			    	$scope.filterSetting = "1";
+			    	
+			    	document.getElementsByTagName("input")[0].setAttribute("checked", "checked");
+			    }
+		}
+		
+		
+		alertNum = function()
+		{
+			var testVar;
+		    var radios = document.getElementsByName("formTest");
+		    for (var i = 0; i < radios.length; i++) {
+		        if (radios[i].checked) {
+		            testVar = (radios[i].value);
+		            break;
+		        }
+		    }
+		    $scope.filterSetting = testVar;
+
+			createXY();
+		}
+
 }]);
+
+
+//This function can be called by the Chart.js file
+var getValueAtIndexOrDefault = function(value)
+{	
+	if(dataLock === 0)
+	{
+		setHeading();
+		setIndex(value._index);
+	}
+}

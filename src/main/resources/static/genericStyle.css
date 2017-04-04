@@ -49,9 +49,9 @@ html, body {
 .record-display
 {
 	position: absolute;
-	height: 132px;
+	height: 140px;
 	left: 210px;
-	top: 50px;
+	top: 55px;
 	width: 100%;
 	word-wrap: break-word;
 }
@@ -60,5 +60,21 @@ html, body {
 {
     height: 500px;
     width: 80%;
+}
+
+#recordList:hover
+{
+    text-decoration: underline;
+    color: blue;
+}
+
+#column
+{
+	position: absolute;
+	height: 70px;
+	left: 25;
+	top: 50px;
+	width: 200px;
+	word-wrap: break-word;
 }
 

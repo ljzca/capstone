@@ -1,19 +1,36 @@
-<div>	
-	<div ng-repeat="record in recordListArray" class="record-list">
-		<p ng-click="getRecords(record);">{{record}}<p>
+<div>
+	<div id="column">
+		<h2>Records</h2>	
+		<div ng-repeat="record in recordListArray" class="record-list">
+			<p ng-click="getRecords(record);" id="recordList">{{record}}<p>
+		</div>
 	</div>
+	
 		<div class="record-display">
-			<h2>View Records</h2>
+			
 			<h3>{{recordName}}</h3>
 			<h4>{{recordDate}}</h4>
 			<p>{{description}}</p>
+			<h5>{{heading}}</h5>
+			<h5>{{storedAltitude}}</h5>
+			
+			<div id="form"></div>
+
+			<!-- <form name="myForm">
+			<table>
+					<tr>
+						<td>
+							<input type="radio" name="myRadios"  value="1" />
+						</td>
+						<td>
+							<input type="radio" name="myRadios"  value="2" />
+						</td>
+					</tr>
+				</table>
+			</form>	 -->
+			
 			<div id="chart"></div>
-			
+
 			<div id="map"></div>
-			
-			<script async defer
-		    	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpDZEECQbfdpdWxTmyhOp6WNbC_9ZGjGo">
-		    </script>
 		</div>	
-	</div>
 </div>
