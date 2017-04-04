@@ -167,16 +167,16 @@ angular.module('stars')
         }, 10000);
     };
     
-    $scope.testFunction = function()
-    {
-    	 $cookieStore.put("username", "matt");
-    	 $cookieStore.put("password", "password");
-    }
-    
-    $scope.testFunction2 = function()
-    {
-    	 $cookieStore.put("username", "steve");
-    	 $cookieStore.put("password", "password");
-    }
+//    $scope.testFunction = function()
+//    {
+//    	 $cookieStore.put("username", "matt");
+//    	 $cookieStore.put("password", "password");
+//    }
+//    
+//    $scope.testFunction2 = function()
+//    {
+//    	 $cookieStore.put("username", "steve");
+//    	 $cookieStore.put("password", "password");
+//    }
     
 }]);
