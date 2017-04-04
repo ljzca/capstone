@@ -1,21 +1,18 @@
 angular.module('stars')
 
-.controller("gearCtrl", ["$scope", "cookieStore", "$location", "$window", "sendRequest", function ($scope, $cookieStore, $location, $window, sendRequest) {
-
-	$scope.company = {
-		code: 'U',
-		companys: [
-           
-		           ]
-	}
+.controller("gearCtrl", ["$scope", "$cookieStore", "$location", "$window", "sendRequest", function ($scope, $cookieStore, $location, $window, sendRequest) {
 	
 	var getCompanies = function(){
 		sendRequest.send(
 		'GET',
-		'company',
+		'brands',
 		function(result) {
-			console.log(result.data);
-			$scope.companies = result.data._embedded.companies;
+			console.log(result.data._embedded.brands);
+			$scope.brands = result.data._embedded.brands;
+			console.log($scope.brands);
+//			for(var i=0;i<result.data._embedded.length;i++) {
+//				brandList.push({name: ""+result.data._embedded[i],})
+//			}
 		},
 		function(error) {
 			$scope.notice = "Unable to retrieve companies.";
@@ -26,6 +23,28 @@ angular.module('stars')
 		);
 	};
 	
+	getCompanies();
+	
+	var getGear = function(){
+		sendRequest.send(
+		'GET',
+		'users/' +$cookieStore.get('username')+'/gears',
+		function (result)
+		{
+			$scope.gearList = result.data._embedded;
+		},
+		function (error)
+		{
+			$scope.errMsg = "There was an error loading gear information";
+			console.log(error);
+		},
+		null,
+		$cookieStore.get('username'),
+		$cookieStore.get('password')
+		)		
+	};
+	
+	getGear();
 	getCompanies();
 	
 	var addComapny = function(){
@@ -44,14 +63,12 @@ angular.module('stars')
 				$scope.errMsg = error.data;
 			} else {
 				$scope.notice = "An error has occured";
-			},
-			{
-				model: $scope.company,
-				description: $scope.description
-			},
-			$cookieStore.get("username");
-			$cookieStore.get("password");
-		}
+			}
+		},
+		{
+		},
+		$cookieStore.get("username"),
+		$cookieStore.get("password")
 	)};
 	
 	$scope.editCompany = function(company) {

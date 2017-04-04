@@ -7,9 +7,9 @@ angular.module('stars')
                 controller: "loginCtrl"
             })
 	
-	        .when("/bin", {
-                templateUrl: "view/bin.html",
-                controller: "binCtrl"
+	        .when("/gear", {
+                templateUrl: "view/gear.html",
+                controller: "gearCtrl"
             })
 	
             .when("/records", {

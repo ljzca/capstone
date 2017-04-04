@@ -12,6 +12,8 @@ angular.module('stars')
 			]
 		};
 	
+	//when the brand is selected, connect selection action to a function that sends a http request to query all models of that brand.
+	
     var selfReflect = function(){
         sendRequest.send(
 			'GET',
@@ -27,6 +29,18 @@ angular.module('stars')
 				$scope.gender.code = result.data.sex;
 				$scope.height = result.data.height;
 				$scope.weight = result.data.weight;
+				sendRequest.send(
+				'GET',
+				'brands',
+				function(result){
+					console.log(companyResult.data);
+					$scope.company = {
+							code:'companyResult.data',
+							
+					}
+				}
+				)
+				
             },
 			function (error) {
             	console.log("Error!");
