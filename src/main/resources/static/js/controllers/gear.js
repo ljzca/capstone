@@ -43,7 +43,7 @@ angular.module('stars')
 				'GET',
 				'users/' + $cookieStore.get('username') + '/gears',
 				function (result) {
-				    console.log(result.data);
+				    console.log(result.data._embedded.gears);
 					$scope.gearList = result.data._embedded.gears;
 				},
 				function (error) {
