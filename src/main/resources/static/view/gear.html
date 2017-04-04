@@ -13,17 +13,22 @@
 	<tbody>
 		<!-- <div ng-repeat="gear in gearList" class="gear-list"> -->
 		<tr>
+			<!--<td>
+				<div class="form-group">
+					<select style="width:300px" id="sm" ng-model="selectedBrand" ng-change="getModels(selectedBrand)" class="form-control">
+						<option ng-repeat="brand in brands" value={{brand.id}}>{{brand.id}}</option>
+					</select>
+				</div>
+			</td> -->
 			<td>
 				<div class="form-group">
-					<select style="width:300px" id="sm" ng-model="selectedBrand" class="form-control">
-						<option ng-repeat="brand in brands" value={{brand.id}}>{{brand.id}}</option>
+					<select style="width:300px" ng-model="selectedBrand" ng-change="getModels()" ng-options="brand.id for brand in brands" class="form-control">
 					</select>
 				</div>
 			</td>
 			<td>
 				<div class="form-group">
-					<select style="width:300px" id="sm" ng-model="model.code" class="form-control">
-						<option ng-repeat="model in model.models" value="{{model.id}}">{{model.name}}</option>
+					<select style="width:300px" id="sm" ng-model="selectedModel" ng-options="model for model in models" class="form-control">
 					</select>
 				</div>
 			</td>

@@ -31,16 +31,18 @@ angular.module('stars')
 				$scope.weight = result.data.weight;
 				sendRequest.send(
 				'GET',
-				'brands',
-				function(result){
-					console.log(companyResult.data);
-					$scope.company = {
-							code:'companyResult.data',
-							
-					}
-				}
-				)
-				
+				'users/'+$cookieStore.get("username")+'/gears',
+				function(gearResult){
+					console.log(gearResult.data);
+					
+				},
+				function(error){
+					$scope.errMsg = "There was an error retrieving the gear"
+				},
+				null,
+				$cookieStore.get("username"),
+				$cookieStore.get("password")
+				);
             },
 			function (error) {
             	console.log("Error!");

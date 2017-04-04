@@ -10,7 +10,7 @@ angular.module('stars')
 			'brands',
 			function (result) {
 				console.log(result.data);
-				$scope.users = result.data._embedded.brands;
+				$scope.brands = result.data._embedded.brands;
             },
 			function (error) {
                 $scope.notice = "There was an error obtaining the brands";
@@ -22,27 +22,22 @@ angular.module('stars')
 	
 	getBrands();
 	
-	$scope.editUser = function(username){
+	$scope.editBrand = function(brand){
 		
 		$scope.isCreation = false;
 		
-		$scope.users.forEach(function(user){
-			if(username === user.username){
-				$scope.username = user.username;
-				$scope.password = "";
-				$scope.firstname = user.firstname;
-				$scope.lastname = user.lastname;
-				$scope.email = user.email;
-				$scope.gender.code = user.gender;
+		$scope.brands.forEach(function(brand){
+			if(brand === brand.id){
+				$scope.id = brand.id;
+				$scope.description = "";
 			}
 		});
 	};
 	
-	$scope.saveUser = function(username){
-		
+	$scope.saveBrand = function(brand){
         sendRequest.send(
 			'PUT',
-			'users/'+$scope.username,
+			'brands/'+$scope.id,
 			function (result) {
 				$scope.isCreation = true;
 				if($scope.username===$cookieStore.get("username") && $scope.password)
@@ -80,7 +75,7 @@ angular.module('stars')
 			$cookieStore.get("password")
 		)};
 	
-	$scope.deleteUser = function(username){
+	$scope.deleteBrand = function(username){
         sendRequest.send(
 			'DELETE',
 			'users/'+username,
@@ -100,7 +95,7 @@ angular.module('stars')
 			$cookieStore.get("password")
 		)};
 	
-	$scope.createUser = function(){
+	$scope.createBrand = function(){
 
 		sendRequest.send(
 			'POST',
