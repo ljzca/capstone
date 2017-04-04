@@ -19,8 +19,8 @@
 					<td>{{user.firstname}} {{user.lastname}}</td>
 					<td>{{user.email}}</td>
 					<td><span ng-if="user.isAdmin">Yes</span></td>
-					<td ng-if="user.gender === 'M'">Male</td>
-					<td ng-if="user.gender === 'F'">Female</td>
+					<td ng-if="user.sex === 'Male'">Male</td>
+					<td ng-if="user.sex === 'Female'">Female</td>
 					<td>
 						<span ng-if="user.isAdmin"><a class="btn btn-default" ng-click="demoteUser(user.username)">Demote</a></span>
 						<span ng-if="!user.isAdmin"><a class="btn btn-warning" ng-click="promoteUser(user.username)">Promote</a></span>
