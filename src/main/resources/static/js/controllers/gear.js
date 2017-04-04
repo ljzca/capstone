@@ -2,36 +2,34 @@ angular.module('stars')
 
 	.controller('gearCtrl',["$scope","$cookieStore","$location","$window","sendRequest", function ($scope, $cookieStore, $location, $window, sendRequest) {
 
-		var getCompanies = function () {
+	    //Populates Brand drop down.
+		var getBrand = function () {
 			sendRequest.send(
 				'GET',
 				'brands',
 				function (result) {
 					console.log(result.data._embedded.brands);
 					$scope.brands = result.data._embedded.brands;
-					console.log( $scope.selectedBrand );
-
 				},
 				function (error) {
 					$scope.notice = "Unable to retrieve companies.";
 				}
 			);
 		};
-		
-		var getModels = function() {
-		    console.log("I FIRED");
+
+		//
+		$scope.getModels = function() {
 			sendRequest.send(
 			'GET',
-			'brands/'+$scope.selectedBrand+'/models',
+			'brands/'+$scope.selectedBrand.id+'/models',
 			function (result)
 			{
 				console.log(result.data.models);
 				$scope.models = [];
 				for(var i=0;i<result.data._embedded.models.length;i++){
-				    var resultString = result.data._embedded.models[i].links.model.href;
+				    var resultString = result.data._embedded.models[i]._links.model.href;
 				    $scope.models.push(decodeURIComponent(resultString.substring(resultString.indexOf("&")+1)));
                 }
-                console.log($scope.models);
 			},
             function (error) {
                 console.log("getModels Failed");
@@ -40,10 +38,12 @@ angular.module('stars')
 		};
 		
 		var getGear = function () {
+		    console.log("getGear FIRED");
 			sendRequest.send(
 				'GET',
 				'users/' + $cookieStore.get('username') + '/gears',
 				function (result) {
+				    console.log(result.data);
 					$scope.gearList = result.data._embedded.gears;
 				},
 				function (error) {
@@ -57,9 +57,7 @@ angular.module('stars')
 		};
 
 		getGear();
-		getCompanies();
-
-
+		getBrand();
 
 		// The following functions are for future uses
 		var addComapny = function () {
