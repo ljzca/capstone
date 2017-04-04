@@ -85,7 +85,7 @@ public class RecordData implements Persistable<RecordDataPK> {
     /**
      * glide ratio
      */
-    @Column(nullable = false)
+    @Column
     private double gratio;
 
     /**
