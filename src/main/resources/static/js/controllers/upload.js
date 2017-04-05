@@ -52,9 +52,15 @@ angular.module('stars')
 		            		'records',
 		            		function(result){
 		            			console.log("*********************** SUCCESS ***************************");
-		            			console.log(result);
+//		            			console.log(result);
+		            			
+		            			console.log("Testing Result...")
+//		            			console.log($scope.result);
 		            			
 		            			var objects = parser.parse($cookieStore.get('username'), $scope.title, $scope.result);
+		            			
+		            			console.log("Testing Objects...")
+		            			console.log(objects);
 		            			
 		            			var loopValid = true;
 		            			
