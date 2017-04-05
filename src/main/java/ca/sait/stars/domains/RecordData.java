@@ -17,222 +17,233 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @NamedQuery(name = "RecordData.findAll", query = "SELECT r FROM RecordData r")
 public class RecordData implements Persistable<RecordDataPK> {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = -2179632862300221506L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2179632862300221506L;
 
-    @EmbeddedId
-    private RecordDataPK id;
+	@EmbeddedId
+	private RecordDataPK id;
 
-    @Column(nullable = false)
-    private double latitude;
+	@Column(nullable = false)
+	private double latitude;
 
-    @Column(nullable = false)
-    private double longitude;
+	@Column(nullable = false)
+	private double longitude;
 
-    @Column(nullable = false)
-    private double pitch;
+	@Column(nullable = false)
+	private double pitch;
 
-    @Column(nullable = false)
-    private double yaw;
+	@Column(nullable = false)
+	private double yaw;
 
-    @Column(nullable = false)
-    private double roll;
+	@Column(nullable = false)
+	private double roll;
 
-    /**
-     * ground velocity
-     */
-    @Column(nullable = false)
-    private double gvelocity;
+	@Column(nullable = false)
+	private double altitude;
 
-    /**
-     * vertical velocity
-     */
-    @Column(nullable = false)
-    private double vvelocity;
+	/**
+	 * ground velocity
+	 */
+	@Column(nullable = false)
+	private double gvelocity;
 
-    /**
-     * flight velocity
-     */
-    @Column(nullable = false)
-    private double fvelocity;
+	/**
+	 * vertical velocity
+	 */
+	@Column(nullable = false)
+	private double vvelocity;
 
-    /**
-     * x axis accelerate
-     */
-    @Column(nullable = false)
-    private double xaccel;
+	/**
+	 * flight velocity
+	 */
+	@Column(nullable = false)
+	private double fvelocity;
 
-    /**
-     * y axis accelerate
-     */
-    @Column(nullable = false)
-    private double yaccel;
+	/**
+	 * x axis accelerate
+	 */
+	@Column(nullable = false)
+	private double xaccel;
 
-    /**
-     * z axis accelerate
-     */
-    @Column(nullable = false)
-    private double zaccel;
+	/**
+	 * y axis accelerate
+	 */
+	@Column(nullable = false)
+	private double yaccel;
 
-    /**
-     * angle of attack
-     */
-    @Column(nullable = false)
-    private double aoa;
+	/**
+	 * z axis accelerate
+	 */
+	@Column(nullable = false)
+	private double zaccel;
 
-    /**
-     * glide ratio
-     */
-    @Column
-    private double gratio;
+	/**
+	 * angle of attack
+	 */
+	@Column(nullable = false)
+	private double aoa;
 
-    /**
-     * Celsius
-     */
-    @Column(nullable = false)
-    private double temperature;
-    
-    /**
-     * degree
-     */
-    @Column(nullable = false)
-    private double heading;
+	/**
+	 * glide ratio
+	 */
+	@Column(nullable = false)
+	private double gratio;
 
-    @Version
-    @JsonIgnore
-    private Long version;
+	/**
+	 * Celsius
+	 */
+	@Column(nullable = false)
+	private double temperature;
 
-    // bi-directional many-to-one association to Record
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumns({
-            @JoinColumn(name = "owner", referencedColumnName = "owner", nullable = false, insertable = false, updatable = false),
-            @JoinColumn(name = "title", referencedColumnName = "title", nullable = false, insertable = false, updatable = false) })
-    private Record record;
+	/**
+	 * degree
+	 */
+	@Column(nullable = false)
+	private double heading;
 
-    @Override
-    public RecordDataPK getId() {
-        return this.id;
-    }
+	@Version
+	@JsonIgnore
+	private Long version;
 
-    public void setId(RecordDataPK id) {
-        this.id = id;
-    }
+	// bi-directional many-to-one association to Record
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumns({
+			@JoinColumn(name = "owner", referencedColumnName = "owner", nullable = false, insertable = false, updatable = false),
+			@JoinColumn(name = "title", referencedColumnName = "title", nullable = false, insertable = false, updatable = false) })
+	private Record record;
 
-    public double getLatitude() {
-        return latitude;
-    }
+	@Override
+	public RecordDataPK getId() {
+		return this.id;
+	}
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
+	public void setId(RecordDataPK id) {
+		this.id = id;
+	}
 
-    public double getLongitude() {
-        return longitude;
-    }
+	public double getLatitude() {
+		return latitude;
+	}
 
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
 
-    public double getPitch() {
-        return pitch;
-    }
+	public double getLongitude() {
+		return longitude;
+	}
 
-    public void setPitch(double pitch) {
-        this.pitch = pitch;
-    }
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
 
-    public double getYaw() {
-        return yaw;
-    }
+	public double getPitch() {
+		return pitch;
+	}
 
-    public void setYaw(double yaw) {
-        this.yaw = yaw;
-    }
+	public void setPitch(double pitch) {
+		this.pitch = pitch;
+	}
 
-    public double getRoll() {
-        return roll;
-    }
+	public double getYaw() {
+		return yaw;
+	}
 
-    public void setRoll(double roll) {
-        this.roll = roll;
-    }
+	public void setYaw(double yaw) {
+		this.yaw = yaw;
+	}
 
-    public double getGvelocity() {
-        return gvelocity;
-    }
+	public double getRoll() {
+		return roll;
+	}
 
-    public void setGvelocity(double gvelocity) {
-        this.gvelocity = gvelocity;
-    }
+	public void setRoll(double roll) {
+		this.roll = roll;
+	}
 
-    public double getVvelocity() {
-        return vvelocity;
-    }
+	public double getAltitude() {
+		return altitude;
+	}
 
-    public void setVvelocity(double vvelocity) {
-        this.vvelocity = vvelocity;
-    }
+	public void setAltitude(double altitude) {
+		this.altitude = altitude;
+	}
 
-    public double getFvelocity() {
-        return fvelocity;
-    }
+	public double getGvelocity() {
+		return gvelocity;
+	}
 
-    public void setFvelocity(double fvelocity) {
-        this.fvelocity = fvelocity;
-    }
+	public void setGvelocity(double gvelocity) {
+		this.gvelocity = gvelocity;
+	}
 
-    public double getXaccel() {
-        return xaccel;
-    }
+	public double getVvelocity() {
+		return vvelocity;
+	}
 
-    public void setXaccel(double xaccel) {
-        this.xaccel = xaccel;
-    }
+	public void setVvelocity(double vvelocity) {
+		this.vvelocity = vvelocity;
+	}
 
-    public double getYaccel() {
-        return yaccel;
-    }
+	public double getFvelocity() {
+		return fvelocity;
+	}
 
-    public void setYaccel(double yaccel) {
-        this.yaccel = yaccel;
-    }
+	public void setFvelocity(double fvelocity) {
+		this.fvelocity = fvelocity;
+	}
 
-    public double getZaccel() {
-        return zaccel;
-    }
+	public double getXaccel() {
+		return xaccel;
+	}
 
-    public void setZaccel(double zaccel) {
-        this.zaccel = zaccel;
-    }
+	public void setXaccel(double xaccel) {
+		this.xaccel = xaccel;
+	}
 
-    public double getAoa() {
-        return aoa;
-    }
+	public double getYaccel() {
+		return yaccel;
+	}
 
-    public void setAoa(double aoa) {
-        this.aoa = aoa;
-    }
+	public void setYaccel(double yaccel) {
+		this.yaccel = yaccel;
+	}
 
-    public double getGratio() {
-        return gratio;
-    }
+	public double getZaccel() {
+		return zaccel;
+	}
 
-    public void setGratio(double gratio) {
-        this.gratio = gratio;
-    }
+	public void setZaccel(double zaccel) {
+		this.zaccel = zaccel;
+	}
 
-    public double getTemperature() {
-        return temperature;
-    }
+	public double getAoa() {
+		return aoa;
+	}
 
-    public void setTemperature(double temperature) {
-        this.temperature = temperature;
-    }
+	public void setAoa(double aoa) {
+		this.aoa = aoa;
+	}
 
-    public double getHeading() {
+	public double getGratio() {
+		return gratio;
+	}
+
+	public void setGratio(double gratio) {
+		this.gratio = gratio;
+	}
+
+	public double getTemperature() {
+		return temperature;
+	}
+
+	public void setTemperature(double temperature) {
+		this.temperature = temperature;
+	}
+
+	public double getHeading() {
 		return heading;
 	}
 
@@ -241,21 +252,21 @@ public class RecordData implements Persistable<RecordDataPK> {
 	}
 
 	public Record getRecord() {
-        return this.record;
-    }
+		return this.record;
+	}
 
-    public void setRecord(Record record) {
-        this.record = record;
-    }
+	public void setRecord(Record record) {
+		this.record = record;
+	}
 
-    @Override
-    public String toString() {
-        return id.toString();
-    }
+	@Override
+	public String toString() {
+		return id.toString();
+	}
 
-    @Override
-    public boolean isNew() {
-        return version == null;
-    }
+	@Override
+	public boolean isNew() {
+		return version == null;
+	}
 
 }
