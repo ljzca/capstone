@@ -54,7 +54,7 @@ angular.module('stars')
                     $scope.errMsg = null;
                     $scope.notice = "You have updated your profile";
                     $scope.password = $scope.password;
-                    $scope.currentpassword = "";
+                    $scope.confirmpassword = "";
                 },
                 function (error) {
                     if(error.status===406){
