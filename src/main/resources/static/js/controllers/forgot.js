@@ -1,6 +1,7 @@
 angular.module('stars')
 
 .controller("forgotCtrl",["$scope","$cookieStore","$location","sendRequest","$route", function($scope, $cookieStore, $location, sendRequest, $route){
+	setNavBar();
 	
 	$scope.send = function(username){
 		sendRequest.send(

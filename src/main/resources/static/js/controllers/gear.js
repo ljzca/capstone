@@ -2,6 +2,8 @@ angular.module('stars')
 
 	.controller('gearCtrl',["$scope","$cookieStore","$location","$window","sendRequest", function ($scope, $cookieStore, $location, $window, sendRequest) {
 
+		setNavBar();
+		
 	    //Populates Brand drop down.
 		var getBrand = function () {
 			sendRequest.send(

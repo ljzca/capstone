@@ -1,6 +1,7 @@
 angular.module('stars')
 
 .controller("adminCtrl",["$scope","$cookieStore","$location","sendRequest", function($scope, $cookieStore, $location, sendRequest){
+	setNavBar();
 	
 	$scope.isCreation = true;
 	$scope.username = "";

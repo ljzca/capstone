@@ -22,12 +22,13 @@ var trashLines;
 
 //Determines whether or not lock the data coming from the graph
 var dataLock = 0;
-	
+
 angular.module('stars')
 
 .controller("records",["$scope","$cookieStore","$location","sendRequest", "$timeout", function($scope, $cookieStore, $location, sendRequest, $timeout)
 {
-	
+	setNavBar();
+	console.log($cookieStore.get("username"));
 	var freezeData = function()
 	{
 		if($scope.recordName === undefined)

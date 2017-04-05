@@ -7,7 +7,8 @@
 angular.module('stars')
 
 .controller('upload', ['$scope', '$cookieStore' ,'fileUpload', 'sendRequest', 'parser', 'constants', function($scope, $cookieStore, fileUpload, sendRequest, parser, constants){
-    
+	setNavBar();
+	
     $scope.uploadFile = function(){
         var file = $scope.myFile;
         if(file != null && file != "")

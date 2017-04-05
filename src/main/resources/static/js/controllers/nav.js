@@ -4,14 +4,12 @@ angular.module('stars')
 
 .controller("navCtrl",["$scope","$cookieStore","$location","$window","sendRequest", function($scope, $cookieStore, $location, $window, sendRequest)
 {
-	
 	console.log($cookieStore.get("username"));
 	
 	setNavBar = function()
 	{
 		if($cookieStore.get("username"))
 		{		
-		
 			if($cookieStore.get("isAdmin"))
 			{
 				$scope.navbar = [{display:"Profile",url:"#/profile"},
@@ -27,6 +25,10 @@ angular.module('stars')
 			}
 			
 			$scope.username = $cookieStore.get("username");
+		}
+		else
+		{
+			$location.path("/");
 		}
 	}
 	

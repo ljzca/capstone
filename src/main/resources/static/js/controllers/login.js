@@ -1,8 +1,9 @@
 angular.module('stars')
 
     .controller("loginCtrl", ["$scope", "$cookieStore", "$location", "$window", "sendRequest", function ($scope, $cookieStore, $location, $window, sendRequest) {
-
-        var selfReflect = function (username, password) {
+    	
+        var selfReflect = function (username, password) 
+        {
             sendRequest.send(
                 'GET',
                 'users/' + username,
