@@ -1,6 +1,6 @@
 angular.module('stars')
 
-    .controller("loginCtrl", ["$scope", "$cookieStore", "$location", "$window", "sendRequest",  function ($scope, $cookieStore, $location, $window, sendRequest) {
+    .controller("loginCtrl", ["$scope", "$cookieStore", "$location", "$window", "sendRequest", "$timeout",  function ($scope, $cookieStore, $location, $window, sendRequest, $timeout) {
 
         var selfReflect = function (username, password) {
             sendRequest.send(
@@ -15,20 +15,26 @@ angular.module('stars')
                     var user = result.data;
                     var isAdmin = false;
 
-                    if (user.isAdmin) {
+               
+            		if (user.isAdmin) 
+            		{
                         isAdmin = true;
                         $cookieStore.put("isAdmin", isAdmin);
 
                         //TODO
                         //CHANGE THIS PATH TO REDIRECT TO ADMIN VIEWS ONCE THEY'RE ARE DONE.
                         $location.path("records");
-                        $window.location.reload();
                         //TODO
                         //$location.path("admin");
-                    } else {
-                        $location.path("records");
-                         $window.location.reload();
                     }
+            		else 
+            		{
+                        $location.path("records");
+                    }
+        	
+                   setNavBar();
+                    
+                    
                 },
                 function (error) {
                     console.log(error);
