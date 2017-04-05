@@ -248,11 +248,11 @@ angular.module('stars')
 					}
 					// ----------------------------------------------------------------------------------------------
 					if($scope.recordName === undefined)
-						{
-							dataLock = 0;
-							freezeData();
-							chartDraw(undefined);
-						}
+					{
+						dataLock = 0;
+						freezeData();
+						chartDraw(undefined);
+					}
 					//Set the name of the record to display to the user
 			    	$scope.recordName = recordName;
 			    	
@@ -283,6 +283,11 @@ angular.module('stars')
 						chartDraw(globalIndex);
 						dataLock = 0;
 						freezeData();
+					}
+					
+					else
+					{
+						chartDraw(globalIndex);
 					}
 		    	}
 				
@@ -419,7 +424,6 @@ angular.module('stars')
 						})
 						
 						dataLock = 0;
-						
 					}
 				}
 				freezeData();
@@ -622,6 +626,8 @@ angular.module('stars')
 		        }
 		    }
 		    $scope.filterSetting = testVar;
+		    
+		    trashLines = 0;
 		    
 			createXY();
 		}
