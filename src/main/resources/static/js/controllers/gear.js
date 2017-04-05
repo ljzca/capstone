@@ -17,7 +17,7 @@ angular.module('stars')
 			);
 		};
 
-		//
+		//Populates Models drop down.
 		$scope.getModels = function() {
 			sendRequest.send(
 			'GET',
@@ -36,7 +36,8 @@ angular.module('stars')
             }
 			)
 		};
-		
+
+		//Retrieves User gear
 		var getGear = function () {
 		    console.log("getGear FIRED");
 			sendRequest.send(
@@ -44,7 +45,19 @@ angular.module('stars')
 				'users/' + $cookieStore.get('username') + '/gears',
 				function (result) {
 				    console.log(result.data._embedded.gears);
-					$scope.gearList = result.data._embedded.gears;
+
+				    $scope.gearList = [];
+				    for(var i=0;i<result.data._embedded.gears.length;i++){
+				        var resultString = result.data._embedded.gears[i].gear.href;
+				        resultString = resultString.substring(33);
+				        var gearString = resultString.split("&");
+				        var gearObj = {
+				            brand: gearString[1],
+                            model: gearString[2],
+                            description: result.data._embedded.gears[i].description
+                        };
+				        gearList.push(gearObj);
+                    }
 				},
 				function (error) {
 					$scope.errMsg = "There was an error loading gear information";
@@ -58,6 +71,26 @@ angular.module('stars')
 
 		getGear();
 		getBrand();
+
+
+		var addGear = function () {
+		    sendRequest.send(
+		        'PUT',
+                'users/'+ $cookieStore.get("username")+'/gears',
+                function(result){
+
+
+                },
+                function(error){
+
+                }
+
+            )
+        }
+
+
+
+
 
 		// The following functions are for future uses
 		var addComapny = function () {
