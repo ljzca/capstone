@@ -17,9 +17,6 @@ import java.util.List;
 @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
 public class User extends AbstractDomain<String> {
 
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = 3881890201970857506L;
 
 	@Id

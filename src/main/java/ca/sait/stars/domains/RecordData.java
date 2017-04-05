@@ -13,76 +13,107 @@ import javax.persistence.*;
 @NamedQuery(name = "RecordData.findAll", query = "SELECT r FROM RecordData r")
 public class RecordData extends AbstractDomain<RecordDataPK> {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2179632862300221506L;
 
 	@EmbeddedId
 	private RecordDataPK id;
 
+	/**
+	 * degree
+	 */
 	@Column(nullable = false)
 	private double latitude;
 
+	/**
+	 * degree
+	 */
 	@Column(nullable = false)
 	private double longitude;
 
+	/**
+	 * degree
+	 */
 	@Column(nullable = false)
 	private double pitch;
 
+	/**
+	 * degree
+	 */
 	@Column(nullable = false)
 	private double yaw;
 
+	/**
+	 * degree
+	 */
 	@Column(nullable = false)
 	private double roll;
 
+	/**
+	 * meter
+	 */
 	@Column(nullable = false)
 	private double altitude;
 
 	/**
 	 * ground velocity
+	 * 
+	 * meter/second
 	 */
 	@Column(nullable = false)
 	private double gvelocity;
 
 	/**
 	 * vertical velocity
+	 * 
+	 * meter/second
 	 */
 	@Column(nullable = false)
 	private double vvelocity;
 
 	/**
 	 * flight velocity
+	 * 
+	 * meter/second
 	 */
 	@Column(nullable = false)
 	private double fvelocity;
 
 	/**
 	 * x axis accelerate
+	 * 
+	 * meter/(second^2)
 	 */
 	@Column(nullable = false)
 	private double xaccel;
 
 	/**
 	 * y axis accelerate
+	 * 
+	 * meter/(second^2)
 	 */
 	@Column(nullable = false)
 	private double yaccel;
 
 	/**
 	 * z axis accelerate
+	 * 
+	 * meter/(second^2)
 	 */
 	@Column(nullable = false)
 	private double zaccel;
 
 	/**
 	 * angle of attack
+	 * 
+	 * degree
 	 */
 	@Column(nullable = false)
 	private double aoa;
 
 	/**
 	 * glide ratio
+	 * 
+	 * ratio
 	 */
 	@Column(nullable = false)
 	private double gratio;

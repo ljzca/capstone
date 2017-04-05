@@ -15,9 +15,6 @@ import java.util.List;
 @NamedQuery(name = "Model.findAll", query = "SELECT m FROM Model m")
 public class Model extends AbstractDomain<ModelPK> {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2138350065961289313L;
 
 	@EmbeddedId

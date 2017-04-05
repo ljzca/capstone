@@ -16,9 +16,6 @@ import static javax.persistence.CascadeType.*;
 @NamedQuery(name = "Gear.findAll", query = "SELECT g FROM Gear g")
 public class Gear extends AbstractDomain<GearPK> {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 3881890201970857506L;
 
 	@EmbeddedId

@@ -15,9 +15,6 @@ import java.util.List;
 @NamedQuery(name = "Record.findAll", query = "SELECT r FROM Record r")
 public class Record extends AbstractDomain<RecordPK> {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -4417730453088600886L;
 
 	@EmbeddedId

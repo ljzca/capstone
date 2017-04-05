@@ -14,9 +14,6 @@ import java.util.Date;
 @NamedQuery(name = "NewsBoard.findAll", query = "SELECT n FROM NewsBoard n")
 public class NewsBoard extends AbstractDomain<Date> {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -7887975624261414585L;
 
 	@Id
