@@ -2,6 +2,8 @@ angular.module('stars')
 
     .controller("signupCtrl", ["$http", "$scope", "$cookieStore", "$location", "sendRequest", function ($http, $scope, $cookieStore, $location, sendRequest) {
 
+    	
+    	//Gender drop down properties 
     	$scope.gender =  {
     			code: 'Male',
     			genders: [
@@ -10,12 +12,8 @@ angular.module('stars')
     			]
     		};
 
-    	
+    	//HTTP request method that sends a POST request to the server including the users data from the form. 
         $scope.register = function () {
-
-        	
-            console.log("Button Clicked!");
-            console.log($scope.username);
             sendRequest.send(
                 'POST',
                 'users',
