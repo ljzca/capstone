@@ -13,8 +13,8 @@ angular.module('stars')
 	$scope.gender =  {
 		code: 'U',
 		genders: [
-			{id: 'M', name: 'Male'},
-			{id: 'F', name: 'Female'}
+			{id: 'Male', name: 'Male'},
+			{id: 'Female', name: 'Female'}
 		]
 	};
 	
@@ -23,7 +23,6 @@ angular.module('stars')
 			'GET',
 			'users',
 			function (result) {
-				console.log(result.data);
 				$scope.users = result.data._embedded.users;
             },
 			function (error) {
@@ -37,24 +36,58 @@ angular.module('stars')
 	getUsers();
 	
 	$scope.promoteUser = function(username){
+		
+		var newUser = {};
+		
+		$scope.users.forEach(function(user){
+		    if(username === user.id){
+				newUser.username = user.id;
+				newUser.password = "";
+				newUser.firstname = user.firstname;
+				newUser.lastname = user.lastname;
+				newUser.email = user.email;
+				newUser.sex = user.sex;
+				newUser.height = user.height;
+				newUser.weight = user.weight;
+				newUser.isAdmin = true;
+			}
+		});
+		
         sendRequest.send(
-			'PUT',
+			'PATCH',
 			'users/'+username,
 			function (result) {
 				getUsers();
 				$scope.notice = "You successfully promoted "+username;
             },
 			function (error) {
-                $scope.notice = "You don't have admin privilege to promote a user";
+                $scope.notice = "An error occurred when promoting "+username;
             },
-			null,
+			newUser,
 			$cookieStore.get("username"),
 			$cookieStore.get("password")
         )};
 	
 	$scope.demoteUser = function(username){
+
+        var newUser = {};
+
+        $scope.users.forEach(function(user){
+            if(username === user.id){
+                newUser.username = user.id;
+                newUser.password = "";
+                newUser.firstname = user.firstname;
+                newUser.lastname = user.lastname;
+                newUser.email = user.email;
+                newUser.sex = user.sex;
+                newUser.height = user.height;
+                newUser.weight = user.weight;
+                newUser.isAdmin = false;
+            }
+        });
+
         sendRequest.send(
-			'PUT',
+			'PATCH',
 			'users/'+username,
 			function (result) {
 				getUsers();
@@ -64,10 +97,10 @@ angular.module('stars')
 				if(error.status===406){
 					$scope.notice = "You can't demote yourself";
 				}else{
-					$scope.notice = "You don't have admin privilege to demote a user";
+					$scope.notice = "An error occurred when demoting " +username;
 				}
             },
-			null,
+			newUser,
 			$cookieStore.get("username"),
 			$cookieStore.get("password")
 		)};
@@ -77,13 +110,16 @@ angular.module('stars')
 		$scope.isCreation = false;
 		
 		$scope.users.forEach(function(user){
-			if(username === user.username){
-				$scope.username = user.username;
+			if(username === user.id){
+				$scope.username = user.id;
 				$scope.password = "";
 				$scope.firstname = user.firstname;
 				$scope.lastname = user.lastname;
 				$scope.email = user.email;
-				$scope.gender.code = user.gender;
+				$scope.gender.code = user.sex;
+				$scope.weight = user.weight;
+				$scope.height = user.height;
+				$scope.isAdmin = user.isAdmin;
 			}
 		});
 	};
@@ -91,7 +127,7 @@ angular.module('stars')
 	$scope.saveUser = function(username){
 		
         sendRequest.send(
-			'PUT',
+			'PATCH',
 			'users/'+$scope.username,
 			function (result) {
 				$scope.isCreation = true;
@@ -104,8 +140,7 @@ angular.module('stars')
 				$scope.firstname = "";
 				$scope.lastname = "";
 				$scope.email = "";
-				$scope.phonenumber = "";
-				$scope.gender.code = 'M';
+				$scope.gender.code = 'Male';
 				$scope.notice = username + " has been successfully updated";
 				$scope.errMsg = null;
             },
@@ -114,7 +149,7 @@ angular.module('stars')
 					$scope.notice = username + " can not be updated because of invalid input. Please check error information under your input";
 					$scope.errMsg = error.data;
 				}else{
-					$scope.notice = "You may have just lost admin privilege to edit the user";
+					$scope.notice = "An error occurred while editing user";
 				}
             },
 			{
@@ -123,8 +158,10 @@ angular.module('stars')
 				firstname: $scope.firstname,
 				lastname: $scope.lastname,
 				email: $scope.email,
-				phonenumber: $scope.phonenumber,
-				gender: $scope.gender.code
+				sex: $scope.gender.code,
+                height: $scope.height,
+                weight: $scope.weight,
+                isAdmin: $scope.isAdmin
 			},
 			$cookieStore.get("username"),
 			$cookieStore.get("password")
@@ -165,7 +202,6 @@ angular.module('stars')
 				$scope.firstname = "";
 				$scope.lastname = "";
 				$scope.email = "";
-				$scope.phonenumber = "";
 				$scope.gender.code = 'U';
 				$scope.notice = username + " has been successfully created";
 				$scope.errMsg = null;
@@ -184,8 +220,10 @@ angular.module('stars')
 				firstname: $scope.firstname,
 				lastname: $scope.lastname,
 				email: $scope.email,
-				phonenumber: $scope.phonenumber,
-				gender: $scope.gender.code
+				sex: $scope.gender.code,
+                weight: 0,
+                height: 0,
+                isAdmin: false
 			},
 			$cookieStore.get("username"),
 			$cookieStore.get("password")

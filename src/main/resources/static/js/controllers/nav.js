@@ -4,8 +4,6 @@ angular.module('stars')
 
 .controller("navCtrl",["$scope","$cookieStore","$location","$window","sendRequest", function($scope, $cookieStore, $location, $window, sendRequest)
 {
-	console.log($cookieStore.get("username"));
-	
 	setNavBar = function()
 	{
 		if($cookieStore.get("username"))
