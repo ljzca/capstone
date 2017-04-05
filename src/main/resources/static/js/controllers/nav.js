@@ -15,13 +15,15 @@ angular.module('stars')
 				$scope.navbar = [{display:"Profile",url:"#/profile"},
 								 {display:"Users",url:"#/admin"},
 								 {display:"Records",url:"#/records"},
-								 {display:"Upload",url:"#/upload"}];
+								 {display:"Upload",url:"#/upload"},
+								 {display:"Gear",url:"#/gear"}];
 			}
 			else
 			{
 				$scope.navbar = [{display:"Profile",url:"#/profile"},
 								 {display:"Records",url:"#/records"},
-								 {display:"Upload",url:"#/upload"}];
+								 {display:"Upload",url:"#/upload"},
+								 {display:"Gear", url:"#/gear"}];
 			}
 			
 			$scope.username = $cookieStore.get("username");
