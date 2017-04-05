@@ -45,8 +45,8 @@
 	<script src="js/services/logout-service.js"></script>
 	<script src="js/services/parse-service.js"></script>
 
-	<script src="js/controllers/gear.js"></script>
 	<script src="js/controllers/nav.js"></script>
+	<script src="js/controllers/gear.js"></script>
 	<script src="js/controllers/login.js"></script>
 	<script src="js/controllers/admin.js"></script>
 	<script src="js/controllers/profile.js"></script>
@@ -87,7 +87,6 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#/profile" ng-if="username != null">Hello,
 							{{username}}</a></li>
-					<li><a href="#/" ng-if="username == null">Login</a></li>
 					<li><a href="#/" ng-click="logout()" ng-if="username != null">Logout</a></li>
 				</ul>
 			</div>

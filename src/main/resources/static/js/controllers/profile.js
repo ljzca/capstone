@@ -2,6 +2,8 @@ angular.module('stars')
 
 .controller("profCtrl",["$scope","$cookieStore","$location","sendRequest", function($scope, $cookieStore, $location, sendRequest){
 	
+	setNavBar();
+	
 	$scope.username = $cookieStore.get("username");
 		
 	$scope.gender =  {

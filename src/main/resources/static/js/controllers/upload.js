@@ -7,7 +7,8 @@
 angular.module('stars')
 
 .controller('upload', ['$scope', '$cookieStore' ,'fileUpload', 'sendRequest', 'parser', 'constants', function($scope, $cookieStore, fileUpload, sendRequest, parser, constants){
-    
+	setNavBar();
+	
     $scope.uploadFile = function(){
         var file = $scope.myFile;
         if(file != null && file != "")
@@ -52,9 +53,15 @@ angular.module('stars')
 		            		'records',
 		            		function(result){
 		            			console.log("*********************** SUCCESS ***************************");
-		            			console.log(result);
+//		            			console.log(result);
+		            			
+		            			console.log("Testing Result...")
+//		            			console.log($scope.result);
 		            			
 		            			var objects = parser.parse($cookieStore.get('username'), $scope.title, $scope.result);
+		            			
+		            			console.log("Testing Objects...")
+		            			console.log(objects);
 		            			
 		            			var loopValid = true;
 		            			

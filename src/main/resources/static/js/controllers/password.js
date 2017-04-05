@@ -2,6 +2,7 @@ angular.module('stars')
 
 .controller("passwordCtrl",["$scope","$cookieStore","$location","sendRequest","$route", function($scope, $cookieStore, $location, sendRequest, $route){
 	
+	setNavBar();
 	console.log($route.current.params.token);
 	
 	$scope.setPassword = function(newPassword){

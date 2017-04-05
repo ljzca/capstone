@@ -22,12 +22,13 @@ var trashLines;
 
 //Determines whether or not lock the data coming from the graph
 var dataLock = 0;
-	
+
 angular.module('stars')
 
 .controller("records",["$scope","$cookieStore","$location","sendRequest", "$timeout", function($scope, $cookieStore, $location, sendRequest, $timeout)
 {
-	
+	setNavBar();
+	console.log($cookieStore.get("username"));
 	var freezeData = function()
 	{
 		if($scope.recordName === undefined)
@@ -139,6 +140,8 @@ angular.module('stars')
 				
 				
 				//Create the date based on the url to the recordData
+				console.log("The Records")
+				console.log($scope.records);
 		    	var date = new Date(parseInt($scope.records._embedded.recordDatas[0]._links.recordData.href.substring
 						(
 								$scope.records._embedded.recordDatas[0]._links.recordData.href.lastIndexOf("&") +1
@@ -229,16 +232,16 @@ angular.module('stars')
 						switch($scope.filterSetting)
 						{
 							case "1": 
-								yAxisData = $scope.records._embedded.recordDatas[i].hmsl;
+								yAxisData = $scope.records._embedded.recordDatas[i].altitude;
 								break;
 							case "2": 
-								yAxisData = $scope.records._embedded.recordDatas[i].lat;
+								yAxisData = $scope.records._embedded.recordDatas[i].latitude;
 								break;
 							case "3": 
-								yAxisData = $scope.records._embedded.recordDatas[i].lon;
+								yAxisData = $scope.records._embedded.recordDatas[i].longitude;
 								break;
 							default:
-								yAxisData = $scope.records._embedded.recordDatas[i].hmsl;
+								yAxisData = $scope.records._embedded.recordDatas[i].altitude;
 								break;
 						}
 						
@@ -246,11 +249,11 @@ angular.module('stars')
 					}
 					// ----------------------------------------------------------------------------------------------
 					if($scope.recordName === undefined)
-						{
-							dataLock = 0;
-							freezeData();
-							chartDraw(undefined);
-						}
+					{
+						dataLock = 0;
+						freezeData();
+						chartDraw(undefined);
+					}
 					//Set the name of the record to display to the user
 			    	$scope.recordName = recordName;
 			    	
@@ -282,6 +285,11 @@ angular.module('stars')
 						dataLock = 0;
 						freezeData();
 					}
+					
+					else
+					{
+						chartDraw(globalIndex);
+					}
 		    	}
 				
 		    	createXY();
@@ -292,10 +300,10 @@ angular.module('stars')
 				
 				
 				//Set the max and min Lat and Lon values to the first record coordinates
-				maxLat = $scope.records._embedded.recordDatas[0].lat;
-				minLat = $scope.records._embedded.recordDatas[0].lat;
-				maxLon = $scope.records._embedded.recordDatas[0].lon;
-				minLon = $scope.records._embedded.recordDatas[0].lon;
+				maxLat = $scope.records._embedded.recordDatas[0].latitude;
+				minLat = $scope.records._embedded.recordDatas[0].latitude;
+				maxLon = $scope.records._embedded.recordDatas[0].longitude;
+				minLon = $scope.records._embedded.recordDatas[0].longitude;
 				
 				//Push the coordinates to the coordiantes array and determine the max and min Lat and Lon values
 				for(var i = 0; i < $scope.records._embedded.recordDatas.length; i++)
@@ -303,22 +311,22 @@ angular.module('stars')
 					//Pushing each coordinate set to coordinates[]
 					coordinates.push(
 							{	
-								lat:$scope.records._embedded.recordDatas[i].lat,
-								lng:$scope.records._embedded.recordDatas[i].lon
+								lat:$scope.records._embedded.recordDatas[i].latitude,
+								lng:$scope.records._embedded.recordDatas[i].longitude
 							}
 						);
 					
 					//Check for max and min Latitude
-					if($scope.records._embedded.recordDatas[i].lat > maxLat)
-						maxLat = $scope.records._embedded.recordDatas[i].lat;
-					else if($scope.records._embedded.recordDatas[i].lat < minLat)
-						minLat = $scope.records._embedded.recordDatas[i].lat;
+					if($scope.records._embedded.recordDatas[i].latitude > maxLat)
+						maxLat = $scope.records._embedded.recordDatas[i].latitude;
+					else if($scope.records._embedded.recordDatas[i].latitude < minLat)
+						minLat = $scope.records._embedded.recordDatas[i].latitude;
 					
 					//Check for max and min Longitude
-					if($scope.records._embedded.recordDatas[i].lon > maxLon)
-						maxLon = $scope.records._embedded.recordDatas[i].lon;
-					else if($scope.records._embedded.recordDatas[i].lon < minLon)
-						minLon = $scope.records._embedded.recordDatas[i].lon;	
+					if($scope.records._embedded.recordDatas[i].longitude > maxLon)
+						maxLon = $scope.records._embedded.recordDatas[i].longitude;
+					else if($scope.records._embedded.recordDatas[i].longitude < minLon)
+						minLon = $scope.records._embedded.recordDatas[i].longitude;	
 				}
 				
 				//Create an object to hold the max coordinates
@@ -402,7 +410,7 @@ angular.module('stars')
 						{
 							$scope.$apply(function()
 							{
-								$scope.storedAltitude = "Stored Altitude: " + $scope.records._embedded.recordDatas[$scope.index].hmsl;
+								$scope.storedAltitude = "Stored Altitude: " + $scope.records._embedded.recordDatas[$scope.index].altitude;
 							});
 							
 							dataLock = 1;
@@ -417,7 +425,6 @@ angular.module('stars')
 						})
 						
 						dataLock = 0;
-						
 					}
 				}
 				freezeData();
@@ -559,7 +566,7 @@ angular.module('stars')
 				if($scope.indexData === undefined)
 					$scope.heading = 0;
 				else
-					$scope.heading = $scope.indexData.hmsl;
+					$scope.heading = $scope.indexData.altitude;
 				chartDraw($scope.index);
 			});
 		}
@@ -620,7 +627,9 @@ angular.module('stars')
 		        }
 		    }
 		    $scope.filterSetting = testVar;
-
+		    
+		    trashLines = 0;
+		    
 			createXY();
 		}
 
