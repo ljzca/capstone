@@ -37,9 +37,6 @@ public class AuthenticationService implements UserDetailsService {
 
         return new UserDetails() {
 
-            /**
-             *
-             */
             private static final long serialVersionUID = 725882968690752981L;
 
             @Override

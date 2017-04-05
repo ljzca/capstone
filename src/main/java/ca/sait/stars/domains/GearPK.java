@@ -12,9 +12,6 @@ import javax.persistence.*;
 @Embeddable
 public class GearPK implements Serializable {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 6641100107954248015L;
 
     @Column(nullable = false, insertable = false, updatable = false, length = 30)
