@@ -10,7 +10,7 @@ angular.module('stars')
 		var cleanData = [];
 		var objectArray = [];
 		
-		cleanData = data.split("\r\n");
+		cleanData = data.split("\n");
 		
 		for(i=2;i<cleanData.length;i++){
 			var dataLine = cleanData[i].split(",");
