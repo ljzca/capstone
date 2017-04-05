@@ -1,6 +1,6 @@
 angular.module('stars')
 
-    .controller("loginCtrl", ["$scope", "$cookieStore", "$location", "$window", "sendRequest", "$timeout",  function ($scope, $cookieStore, $location, $window, sendRequest, $timeout) {
+    .controller("loginCtrl", ["$scope", "$cookieStore", "$location", "$window", "sendRequest", function ($scope, $cookieStore, $location, $window, sendRequest) {
 
         var selfReflect = function (username, password) {
             sendRequest.send(
