@@ -2,9 +2,10 @@ angular.module('stars')
 
 .service("parser", function() {
 
+	
+	//Parsing function
 	this.parse = function (username, title, data) {
 		
-//		var timeRegex = "^\d{4}[\-]\d{2}[\-]\d{2}[T]\d{2}\:\d{2}\:\d{2}\.\d{2}[Z]$";
 		console.log(data);
 		var cleanData = [];
 		var objectArray = [];
@@ -34,9 +35,12 @@ angular.module('stars')
 					yaccel: dataLine[12],
 					zaccel: dataLine[13],
 					aoa: dataLine[14],
-					grratio: dataLine[15],
 					temperature: dataLine[16]
 			}
+			
+			if(! (dataLine[15] === "null")) 
+				dataObject.grratio = dataLine[15];
+				
 			objectArray.push(dataObject);
 		}
 		return objectArray;
