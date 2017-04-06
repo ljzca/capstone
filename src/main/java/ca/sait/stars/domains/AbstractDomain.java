@@ -9,6 +9,13 @@ import org.springframework.data.domain.Persistable;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * Abstract domain class
+ * 
+ * @author William
+ *
+ * @param <ID>
+ */
 @MappedSuperclass
 public abstract class AbstractDomain<ID extends Serializable> implements Persistable<ID> {
 
