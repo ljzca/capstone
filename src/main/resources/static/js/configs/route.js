@@ -1,7 +1,8 @@
 angular.module('stars')
 
-    .config(function ($routeProvider) {
-        $routeProvider
+    .config(function ($routeProvider, $locationProvider) {
+        $locationProvider.hashPrefix('');
+    	$routeProvider
             .when("/", {
                 templateUrl: "view/login.html",
                 controller: "loginCtrl"

@@ -2,7 +2,7 @@ var setNavBar;
 
 angular.module('stars')
 
-.controller("navCtrl",["$scope","$cookieStore","$location","$window","sendRequest", function($scope, $cookieStore, $location, $window, sendRequest)
+.controller("navCtrl", function($scope, $cookieStore, $location, $window, sendRequest)
 {
 	setNavBar = function()
 	{
@@ -44,4 +44,4 @@ angular.module('stars')
 		$scope.username = undefined;
 	};
 	
-}]);
+});
