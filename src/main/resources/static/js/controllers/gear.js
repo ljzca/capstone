@@ -118,9 +118,9 @@ angular.module('stars')
 				'PUT',
 				'company/' + $scope.company,
 				function (result) {
-					getComapnies();
+					getCompanies();
 					$scope.company = "";
-					$scope.notice = $scope.comapny + "has been successfully created";
+					$scope.notice = $scope.company + "has been successfully created";
 					$scope.errMsg = null;
 				},
 				function (error) {
