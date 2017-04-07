@@ -1,36 +1,62 @@
-<div>
-	<div id="column">
-		<h2>Records</h2>	
-		<div ng-repeat="record in recordListArray" class="record-list">
-			<p ng-click="getRecords(record);" id="recordList">{{record}}<p>
-		</div>
+<div id="column">
+	<h2>Records</h2>	
+	<div ng-repeat="record in recordListArray" class="record-list">
+		<p ng-click="getRecords(record);" id="recordList">{{record}}<p>
 	</div>
-	
-		<div class="record-display">
-			
-			<h3>{{recordName}}</h3>
-			<h4>{{recordDate}}</h4>
-			<p>{{description}}</p>
-			<h5>{{heading}}</h5>
-			<h5>{{storedAltitude}}</h5>
-			
-			<div id="form"></div>
-
-			<!-- <form name="myForm">
-			<table>
-					<tr>
-						<td>
-							<input type="radio" name="myRadios"  value="1" />
-						</td>
-						<td>
-							<input type="radio" name="myRadios"  value="2" />
-						</td>
-					</tr>
-				</table>
-			</form>	 -->
-			
-			<div id="chart"></div>
-
-			<div id="map"></div>
-		</div>	
 </div>
+	
+<div class="record-display">
+	
+	<h3>{{recordName}}</h3>
+	<h4>{{recordDate}}</h4>
+	<p>{{description}}</p>
+	
+	<div id="form"></div>
+	<div id="formX"></div>
+	
+	<br>
+	
+	<table>
+		<tr>
+			<td id="statColumn"><div id="stats">
+				<table>
+					<tr><td><b>{{timeTitle}}</b></td><td id="statData">{{time}}</td></tr>
+					<tr><td><b>{{altitudeTitle}}</b></td><td id="statData">{{altitude}}</td></tr>
+					<tr><td><b>{{aoaTitle}}</b></td><td id="statData">{{aoa}}</td></tr>
+					<tr><td><b>{{fvelocityTitle}}</b></td><td id="statData">{{fvelocity}}</td></tr>
+					<tr><td><b>{{gratioTitle}}</b></td><td id="statData">{{gratio}}</td></tr>
+					<tr><td><b>{{gvelocityTitle}}</b></td><td id="statData">{{gvelocity}}</td></tr>
+					<tr><td><b>{{headingTitle}}</b></td><td id="statData">{{heading}}</td></tr>
+					<tr><td><b>{{latitudeTitle}}</b></td><td id="statData">{{latitude}}</td></tr>
+					<tr><td><b>{{longitudeTitle}}</b></td><td id="statData">{{longitude}}</td></tr>
+					<tr><td><b>{{pitchTitle}}</b></td><td id="statData">{{pitch}}</td></tr>
+					<tr><td><b>{{yawTitle}}</b></td><td id="statData">{{yaw}}</td></tr>
+					<tr><td><b>{{rollTitle}}</b></td><td id="statData">{{roll}}</td></tr>
+				</table>
+				</div>	
+			</td>
+			<td id="chartColumn">
+				<div id="chart"></div>
+			</td>
+		</tr>
+	</table>
+	<!--  <div id="stats">
+		<table>
+			<tr><td><b>{{altitudeTitle}}</b></td><td>{{altitude}}</td></tr>
+			<tr><td><b>{{aoaTitle}}</b></td><td>{{aoa}}</td></tr>
+			<tr><td><b>{{fvelocityTitle}}</b></td><td>{{fvelocity}}</td></tr>
+			<tr><td><b>{{gratioTitle}}</b></td><td>{{gratio}}</td></tr>
+			<tr><td><b>{{gvelocityTitle}}</b></td><td>{{gvelocity}}</td></tr>
+			<tr><td><b>{{headingTitle}}</b></td><td>{{heading}}</td></tr>
+			<tr><td><b>{{latitudeTitle}}</b></td><td>{{latitude}}</td></tr>
+			<tr><td><b>{{longitudeTitle}}</b></td><td>{{longitude}}</td></tr>
+			<tr><td><b>{{pitchTitle}}</b></td><td>{{pitch}}</td></tr>
+			<tr><td><b>{{yawTitle}}</b></td><td>{{yaw}}</td></tr>
+			<tr><td><b>{{rollTitle}}</b></td><td>{{roll}}</td></tr>
+		</table>
+	</div> -->
+	
+	<!-- <div id="chart"></div> -->
+
+	<div id="map"></div>
+</div>	
