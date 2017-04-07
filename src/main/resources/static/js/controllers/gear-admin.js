@@ -1,15 +1,28 @@
 angular.module('stars')
 
-.controller("gearAdminCtrl", function($scope, $cookieStore, $location, sendRequest){
+.controller("gearAdminCtrl", function($scope, $cookieStore, $location, sendRequest, $uibModal, $log, $document){
 	setNavBar();
 
+    $scope.showCreateBrandModal = function (size, parentSelector) {
 
-	$scope.showCreateBrandModal = function () {
+        var modelInstance = $uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: '/admingearcreatebrandmodal.html',
+            controller: 'gearAdminCtrl',
+            size: size,
+            resolve: {
+                brands: function(){
+                    return $scope.brands;
+                }
+            }
+        });
 
-
-	};
-
-
+        // modalInstance.result.then(function (selectedBrand){
+        //     $scope.selected = selectedBrand;
+        // });
+    };
 
 
 
