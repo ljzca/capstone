@@ -10,7 +10,6 @@ angular.module('stars')
 				'GET',
 				'brands',
 				function (result) {
-					console.log(result.data._embedded.brands);
 					$scope.brands = result.data._embedded.brands;
 				},
 				function (error) {
@@ -39,30 +38,49 @@ angular.module('stars')
 			)
 		};
 
+
+		$scope.getGearModels = function() {
+            sendRequest.send(
+                'GET',
+                'brands/'+$scope.gear.brand+'/models',
+                function (result)
+                {
+                    console.log(result.data.models);
+                    $scope.models = [];
+                    for(var i=0;i<result.data._embedded.models.length;i++){
+                        var resultString = result.data._embedded.models[i]._links.model.href;
+                        $scope.models.push(decodeURIComponent(resultString.substring(resultString.indexOf("&")+1)));
+                    }
+                },
+                function (error) {
+                    console.log("getModels Failed");
+                }
+            )
+        };
+
 		//Retrieves User gear
 		var getGear = function () {
-		    console.log("getGear FIRED");
 			sendRequest.send(
 				'GET',
 				'users/' + $cookieStore.get('username') + '/gears',
 				function (result) {
-				    console.log(result.data._embedded.gears);
-
-				    $scope.gearList = [];
+				    var gearListArray = [];
 				    for(var i=0;i<result.data._embedded.gears.length;i++){
-				        var resultString = result.data._embedded.gears[i].gear.href;
+				        var resultString = result.data._embedded.gears[i]._links.gear.href;
 				        resultString = resultString.substring(33);
 				        var gearString = resultString.split("&");
 				        var gearObj = {
-				            brand: gearString[1],
-                            model: gearString[2],
+				            brand: gearString[0],
+                            model: gearString[1],
                             description: result.data._embedded.gears[i].description
                         };
-				        gearList.push(gearObj);
+				        gearListArray.push(gearObj);
                     }
+                    console.log(gearListArray);
+                    $scope.gearList = gearListArray;
 				},
 				function (error) {
-					$scope.errMsg = "There was an error loading gear information";
+					// $scope.errMsg = "There was an error loading gear information";
 					console.log(error);
 				},
 				null,

@@ -1,8 +1,19 @@
 angular.module('stars')
 
-.controller("adminCtrl",["$scope","$cookieStore","$location","sendRequest", function($scope, $cookieStore, $location, sendRequest){
+.controller("gearAdminCtrl", function($scope, $cookieStore, $location, sendRequest){
 	setNavBar();
-	
+
+
+	$scope.showCreateBrandModal = function () {
+
+
+	};
+
+
+
+
+
+
 	$scope.isCreation = true;
 	
     var getBrands = function(){
@@ -100,7 +111,7 @@ angular.module('stars')
 
 		sendRequest.send(
 			'POST',
-			'users',
+			'brands',
 			function (result) {
 				getUsers();
 				
@@ -137,4 +148,4 @@ angular.module('stars')
 			$cookieStore.get("password")
 		)};
 	
-}]);
+});

@@ -1,0 +1,178 @@
+<div ng-controller="gearAdminCtrl">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1>Gear Management</h1>
+            </div>
+            <div class="col-sm-4">
+				<span class="pull-right">
+                    <!--Add click functionality-->
+					<button type="button" class="btn btn-success" ng-click="">+ Add Brand</button>
+					<button type="button" class="btn btn-success" ng-click="">+ Add Model</button>
+				</span>
+            </div>
+        </div>
+    </div>
+    <!--Start of Brand Table-->
+
+    <div class="container-fluid">
+        <div class="col-sm-6">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Brand</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="brand in brands">
+                        <td>{{brand.id}}</td>
+                        <td>
+							<span class="pull-right">
+								<a class="btn btn-info" ng-click="editBrand(brand.id)">Edit</a>
+								<a class="btn btn-danger" ng-click="deleteBrand(brand.id)">Delete</a>
+							</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Models</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="model in models" ng-click="">
+                        <td>{{model}}</td>
+                        <td>
+                            <a class="btn btn-info" ng-click="">Edit</a>
+                            <a class="btn btn-danger" ng-click="">Delete</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {{notice}}
+    <h2 ng-if="isCreation">Create Brand</h2>
+    <h2 ng-if="!isCreation">Edit Brand</h2>
+
+    <div class="form-group">
+        <label for="un">Brand</label>
+        <input style="width:300px" type="text" class="form-control" id="un" placeholder="Username" ng-model="username"
+               ng-readonly="!isCreation">
+    </div>
+
+    <div class="form-group">
+        <label for="pw">
+            <span ng-if="isCreation">Password:</span>
+            <span ng-if="!isCreation">New Password:</span>
+        </label>
+        <input style="width:300px" type="password" class="form-control" id="pw" placeholder="Password"
+               ng-model="password">
+    </div>
+
+    <div class="form-group">
+        <label for="fn">First Name</label>
+        <input style="width:300px" type="text" class="form-control" id="fn" placeholder="First Name"
+               ng-model="firstname">
+    </div>
+
+    <div class="form-group">
+        <label for="ln">Last Name</label>
+        <input style="width:300px" type="text" class="form-control" id="ln" placeholder="Last Name" ng-model="lastname">
+    </div>
+
+    <div class="form-group">
+        <label for="em">Email Address</label>
+        <input style="width:300px" type="text" class="form-control" id="em" placeholder="Email" ng-model="email">
+    </div>
+
+    <div class="form-group">
+        <label for="gd">Gender</label>
+        <select style="width:300px" id="gd" ng-model="gender.code" class="form-control">
+            <option ng-repeat="option in gender.genders" value="{{option.id}}">{{option.name}}</option>
+        </select>
+    </div>
+
+    <div ng-repeat="msg in errMsg.messages">{{msg}}</div>
+
+    <span ng-if="isCreation">
+			<a class="btn btn-primary" ng-click="createUser()">Create</a>
+		</span>
+    <span ng-if="!isCreation">
+			<a class="btn btn-success" ng-click="saveUser(username)">Save</a>
+		</span>
+
+    <!--Start of drop downs-->
+
+
+    <!--Brand creation-->
+
+    <div class="modal fade" id="brandModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Brand</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="cc">Brand Name</label>
+                    <input style="width:300px" type="text" class="form-control" id="cc" placeholder="Company Name"
+                           ng-model="companyname">
+                </div>
+
+                <div class="form-group">
+                    <label for="cd">Brand Description</label>
+                    <input style="width:300px" type="text" class="form-control" id="cd"
+                           placeholder="Company Description" ng-model="companydescription">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--Model creation -->
+
+    <div class="modal fade" id="modelModal" role="dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Add Model</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="mn">Model Name</label>
+                <input style="width:300px" type="text" class="form-control" id="mn" placeholder="Model Name"
+                       ng-model="modelname">
+            </div>
+            <div class="form-group">
+                <label for="md">Model Description</label>
+                <input style="width:300px" type="text" class="form-control" id="md" placeholder="Model Description"
+                       ng-model="modeldescription">
+            </div>
+
+            <div class="form-group">
+                <label for="ms">Brand</label>
+                <select style="width:300px" id="ms" ng-model="modelbrand" ng-options="brand.id for brand in brands"
+                        class="form-control">
+                </select>
+            </div>
+            <!--Add click functionality-->
+            <a class="btn btn-primary" ng-click="">Create</a>
+        </div>
+    </div>
+    <span ng-if="isCreation">
+			<a class="btn btn-primary" ng-click="createUser()">Create</a>
+		</span>
+    <span ng-if="!isCreation">
+			<a class="btn btn-success" ng-click="saveUser(username)">Save</a>
+		</span>
+</div>

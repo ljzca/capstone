@@ -14,7 +14,8 @@ angular.module('stars')
 								 {display:"Users",url:"#/admin"},
 								 {display:"Records",url:"#/records"},
 								 {display:"Upload",url:"#/upload"},
-								 {display:"Gear",url:"#/gear"}];
+								 {display:"Gear",url:"#/gear"},
+								 {display:"Gear DB",url:"#/gearadmin"}];
 			}
 			else
 			{

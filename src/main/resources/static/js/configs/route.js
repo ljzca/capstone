@@ -7,6 +7,11 @@ angular.module('stars')
                 controller: "loginCtrl"
             })
 
+            .when("/gearadmin", {
+            	templateUrl: "view/admingear.html",
+            	controller: "gearAdminCtrl"
+            })
+            
             .when("/gear", {
                 templateUrl: "view/gear.html",
                 controller: "gearCtrl"
