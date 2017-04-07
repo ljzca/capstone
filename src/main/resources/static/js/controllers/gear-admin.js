@@ -1,31 +1,54 @@
 angular.module('stars')
 
-.controller("gearAdminCtrl", function($scope, $cookieStore, $location, sendRequest, $uibModal, $log, $document){
+.controller("gearAdminCtrl", function($scope, $cookieStore, $location, sendRequest, $uibModal){
 	setNavBar();
 
-    $scope.showCreateBrandModal = function (size, parentSelector) {
+	$scope.newBrand = {
+	    name: null,
+        description: null
+    };
+
+	console.log($scope.newBrand);
+
+    $scope.showCreateBrandModal = function (size) {
 
         var modelInstance = $uibModal.open({
             animation: true,
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
-            templateUrl: '/admingearcreatebrandmodal.html',
-            controller: 'gearAdminCtrl',
+            templateUrl: 'myModalContent.html',
+            controller: 'ModalInstanceCtrl',
             size: size,
             resolve: {
-                brands: function(){
-                    return $scope.brands;
+                newBrand: function(){
+                    return $scope.newBrand;
                 }
             }
         });
 
-        // modalInstance.result.then(function (selectedBrand){
-        //     $scope.selected = selectedBrand;
-        // });
+        modelInstance.result.then(function (){
+            console.log($scope.brand);
+            sendRequest.send(
+                'POST',
+                'brands',
+                function (result) {
+                    console.log(result.data);
+                    getBrands();
+                },
+                function (error) {
+                    $scope.notice = "There was an error creating the brand"
+                },
+                {
+                    name: $scope.newBrand.name,
+                    description: $scope.newBrand.description
+                },
+                $cookieStore.get("username"),
+                $cookieStore.get("password")
+            )
+        }, function () {
+
+        });
     };
-
-
-
 
 	$scope.isCreation = true;
 	
@@ -100,19 +123,19 @@ angular.module('stars')
 			$cookieStore.get("password")
 		)};
 	
-	$scope.deleteBrand = function(username){
+	$scope.deleteBrand = function(brandname){
         sendRequest.send(
 			'DELETE',
-			'users/'+username,
+			'brands/'+brandname,
 			function (result) {
-				getUsers();
-				$scope.notice = "You successfully deleted "+username;
+				getBrands();
+				$scope.notice = "You successfully deleted "+ brandname;
             },
 			function (error) {
 				if(error.status===406){
 					$scope.notice = "You can't delete yourself";
 				}else{
-					$scope.notice = "You may have just lost admin privilege to deleted the user";
+					$scope.notice = "An error occurred when deleting "+ brandname;
 				}
             },
             null,
@@ -161,4 +184,17 @@ angular.module('stars')
 			$cookieStore.get("password")
 		)};
 	
+})
+
+angular.module('stars').controller("ModalInstanceCtrl", function($scope, $uibModalInstance, newBrand) {
+
+    $scope.newBrand = newBrand;
+
+    $scope.ok = function() {
+        $uibModalInstance.close();
+    };
+
+    $scope.cancel = function() {
+        $uibModalInstance.dismiss();
+    };
 });

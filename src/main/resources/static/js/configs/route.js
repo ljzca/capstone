@@ -56,6 +56,11 @@ angular.module('stars')
                 templateUrl: 'view/uploadfile.html',
                 controller: 'upload'
             })
+            
+            .when('/adminModal', {
+            	templateUrl: 'view/admingearcreatebrandmodal.html',
+            	controller: 'gearAdminCtrl'
+            })
 
             .otherwise({
                 templateUrl: "view/404.html"
