@@ -130,6 +130,12 @@ public class RecordData extends AbstractDomain<RecordDataPK> {
 	@Column(nullable = false)
 	private double heading;
 
+	/**
+	 * meter
+	 */
+	@Column(nullable = false)
+	private double distance;
+
 	// bi-directional many-to-one association to Record
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({
@@ -272,6 +278,14 @@ public class RecordData extends AbstractDomain<RecordDataPK> {
 
 	public void setHeading(double heading) {
 		this.heading = heading;
+	}
+
+	public double getDistance() {
+		return distance;
+	}
+
+	public void setDistance(double distance) {
+		this.distance = distance;
 	}
 
 	public Record getRecord() {
