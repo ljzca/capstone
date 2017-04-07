@@ -1,12 +1,18 @@
 angular.module('stars')
 
-    .config(function ($routeProvider) {
-        $routeProvider
+    .config(function ($routeProvider, $locationProvider) {
+        $locationProvider.hashPrefix('');
+    	$routeProvider
             .when("/", {
                 templateUrl: "view/login.html",
                 controller: "loginCtrl"
             })
 
+            .when("/gearadmin", {
+            	templateUrl: "view/admingear.html",
+            	controller: "gearAdminCtrl"
+            })
+            
             .when("/gear", {
                 templateUrl: "view/gear.html",
                 controller: "gearCtrl"
@@ -49,6 +55,11 @@ angular.module('stars')
             .when('/upload', {
                 templateUrl: 'view/uploadfile.html',
                 controller: 'upload'
+            })
+            
+            .when('/adminModal', {
+            	templateUrl: 'view/admingearcreatebrandmodal.html',
+            	controller: 'gearAdminCtrl'
             })
 
             .otherwise({

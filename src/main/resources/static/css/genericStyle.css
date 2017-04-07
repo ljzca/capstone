@@ -1,0 +1,80 @@
+.error
+{
+	color: red;
+	font-style: italic;
+}
+
+.success
+{
+	color: green;
+	font-style: italic;
+}
+
+.status
+{
+	font-style: italic;
+}
+
+/* Always set the map height explicitly to define the size of the div
+ * element that contains the map. */
+#map {
+  height: 500px;
+  width: 500px;
+}
+/* Optional: Makes the sample page fill the window. */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.record-list
+{
+	left: 0;
+	top: 100px;
+	width: 200px;
+	word-wrap: break-word;
+}
+
+.record-list-copy
+{
+	position: fixed;
+	height: 132px;
+	left: 0;
+	top: 100px;
+	width: 200px;
+	word-wrap: break-word;
+}
+
+.record-display
+{
+	position: absolute;
+	height: 140px;
+	left: 210px;
+	top: 55px;
+	width: 100%;
+	word-wrap: break-word;
+}
+
+#chart
+{
+    height: 500px;
+    width: 80%;
+}
+
+#recordList:hover
+{
+    text-decoration: underline;
+    color: blue;
+}
+
+#column
+{
+	position: absolute;
+	height: 70px;
+	left: 25;
+	top: 50px;
+	width: 200px;
+	word-wrap: break-word;
+}
+

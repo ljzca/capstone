@@ -2,10 +2,8 @@ var setNavBar;
 
 angular.module('stars')
 
-.controller("navCtrl",["$scope","$cookieStore","$location","$window","sendRequest", function($scope, $cookieStore, $location, $window, sendRequest)
+.controller("navCtrl", function($scope, $cookieStore, $location, $window, sendRequest)
 {
-	console.log($cookieStore.get("username"));
-	
 	setNavBar = function()
 	{
 		if($cookieStore.get("username"))
@@ -15,13 +13,16 @@ angular.module('stars')
 				$scope.navbar = [{display:"Profile",url:"#/profile"},
 								 {display:"Users",url:"#/admin"},
 								 {display:"Records",url:"#/records"},
-								 {display:"Upload",url:"#/upload"}];
+								 {display:"Upload",url:"#/upload"},
+								 {display:"Gear",url:"#/gear"},
+								 {display:"Gear DB",url:"#/gearadmin"}];
 			}
 			else
 			{
 				$scope.navbar = [{display:"Profile",url:"#/profile"},
 								 {display:"Records",url:"#/records"},
-								 {display:"Upload",url:"#/upload"}];
+								 {display:"Upload",url:"#/upload"},
+								 {display:"Gear", url:"#/gear"}];
 			}
 			
 			$scope.username = $cookieStore.get("username");
@@ -43,4 +44,4 @@ angular.module('stars')
 		$scope.username = undefined;
 	};
 	
-}]);
+});

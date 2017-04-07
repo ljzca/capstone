@@ -22,10 +22,10 @@
 					<td ng-if="user.sex === 'Male'">Male</td>
 					<td ng-if="user.sex === 'Female'">Female</td>
 					<td>
-						<span ng-if="user.isAdmin"><a class="btn btn-default" ng-click="demoteUser(user.username)">Demote</a></span>
-						<span ng-if="!user.isAdmin"><a class="btn btn-warning" ng-click="promoteUser(user.username)">Promote</a></span>
-						<a class="btn btn-info" ng-click="editUser(user.username)">Edit</a>
-						<a class="btn btn-danger" ng-click="deleteUser(user.username)">Delete</a>
+						<span ng-if="user.isAdmin"><a class="btn btn-default" ng-click="demoteUser(user.id)">Demote</a></span>
+						<span ng-if="!user.isAdmin"><a class="btn btn-warning" ng-click="promoteUser(user.id)">Promote</a></span>
+						<a class="btn btn-info" ng-click="editUser(user.id)">Edit</a>
+						<a class="btn btn-danger" ng-click="deleteUser(user.id)">Delete</a>
 					</td>
 				</tr>
 			</tbody>

@@ -2,7 +2,6 @@ angular.module('stars')
 
     .controller("signupCtrl", ["$http", "$scope", "$cookieStore", "$location", "sendRequest", function ($http, $scope, $cookieStore, $location, sendRequest) {
 
-    	setNavBar();
     	
     	//Gender drop down properties 
     	$scope.gender =  {

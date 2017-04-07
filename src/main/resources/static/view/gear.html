@@ -4,41 +4,18 @@
 
 <div class="table-responsive">
 	<table id="gearTable" class="table table-hover">
-	<thead>
-		<tr>
-			<th>Brand</th>
-			<th>Model</th>
-			<th>Description</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>
-				<div class="form-group">
-					<select style="width:300px" ng-model="selectedBrand" ng-change="getModels()" ng-options="brand.id for brand in brands" class="form-control">
-					</select>
-				</div>
-			</td>
-			<td>
-				<div class="form-group">
-					<select style="width:300px" id="sm" ng-model="selectedModel" ng-options="model for model in models" class="form-control">
-					</select>
-				</div>
-			</td>
-			<td>
-				<div class="form-group">
-					<input style="width:300px" id="gr" placeholder="Gear Description" class="form-control">
-				</div>
-			</td>
-			<td>
-				<button type="button" class="btn btn-primary" ng-click="">+ Add</button>
-			</td>
-		</tr>
-        <div ng-repeat="gear in gearList" class="gear-list">
+        <thead>
+            <tr>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
             <tr>
                 <td>
                     <div class="form-group">
-                        <select style="width:300px" ng-model="selectedGear" ng-change="getModels()" ng-options="brand.id for brand in brands" class="form-control">
+                        <select style="width:300px" ng-model="selectedBrand" ng-change="getModels()" ng-options="brand.id for brand in brands" class="form-control">
                         </select>
                     </div>
                 </td>
@@ -57,8 +34,29 @@
                     <button type="button" class="btn btn-primary" ng-click="">+ Add</button>
                 </td>
             </tr>
-        </div>
-    </tbody>
+            <tr ng-repeat="gear in gearList">
+                <td>
+                    <div class="form-group">
+                        <select style="width:300px" ng-model="gear.brand" ng-change="getGearModels()" ng-options="brand.id for brand in brands" class="form-control">
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <select style="width:300px" id="sm" ng-model="gear.model" ng-options="model for model in models" class="form-control">
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <input style="width:300px" ng-model="gear.description" id="gr" placeholder="Gear Description" class="form-control">
+                    </div>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger" ng-click="">- Remove</button>
+                </td>
+            </tr>
+        </tbody>
     </table>
 </div>
 </div>
