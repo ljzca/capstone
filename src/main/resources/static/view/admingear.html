@@ -8,7 +8,7 @@
 				<span class="pull-right">
                     <!--Add click functionality-->
 					<button type="button" class="btn btn-success" ng-click="showCreateBrandModal()">+ Add Brand</button>
-					<button type="button" class="btn btn-success" ng-click="">+ Add Model</button>
+					<button type="button" class="btn btn-success" ng-click="showCreateModelModal()">+ Add Model</button>
 				</span>
             </div>
         </div>
@@ -25,11 +25,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="brand in brands">
+                    <tr ng-repeat="brand in brands" ng-click="setSelected(brand)"
+                        ng-class="{selected : brand.id === selected}">
                         <td>{{brand.id}}</td>
                         <td>
 							<span class="pull-right">
-								<a class="btn btn-info" ng-click="editBrand(brand.id)">Edit</a>
+								<a class="btn btn-info" ng-click="showEditBrandModal(brand)">Edit</a>
 								<a class="btn btn-danger" ng-click="deleteBrand(brand.id)">Delete</a>
 							</span>
                         </td>
@@ -51,8 +52,10 @@
                     <tr ng-repeat="model in models" ng-click="">
                         <td>{{model}}</td>
                         <td>
-                            <a class="btn btn-info" ng-click="">Edit</a>
-                            <a class="btn btn-danger" ng-click="">Delete</a>
+                            <span class="pull-right">
+                                <a class="btn btn-info" ng-click="">Edit</a>
+                                <a class="btn btn-danger" ng-click="deleteModel(model)">Delete</a>
+                            </span>
                         </td>
                     </tr>
                     </tbody>
@@ -62,78 +65,25 @@
     </div>
 
     {{notice}}
-    <h2 ng-if="isCreation">Create Brand</h2>
-    <h2 ng-if="!isCreation">Edit Brand</h2>
-
-    <div class="form-group">
-        <label for="un">Brand</label>
-        <input style="width:300px" type="text" class="form-control" id="un" placeholder="Username" ng-model="username"
-               ng-readonly="!isCreation">
-    </div>
-
-    <div class="form-group">
-        <label for="pw">
-            <span ng-if="isCreation">Password:</span>
-            <span ng-if="!isCreation">New Password:</span>
-        </label>
-        <input style="width:300px" type="password" class="form-control" id="pw" placeholder="Password"
-               ng-model="password">
-    </div>
-
-    <div class="form-group">
-        <label for="fn">First Name</label>
-        <input style="width:300px" type="text" class="form-control" id="fn" placeholder="First Name"
-               ng-model="firstname">
-    </div>
-
-    <div class="form-group">
-        <label for="ln">Last Name</label>
-        <input style="width:300px" type="text" class="form-control" id="ln" placeholder="Last Name" ng-model="lastname">
-    </div>
-
-    <div class="form-group">
-        <label for="em">Email Address</label>
-        <input style="width:300px" type="text" class="form-control" id="em" placeholder="Email" ng-model="email">
-    </div>
-
-    <div class="form-group">
-        <label for="gd">Gender</label>
-        <select style="width:300px" id="gd" ng-model="gender.code" class="form-control">
-            <option ng-repeat="option in gender.genders" value="{{option.id}}">{{option.name}}</option>
-        </select>
-    </div>
-
-    <div ng-repeat="msg in errMsg.messages">{{msg}}</div>
-
-    <span ng-if="isCreation">
-			<a class="btn btn-primary" ng-click="createUser()">Create</a>
-		</span>
-    <span ng-if="!isCreation">
-			<a class="btn btn-success" ng-click="saveUser(username)">Save</a>
-		</span>
-
-    <!--Start of drop downs-->
-
 
     <!--Brand creation-->
-    <script type="text/ng-template" id="myModalContent.html">
+    <script type="text/ng-template" id="BrandCreate.html">
         <div class="modal-dialog">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Add Brand</h4>
+                <h3 class="modal-title">Add Brand</h3>
             </div>
             <div class="modal-body">
                 <div class="form-group">
                     <label for="cc">Brand Name</label>
-                    <input style="width:300px" type="text" class="form-control" id="cc" placeholder="Brand Name" ng-model="newBrand.name">
+                    <input style="width:300px" type="text" class="form-control" id="cc" placeholder="Brand Name"
+                           ng-model="newBrand.name">
                 </div>
 
                 <div class="form-group">
                     <label for="cd">Brand Description</label>
-                    <input style="width:300px" type="text" class="form-control" id="cd" placeholder="Brand Description" ng-model="newBrand.description">
+                    <input style="width:300px" type="text" class="form-control" id="cd" placeholder="Brand Description"
+                           ng-model="newBrand.description">
                 </div>
-            </div>
-            <div class="modal-footer">
                 <button class="btn btn-primary" type="button" ng-click="ok()">Save</button>
                 <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
             </div>
@@ -141,38 +91,59 @@
     </script>
 
     <!--Model creation -->
+    <script type="text/ng-template" id="ModelCreate.html">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3 class="modal-title">Add Model</h3>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="mn">Model Name</label>
+                    <input style="width:300px" type="text" class="form-control" id="mn" placeholder="Model Name"
+                           ng-model="newModel.type">
+                </div>
+                <div class="form-group">
+                    <label for="md">Model Description</label>
+                    <input style="width:300px" type="text" class="form-control" id="md" placeholder="Model Description"
+                           ng-model="newModel.description">
+                </div>
 
-    <div class="modal fade" id="modelModal" role="dialog">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Add Model</h4>
+                <div class="form-group">
+                    <label for="ms">Brand</label>
+                    <select style="width:300px" id="ms" ng-model="newModel.name" ng-options="brand.id for brand in brands"
+                            class="form-control">
+                    </select>
+                </div>
+                <!--Add click functionality-->
+                <button class="btn btn-primary" type="button" ng-click="ok()">Save</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            </div>
         </div>
-        <div class="modal-body">
-            <div class="form-group">
-                <label for="mn">Model Name</label>
-                <input style="width:300px" type="text" class="form-control" id="mn" placeholder="Model Name"
-                       ng-model="modelname">
-            </div>
-            <div class="form-group">
-                <label for="md">Model Description</label>
-                <input style="width:300px" type="text" class="form-control" id="md" placeholder="Model Description"
-                       ng-model="modeldescription">
-            </div>
+    </script>
 
-            <div class="form-group">
-                <label for="ms">Brand</label>
-                <select style="width:300px" id="ms" ng-model="modelbrand" ng-options="brand.id for brand in brands"
-                        class="form-control">
-                </select>
+
+    <!--Brand edit-->
+    <script type="text/ng-template" id="BrandEdit.html">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3 class="modal-title">Add Brand</h3>
             </div>
-            <!--Add click functionality-->
-            <a class="btn btn-primary" ng-click="">Create</a>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="bn">Brand Name</label>
+                    <input style="width:300px" type="text" class="form-control" id="bn" placeholder="Brand Name"
+                           ng-model="newBrand.id">
+                </div>
+
+                <div class="form-group">
+                    <label for="bd">Brand Description</label>
+                    <input style="width:300px" type="text" class="form-control" id="bd" placeholder="Brand Description"
+                           ng-model="newBrand.description">
+                </div>
+                <button class="btn btn-primary" type="button" ng-click="ok()">Save</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            </div>
         </div>
-    </div>
-    <span ng-if="isCreation">
-			<a class="btn btn-primary" ng-click="createUser()">Create</a>
-		</span>
-    <span ng-if="!isCreation">
-			<a class="btn btn-success" ng-click="saveUser(username)">Save</a>
-		</span>
+    </script>
+    <button type="button" ng-click="testButton()">test</button>
 </div>
