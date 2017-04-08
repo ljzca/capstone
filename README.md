@@ -44,6 +44,7 @@ The toString() returned values are used to represent the ID of the domains in UR
 
 
 # Examples of JSON data
+Add new user:
 POST to http://localhost:8080/rest/users
 {
 	"username":"user4",
@@ -52,6 +53,16 @@ POST to http://localhost:8080/rest/users
 	"isAdmin": false
 }
 
+Add new model:
+POST to http://localhost:8080/rest/models
+{
+	"id":{
+		"name":"Test Brand",
+		"type":"XX"
+	},
+	"name":"http://localhost:8080/rest/brands/Test%20Brand",
+	"type":"XX"
+}
 
 # JSON standard
 

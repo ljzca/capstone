@@ -33,7 +33,7 @@ public class Brand extends AbstractDomain<String> {
 	private String description;
 
 	// bi-directional many-to-one association to Record
-	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "name")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "name")
 	private List<Model> models;
 
 	public String getName() {
