@@ -8,7 +8,7 @@
 //Predefine the function
 var setHeading;
 var createFilter;
-var alertNum;
+var yAxisRadio;
 var createXY;
 var clickIndex;
 var myBarChart;
@@ -112,6 +112,7 @@ angular.module('stars')
 	
     $scope.getRecords = function(recordName)
     {	
+    	freezeData();
     	//Create the encoded record name in order to query the database
 		var recordEncodedName = encodeURIComponent(recordName);
 		
@@ -140,8 +141,6 @@ angular.module('stars')
 				
 				
 				//Create the date based on the url to the recordData
-				console.log("The Records")
-				console.log($scope.records);
 		    	var date = new Date(parseInt($scope.records._embedded.recordDatas[0]._links.recordData.href.substring
 						(
 								$scope.records._embedded.recordDatas[0]._links.recordData.href.lastIndexOf("&") +1
@@ -149,13 +148,18 @@ angular.module('stars')
 		    	
 		    	var dateString = date.toString();
 		    	
-		    	var dateMili = date.getTime();
+		    	$scope.dateMili = date.getTime();
 		    	
 		    	dateString = date.toString();
 		    	
 		    	//Set the recordDate as a toString of "date" up to the point where it says GMT
 		    	$scope.recordDate = dateString.substring(0, dateString.indexOf("GMT"));
 				
+		    	var degreeToRad = function(deg)
+		    	{
+		    		return deg * (Math.PI/180);
+		    	}
+		    	
 		    	/**
 		    	 * 
 		    	 * Create the X Y axis for the graph
@@ -169,7 +173,7 @@ angular.module('stars')
 					//Holds the y-axis
 					var yAxis = [];
 					
-					
+					var totalDistance = 0;
 					
 					//Push the x and y data points for each recordData
 					for(var i = 0; i < $scope.records._embedded.recordDatas.length; i++)
@@ -180,7 +184,7 @@ angular.module('stars')
 								)));
 						
 						//Set dateString to be a time from 0
-						dateString = date.getTime() - dateMili;
+						dateString = date.getTime() - $scope.dateMili;
 						
 						//Create a date from the dateString
 						var newDate = new Date(dateString);
@@ -191,41 +195,42 @@ angular.module('stars')
 						//Push the xAxis data to the array 
 						var xAxisData;
 						
-//						var baseDistance = 
-//						
-//						switch($scope.filterSetting)
-//						{
-//							case "1": 
-//								xAxisData = newDate.toJSON().substring(dateString.indexOf("T")+1, dateString.indexOf("T") + 12);
-//								break;
-//							case "2":
-//								var R = 6371e3; // metres
-//								var latRad1 = lat1.toRadians();
-//								var latRad2 = lat2.toRadians();
-//								var latDis = (lat2-lat1).toRadians();
-//								var lonDis = (lon2-lon1).toRadians();
-//
-//								var a = Math.sin(latDis/2) * Math.sin(latDis/2) +
-//								        Math.cos(latRad1) * Math.cos(latRad2) *
-//								        Math.sin(lonDis/2) * Math.sin(lonDis/2);
-//								var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-//
-//								var d = R * c;
-//								
-//								
-//								
-//								xAxisData = $scope.records._embedded.recordDatas[i].lat;
-//								break;
-//							default:
-//								yAxisData = newDate.toJSON().substring(dateString.indexOf("T")+1, dateString.indexOf("T") + 12);
-//								break;
-//						}
+						switch($scope.filterSettingX)
+						{
+							case "5": 
+								xAxisData = newDate.toJSON().substring(dateString.indexOf("T")+1, dateString.indexOf("T") + 12);
+								break;
+							case "6":
+								if(i>0)
+								{
+									var lat1 = parseFloat($scope.records._embedded.recordDatas[i-1].latitude);
+									var lat2 = parseFloat($scope.records._embedded.recordDatas[i].latitude);
+									var lon1 = parseFloat($scope.records._embedded.recordDatas[i-1].longitude);
+									var lon2 = parseFloat($scope.records._embedded.recordDatas[i].longitude);
+									
+									var R = 6371; // kilometers
+									var dLat = degreeToRad(lat2 - lat1);
+									var dLon = degreeToRad(lon2 - lon1);
+									
+									 var a =    Math.sin(dLat/2) * Math.sin(dLat/2) +
+											    Math.cos(degreeToRad(lat1)) * Math.cos(degreeToRad(lat2)) * 
+											    Math.sin(dLon/2) * Math.sin(dLon/2); 
+									
+									 var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+									 console.log(totalDistance);
+									totalDistance = parseFloat((totalDistance + (R * c)));
+								}
+								
+								xAxisData = totalDistance.toFixed(2) + "km";
+									
+								break;
+							default:
+								xAxisData = newDate.toJSON().substring(dateString.indexOf("T")+1, dateString.indexOf("T") + 12);
+								break;
+						}
 						
 						
-						xAxis.push
-						(
-								newDate.toJSON().substring(dateString.indexOf("T")+1, dateString.indexOf("T") + 12)
-						);
+						xAxis.push(xAxisData);
 						
 						//Push the yAxis to the array
 						var yAxisData;
@@ -239,6 +244,30 @@ angular.module('stars')
 								break;
 							case "3": 
 								yAxisData = $scope.records._embedded.recordDatas[i].longitude;
+								break;
+							case "4": 
+								if(i>0)
+								{
+									var lat1 = parseFloat($scope.records._embedded.recordDatas[i-1].latitude);
+									var lat2 = parseFloat($scope.records._embedded.recordDatas[i].latitude);
+									var lon1 = parseFloat($scope.records._embedded.recordDatas[i-1].longitude);
+									var lon2 = parseFloat($scope.records._embedded.recordDatas[i].longitude);
+
+									
+									var R = 6371; // kilometers
+									var dLat = degreeToRad(lat2 - lat1);
+									var dLon = degreeToRad(lon2 - lon1);
+									
+									 var a =    Math.sin(dLat/2) * Math.sin(dLat/2) +
+											    Math.cos(degreeToRad(lat1)) * Math.cos(degreeToRad(lat2)) * 
+											    Math.sin(dLon/2) * Math.sin(dLon/2); 
+									
+									 var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+									 console.log(totalDistance);
+									totalDistance = parseFloat((totalDistance + (R * c)));
+								}
+								
+								yAxisData = totalDistance.toFixed(2);
 								break;
 							default:
 								yAxisData = $scope.records._embedded.recordDatas[i].altitude;
@@ -281,9 +310,12 @@ angular.module('stars')
 		    	
 					if(trashLines === 1)
 					{
-						chartDraw(globalIndex);
-						dataLock = 0;
-						freezeData();
+						if(dataLock === 1)
+						{
+							chartDraw(globalIndex);
+							dataLock = 1;
+							freezeData();
+						}
 					}
 					
 					else
@@ -383,6 +415,7 @@ angular.module('stars')
 			{
 				createFilter();
 				$scope.filterSetting = 1;
+				$scope.filterSettingX = 1;
 			}
 			
 			//Create a <canvas> element
@@ -402,30 +435,39 @@ angular.module('stars')
 			{
 				freezeData = function()
 				{
-					if(dataLock === 0)
-					{
-						globalIndex = $scope.index;
-						
-						if($scope.storedAltitude !== undefined)
+					
+						if(dataLock === 0)
 						{
-							$scope.$apply(function()
-							{
-								$scope.storedAltitude = "Stored Altitude: " + $scope.records._embedded.recordDatas[$scope.index].altitude;
-							});
+							globalIndex = $scope.index;
 							
-							dataLock = 1;
+								if($scope.storedAltitude !== undefined)
+								{
+									dataLock = 1;
+										$timeout(function()
+										{
+											$scope.$apply(function()
+											{
+												$scope.storedAltitude = "Stored Altitude: " + $scope.records._embedded.recordDatas[$scope.index].altitude;
+											});
+										},0);		
+								}	
+							
+							
 						}
-					}
-					else
-					{
-						globalIndex = undefined;
-						$scope.$apply(function()
+						else
 						{
-							$scope.storedAltitude = null;
-						})
-						
-						dataLock = 0;
-					}
+							globalIndex = undefined;
+							$timeout(function()
+							{
+								$scope.$apply(function()
+								{
+									$scope.storedAltitude = null;
+								})
+							},0);
+							
+							dataLock = 0;
+						}
+					
 				}
 				freezeData();
 					
@@ -444,6 +486,9 @@ angular.module('stars')
 					break;
 				case "3":
 					yLabel = "Longitude";
+					break;
+				case "4":
+					yLabel = "Distance";
 					break;
 				default:
 					yLabel = "Altitude";
@@ -517,6 +562,11 @@ angular.module('stars')
 			
 			var originalLineDraw = Chart.controllers.line.prototype.draw;
 			
+			/**
+			 * 
+			 * This function will draw the vertical line on the graph
+			 * 
+			 */
 			chartDraw = function(lineIndex)
 			{
 			  Chart.helpers.extend(Chart.controllers.line.prototype, {
@@ -562,11 +612,54 @@ angular.module('stars')
 		{	
 			$scope.$apply(function()
 			{
+				$scope.timeTitle = "Time: ";
+				$scope.altitudeTitle = "Altitude: ";
+				$scope.aoaTitle = "Angle of Attack: ";
+				$scope.fvelocityTitle = "Forward Velocity: ";
+				$scope.gratioTitle = "Glide Ratio: ";
+				$scope.gvelocityTitle = "Ground Velocity: ";
+				$scope.headingTitle = "Heading: ";
+				$scope.latitudeTitle = "Latitude: ";
+				$scope.longitudeTitle = "Longitude: ";
+				$scope.pitchTitle = "Pitch: ";
+				$scope.yawTitle = "Yaw: ";
+				$scope.rollTitle = "Roll: ";
+				
 				$scope.indexData = $scope.records._embedded.recordDatas[$scope.index]
 				if($scope.indexData === undefined)
 					$scope.heading = 0;
 				else
-					$scope.heading = $scope.indexData.altitude;
+				{
+					
+//					console.log($scope.indexData);
+					date = new Date(parseInt($scope.indexData._links.recordData.href.substring
+							(
+									$scope.indexData._links.recordData.href.lastIndexOf("&") +1
+							)));
+					
+					//Set dateString to be a time from 0
+					dateString = date.getTime() - $scope.dateMili;
+					
+					//Create a date from the dateString
+					var newDate = new Date(dateString);
+					
+					//Convert dateString to a JSON date from newDate
+					dateString = newDate.toJSON();
+					
+					$scope.time = newDate.toJSON().substring(dateString.indexOf("T")+1, dateString.indexOf("T") + 12);
+					$scope.altitude = $scope.indexData.altitude;
+					$scope.aoa = $scope.indexData.aoa;
+					$scope.fvelocity = $scope.indexData.fvelocity;
+					$scope.gratio = $scope.indexData.gratio;
+					$scope.gvelocity = $scope.indexData.gvelocity;
+					$scope.heading = $scope.indexData.heading;
+					$scope.latitude = $scope.indexData.latitude;
+					$scope.longitude = $scope.indexData.longitude;
+					$scope.pitch = $scope.indexData.pitch;
+					$scope.yaw = $scope.indexData.yaw;
+					$scope.roll = $scope.indexData.roll;
+				}
+				
 				chartDraw($scope.index);
 			});
 		}
@@ -587,6 +680,9 @@ angular.module('stars')
 
 			    var row3 = document.createElement("input");
 			    var textnode3 = document.createTextNode("Longitude");
+			    
+			    var row4 = document.createElement("input");
+			    var textnode4 = document.createTextNode("Distance");
 
 			    form.appendChild(row);
 			    form.appendChild(textnode);
@@ -597,14 +693,17 @@ angular.module('stars')
 			    form.appendChild(row3);
 			    form.appendChild(textnode3);
 			    
+			    form.appendChild(row4);
+			    form.appendChild(textnode4);
+			    
 			    document.getElementById("form").appendChild(form);
 			    
-			    for(var i = 0; i < 3; i++)
+			    for(var i = 0; i < 4; i++)
 			    {
 			    	 document.getElementsByTagName("input")[i].setAttribute("type", "radio");
 			    	 document.getElementsByTagName("input")[i].setAttribute("value", "" + (i+1));
 			    	 document.getElementsByTagName("input")[i].setAttribute("name", "formTest");
-			    	 document.getElementsByTagName("input")[i].setAttribute("onClick", "alertNum();");
+			    	 document.getElementsByTagName("input")[i].setAttribute("onClick", "yAxisRadio();");
 			    }
 			    
 			    if($scope.filterSetting === "1" || $scope.filterSetting == null)
@@ -613,20 +712,77 @@ angular.module('stars')
 			    	
 			    	document.getElementsByTagName("input")[0].setAttribute("checked", "checked");
 			    }
+			    
+			    
+			    //*****************************************
+			    
+			    var formX = document.createElement("FORM");
+			    var rowX = document.createElement("input");
+			    var textnodeX = document.createTextNode("Time");
+
+			    var row2X = document.createElement("input");
+			    var textnode2X = document.createTextNode("Distance");
+
+			    formX.appendChild(rowX);
+			    formX.appendChild(textnodeX);
+			    
+			    formX.appendChild(row2X);
+			    formX.appendChild(textnode2X);
+			    
+			    document.getElementById("formX").appendChild(formX);
+			    
+			    for(var i = 4; i < 6; i++)
+			    {
+			    	 document.getElementsByTagName("input")[i].setAttribute("type", "radio");
+			    	 document.getElementsByTagName("input")[i].setAttribute("value", "" + (i+1));
+			    	 document.getElementsByTagName("input")[i].setAttribute("name", "formTestX");
+			    	 document.getElementsByTagName("input")[i].setAttribute("onClick", "xAxisRadio();");
+			    }
+			    
+			    if($scope.filterSettingX === "1" || $scope.filterSettingX == null)
+			    {
+			    	$scope.filterSettingX = "1";
+			    	
+			    	document.getElementsByTagName("input")[4].setAttribute("checked", "checked");
+			    }
 		}
 		
 		
-		alertNum = function()
+		/**
+		 * This function reads the y-axis radio buttons
+		 */
+		yAxisRadio = function()
 		{
-			var testVar;
+			var radioValue;
 		    var radios = document.getElementsByName("formTest");
 		    for (var i = 0; i < radios.length; i++) {
 		        if (radios[i].checked) {
-		            testVar = (radios[i].value);
+		            radioValue = (radios[i].value);
 		            break;
 		        }
 		    }
-		    $scope.filterSetting = testVar;
+		    $scope.filterSetting = radioValue;
+		    
+		    trashLines = 0;
+		    
+			createXY();
+		}
+		
+		
+		/**
+		 * This function reads the x-axis radio buttons
+		 */
+		xAxisRadio = function()
+		{
+			var radioValue;
+		    var radios = document.getElementsByName("formTestX");
+		    for (var i = 0; i < radios.length; i++) {
+		        if (radios[i].checked) {
+		            radioValue = (radios[i].value);
+		            break;
+		        }
+		    }
+		    $scope.filterSettingX = radioValue;
 		    
 		    trashLines = 0;
 		    
@@ -636,7 +792,9 @@ angular.module('stars')
 }]);
 
 
-//This function can be called by the Chart.js file
+/**
+ * This function can be called by the Chart.js file 
+ */
 var getValueAtIndexOrDefault = function(value)
 {	
 	if(dataLock === 0)
