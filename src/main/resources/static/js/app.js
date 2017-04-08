@@ -1,1 +1,1 @@
-angular.module('stars', ['ngRoute','ngCookies','base64']);
+angular.module('stars', ['ngRoute','ngCookies','base64','ui.bootstrap']);

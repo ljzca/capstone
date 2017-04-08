@@ -35,7 +35,8 @@ angular.module('stars')
 					yaccel: dataLine[12],
 					zaccel: dataLine[13],
 					aoa: dataLine[14],
-					temperature: dataLine[16]
+					temperature: dataLine[16],
+					distance: dataLine[17]
 			}
 			
 			if(! (dataLine[15] === "null")) 
