@@ -52,14 +52,14 @@ html, body {
 	height: 140px;
 	left: 210px;
 	top: 55px;
-	width: 100%;
+	width: 80%;
 	word-wrap: break-word;
 }
 
 #chart
 {
     height: 500px;
-    width: 80%;
+    width: 100%;
 }
 
 #recordList:hover
@@ -74,12 +74,26 @@ html, body {
 	height: 70px;
 	left: 25;
 	top: 50px;
-	width: 200px;
+	width: 100%;
 	word-wrap: break-word;
 }
 
-.selected
+#stats
 {
-	background-color: whitesmoke;
+	width: 200px;
 }
 
+#chartColumn
+{
+	width: 100%;
+}
+
+#statColumn
+{
+	width: 200px;
+}
+
+#statData
+{
+	align: "right";
+}
