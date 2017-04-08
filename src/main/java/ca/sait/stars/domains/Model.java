@@ -29,7 +29,7 @@ public class Model extends AbstractDomain<ModelPK> {
 	private Brand name;
 
 	// bi-directional many-to-one association to Gear
-	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "model")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "model")
 	private List<Gear> gear;
 
 	@Override
