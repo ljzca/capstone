@@ -53,7 +53,7 @@ POST to http://localhost:8080/rest/users
 	"isAdmin": false
 }
 
-Add new model:
+Add new model of a brand:
 POST to http://localhost:8080/rest/models
 {
 	"id":{
@@ -64,6 +64,12 @@ POST to http://localhost:8080/rest/models
 	"type":"XX"
 }
 
+Update the description of the above model of the brand:
+PATCH to http://localhost:8080/rest/models/Test%20Brand&XX
+{
+	"description":"dd"
+}
+
 # JSON standard
 
 After starting the server, HAL (Hypertext Application Language) profile provides most general information of what this system can provide. However, just as a reminder, here is a list of some solutions for possible FAQs.
@@ -71,7 +77,8 @@ After starting the server, HAL (Hypertext Application Language) profile provides
 CRUD mapping
 Create: post
 Read: get
-Update: patch
+Update (only given attributes in JSON): patch
+Update (all properties a model has): put
 Delete: delete
 
 Date string format standard
