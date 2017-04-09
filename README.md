@@ -70,6 +70,16 @@ PATCH to http://localhost:8080/rest/models/Test%20Brand&XX
 	"description":"dd"
 }
 
+Add a new gear to a user (idempotent):
+POST to http://localhost:8080/rest/gears
+{
+	"id":{
+		"name":"Test Brand",
+		"type":"XX",
+		"owner":"admin"
+	}
+}
+
 # JSON standard
 
 After starting the server, HAL (Hypertext Application Language) profile provides most general information of what this system can provide. However, just as a reminder, here is a list of some solutions for possible FAQs.

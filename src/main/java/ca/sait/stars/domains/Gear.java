@@ -1,6 +1,7 @@
 package ca.sait.stars.domains;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.*;
 import static javax.persistence.CascadeType.*;
@@ -12,7 +13,7 @@ import static javax.persistence.CascadeType.*;
  *
  */
 @Entity
-@Table(name = "stars_gear", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "type", "owner", "id" }))
+@Table(name = "stars_gear", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "type", "owner", "uuid" }))
 @NamedQuery(name = "Gear.findAll", query = "SELECT g FROM Gear g")
 public class Gear extends AbstractDomain<GearPK> {
 
@@ -75,5 +76,11 @@ public class Gear extends AbstractDomain<GearPK> {
 	@Override
 	public String toString() {
 		return id.toString();
+	}
+
+	@PrePersist
+	protected void prepersist() {
+		if (id.getUuid() == null)
+			id.setUuid(UUID.randomUUID().toString());
 	}
 }
