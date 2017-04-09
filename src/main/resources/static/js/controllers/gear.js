@@ -93,61 +93,43 @@ angular.module('stars')
 		getGear();
 		getBrand();
 
-
-		var addGear = function () {
+		$scope.addGear = function () {
 		    sendRequest.send(
-		        'PUT',
-                'users/'+ $cookieStore.get("username")+'/gears',
+		        'POST',
+                'gears',
                 function(result){
-
-
+                    console.log("ITS GOOD!")
                 },
                 function(error){
-
-                }
-
+                    console.log("ITS BAD!")
+                },
+                {
+                    "id":{ "name":$scope.selectedBrand.id, "type":$scope.selectedModel, "owner":$cookieStore.get("username")},
+                    "model": "http://localhost:8080/rest/models/"+$scope.selectedBrand.id + "&" + $scope.selectedModel,
+                    "owner": "http://localhost:8080/rest/users/"+$cookieStore.get("username"),
+                    "description": $scope.selectedDescription
+                },
+                $cookieStore.get("username"),
+                $cookieStore.get("password")
             )
-        }
+        };
 
+		$scope.deleteGear = function () {
+          sendRequest.send(
+              'DELETE',
+              'gears',
+              function (result) {
 
+              },
+              function (error){
 
+              },
+              null,
+              $cookieStore.get("username"),
+              $cookieStore.get("password")
+          )
+        };
 
-
-		// The following functions are for future uses
-		var addComapny = function () {
-			sendRequest.send(
-				'PUT',
-				'company/' + $scope.company,
-				function (result) {
-					getCompanies();
-					$scope.company = "";
-					$scope.notice = $scope.company + "has been successfully created";
-					$scope.errMsg = null;
-				},
-				function (error) {
-					if (error.status === 406) {
-						$scope.notice = $scope.username + " can not be created because of invalid input";
-						$scope.errMsg = error.data;
-					} else {
-						$scope.notice = "An error has occured";
-					}
-				},
-				{
-				},
-				$cookieStore.get("username"),
-				$cookieStore.get("password")
-			)
-		};
-
-		$scope.editCompany = function (company) {
-			$scope.isCreation = false;
-			$scope.companies.forEach(function (company) {
-				if (company === companies.company) {
-					$scope.company = companies.company;
-					$scope.description = companies.description;
-				}
-			});
-		};
 
 		$scope.deleteCompany = function (company) {
 			sendRequest.send(
