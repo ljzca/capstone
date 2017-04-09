@@ -123,9 +123,6 @@ angular.module('stars')
                         name: "http://localhost:8080/rest/brands/"+encodeURIComponent($scope.newModel.name.id),
                         type: $scope.newModel.type,
                         description: $scope.newModel.description
-                        // name: $scope.newModel.name.id,
-                        // type: $scope.newModel.type,
-                        // description: $scope.newModel.description
                     },
                     $cookieStore.get("username"),
                     $cookieStore.get("password")

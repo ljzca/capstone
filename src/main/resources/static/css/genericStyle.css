@@ -92,3 +92,8 @@ html, body {
 #statData {
 	align: "right";
 }
+
+ .selected{
+ 	background-color: whitesmoke;
+ }
+ 

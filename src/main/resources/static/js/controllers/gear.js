@@ -67,11 +67,13 @@ angular.module('stars')
                     for (var i = 0; i < result.data._embedded.gears.length; i++) {
                         var resultString = result.data._embedded.gears[i]._links.gear.href;
                         resultString = decodeURIComponent(resultString.substring(33));
+                        console.log(resultString);
                         var gearString = resultString.split("&");
                         var gearObj = {
                             brand: gearString[0],
                             model: gearString[1],
-                            description: result.data._embedded.gears[i].description
+                            description: result.data._embedded.gears[i].description,
+                            id: gearString[3]
                         };
                         gearListArray.push(gearObj);
                     }
@@ -120,11 +122,11 @@ angular.module('stars')
             )
         };
 
-        $scope.deleteGear = function (brand, model) {
+        $scope.deleteGear = function (brand, model, id) {
 
             sendRequest.send(
                 'DELETE',
-                'gears/' + encodeURIComponent(brand) + "&" + encodeURIComponent(model) + "&" + encodeURIComponent($cookieStore.get("username"))+"&"+"0",
+                'gears/' + encodeURIComponent(brand) + "&" + encodeURIComponent(model) + "&" + encodeURIComponent($cookieStore.get("username"))+"&"+id,
                 function (result) {
                     console.log("DELETED");
                     getGear();
@@ -138,11 +140,11 @@ angular.module('stars')
             )
         };
 
-        $scope.editGear = function (brand,model,description) {
+        $scope.editGear = function (brand,model,description, id) {
 
             sendRequest.send(
-                'PUT',
-                'gears/'+encodeURIComponent(brand)+"&"+encodeURIComponent(model)+"&"+encodeURIComponent($cookieStore.get("username"))+"&"+"0",
+                'PATCH',
+                'gears/'+encodeURIComponent(brand)+"&"+encodeURIComponent(model)+"&"+encodeURIComponent($cookieStore.get("username"))+"&"+id,
                 function (result) {
                     console.log("ITS GOOD")
                     getGear();
