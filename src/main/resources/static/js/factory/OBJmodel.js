@@ -3,6 +3,9 @@ var container;
 			var mouseX = 0, mouseY = 0;
 			var windowHalfX = window.innerWidth / 2;
 			var windowHalfY = window.innerHeight / 2;
+			var pitch =  45;
+			var roll =  10;
+			var yaw =  45;
 			init();
 			animate();
 			function init() {
@@ -47,8 +50,8 @@ var container;
 						}
 					} );
 					
-					object.rotation.x = Math.PI/2 ;
-					object.rotation.z = Math.PI;					
+					object.rotation.x = 90 * (Math.PI/180);
+					object.rotation.z = 180 * (Math.PI/180);	
 					scene.add( object );
 				}, onProgress, onError );
 				//
@@ -57,28 +60,18 @@ var container;
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth/4, window.innerHeight/4);
 				container.appendChild( renderer.domElement );
-				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 				//
-				window.addEventListener( 'resize', onWindowResize, false );
 			}
-			function onWindowResize() {
-				windowHalfX = window.innerWidth / 2;
-				windowHalfY = window.innerHeight / 2;
-				camera.aspect = window.innerWidth / window.innerHeight;
-				camera.updateProjectionMatrix();
-				renderer.setSize( window.innerWidth, window.innerHeight );
-			}
-			function onDocumentMouseMove( event ) {
-				mouseX = ( event.clientX - windowHalfX ) / 2;
-				mouseY = ( event.clientY - windowHalfY ) / 2;
-			}
+
 			//
 			function animate() {
 				requestAnimationFrame( animate );
 				render();
 			}
 			function render() {
-//				myObj.rotation.x += 0.01;
+				myObj.rotation.y = roll * (Math.PI/180);
+				myObj.rotation.x = pitch * (Math.PI/180) + (90 * (Math.PI/180));
+				myObj.rotation.z = yaw * (Math.PI/180) + (180 * (Math.PI/180));
 				camera.lookAt( scene.position );
 				renderer.render( scene, camera );
 			}
