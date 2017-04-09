@@ -27,27 +27,30 @@
                 </td>
                 <td>
                     <div class="form-group">
-                        <input style="width:300px" id="gr" placeholder="Gear Description" class="form-control">
+                        <input style="width:300px" id="gr" ng-model="selectedDescription" placeholder="Gear Description" class="form-control">
                     </div>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-primary" ng-click="">+ Add</button>
+                    <button type="button" class="btn btn-primary" ng-click="addGear()">+ Add</button>
                 </td>
             </tr>
             <tr ng-repeat="gear in gearList">
                 <td>
+                    {{gear.brand}}
                     <div class="form-group">
                         <select style="width:300px" ng-model="gear.brand" ng-change="getGearModels()" ng-options="brand.id for brand in brands" class="form-control">
                         </select>
                     </div>
                 </td>
                 <td>
+                    {{gear.model}}
                     <div class="form-group">
                         <select style="width:300px" id="sm" ng-model="gear.model" ng-options="model for model in models" class="form-control">
                         </select>
                     </div>
                 </td>
                 <td>
+                    {{gear.description}}
                     <div class="form-group">
                         <input style="width:300px" ng-model="gear.description" id="gr" placeholder="Gear Description" class="form-control">
                     </div>

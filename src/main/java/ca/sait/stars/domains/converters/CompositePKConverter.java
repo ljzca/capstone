@@ -83,7 +83,7 @@ class CompositePKConverter implements BackendIdConverter {
                 gearPK.setName(ids[0]);
                 gearPK.setType(ids[1]);
                 gearPK.setOwner(ids[2]);
-                gearPK.setId(Integer.parseInt(ids[ids.length - 1]));
+                gearPK.setUuid(ids[ids.length - 1]);
                 return gearPK;
             }
         } catch (Exception e) {

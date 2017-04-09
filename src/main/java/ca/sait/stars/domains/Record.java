@@ -40,7 +40,7 @@ public class Record extends AbstractDomain<RecordPK> {
 					@JoinColumn(name = "name", referencedColumnName = "name", nullable = false),
 					@JoinColumn(name = "type", referencedColumnName = "type", nullable = false),
 					@JoinColumn(name = "gear_owner", referencedColumnName = "owner", nullable = false),
-					@JoinColumn(name = "id", referencedColumnName = "id", nullable = false) })
+					@JoinColumn(name = "uuid", referencedColumnName = "uuid", nullable = false) })
 	private List<Gear> gears;
 
 	@Override
