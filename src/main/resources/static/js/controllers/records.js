@@ -335,10 +335,12 @@ angular.module('stars')
 			        		);
 			    				
 			    	
-			    	var logoDiv = document.getElementById("logo");
-			    	var logoPic = document.getElementById("logoPic");
-			    	logoDiv.removeChild(logoPic);
-			    	
+			    	if($scope.renderChart === undefined || $scope.renderChart === 0)
+		    		{
+				    	var logoDiv = document.getElementById("logo");
+				    	var logoPic = document.getElementById("logoPic");
+				    	logoDiv.removeChild(logoPic);
+		    		}
 			    	
 			    	
 			    	//Create the graph using the x and y axis
@@ -365,7 +367,7 @@ angular.module('stars')
 		    	$scope.timeTitle = "Time: ";
 				$scope.altitudeTitle = "Altitude: ";
 				$scope.aoaTitle = "Angle of Attack: ";
-				$scope.fvelocityTitle = "Forward Velocity: ";
+				$scope.fvelocityTitle = "Flight Velocity: ";
 				$scope.gratioTitle = "Glide Ratio: ";
 				$scope.gvelocityTitle = "Ground Velocity: ";
 				$scope.headingTitle = "Heading: ";
@@ -374,6 +376,11 @@ angular.module('stars')
 				$scope.pitchTitle = "Pitch: ";
 				$scope.yawTitle = "Yaw: ";
 				$scope.rollTitle = "Roll: ";
+				$scope.temperatureTitle = "Temperature: ";
+				$scope.vvelocityTitle = "Vertical Velocity: ";
+				$scope.xaccelTitle = "X Accel: ";
+				$scope.yaccelTitle = "Y Accel: ";
+				$scope.zaccelTitle = "Z Accel: ";
 				
 		    	
 				//---------------------------------------------------------
@@ -708,18 +715,25 @@ angular.module('stars')
 					//Convert dateString to a JSON date from newDate
 					dateString = newDate.toJSON();
 					
+					console.log($scope.indexData);
+					
 					$scope.time = newDate.toJSON().substring(dateString.indexOf("T")+1, dateString.indexOf("T") + 12);
 					$scope.altitude = $scope.indexData.altitude;
 					$scope.aoa = $scope.indexData.aoa;
-					$scope.fvelocity = $scope.indexData.fvelocity;
+					$scope.fvelocity = (($scope.indexData.fvelocity * 18)/5).toFixed(2);
 					$scope.gratio = $scope.indexData.gratio;
-					$scope.gvelocity = $scope.indexData.gvelocity;
+					$scope.gvelocity = (($scope.indexData.gvelocity * 18)/5).toFixed(2);
 					$scope.heading = $scope.indexData.heading;
 					$scope.latitude = $scope.indexData.latitude;
 					$scope.longitude = $scope.indexData.longitude;
 					$scope.pitch = $scope.indexData.pitch;
 					$scope.yaw = $scope.indexData.yaw;
 					$scope.roll = $scope.indexData.roll;
+					$scope.temperature = $scope.indexData.temperature;
+					$scope.vvelocity = (($scope.indexData.vvelocity * 18)/5).toFixed(2);
+					$scope.xaccel = $scope.indexData.xaccel;
+					$scope.yaccel = $scope.indexData.yaccel;
+					$scope.zaccel = $scope.indexData.zaccel;
 				}
 				
 				chartDraw($scope.index);
