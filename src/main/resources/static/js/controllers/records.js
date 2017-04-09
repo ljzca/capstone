@@ -200,10 +200,10 @@ angular.module('stars')
 						
 						switch($scope.filterSettingX)
 						{
-							case "14": 
+							case "1": 
 								xAxisData = newDate.toJSON().substring(dateString.indexOf("T")+1, dateString.indexOf("T") + 12);
 								break;
-							case "15":
+							case "2":
 								if(i>0)
 								{
 									var lat1 = parseFloat($scope.records._embedded.recordDatas[i-1].latitude);
@@ -239,19 +239,19 @@ angular.module('stars')
 						var yAxisData;
 						switch($scope.filterSetting)
 						{
-							case "1": 
+							case "3": 
 								yAxisData = $scope.records._embedded.recordDatas[i].altitude;
 								break;
-							case "2": 
+							case "4": 
 								yAxisData = (($scope.records._embedded.recordDatas[i].fvelocity * 18)/5).toFixed(2);
 								break;
-							case "3": 
+							case "5": 
 								yAxisData = (($scope.records._embedded.recordDatas[i].vvelocity * 18)/5).toFixed(2);
 								break;
-							case "4": 
+							case "6": 
 								yAxisData = (($scope.records._embedded.recordDatas[i].gvelocity * 18)/5).toFixed(2);
 								break;
-							case "5": 
+							case "7": 
 								if(i>0)
 								{
 									var lat1 = parseFloat($scope.records._embedded.recordDatas[i-1].latitude);
@@ -275,28 +275,28 @@ angular.module('stars')
 								
 								yAxisData = totalDistance.toFixed(2);
 								break;
-							case "6": 
+							case "8": 
 								yAxisData = $scope.records._embedded.recordDatas[i].pitch;
 								break;
-							case "7": 
+							case "9": 
 								yAxisData = $scope.records._embedded.recordDatas[i].yaw;
 								break;
-							case "8": 
+							case "10": 
 								yAxisData = $scope.records._embedded.recordDatas[i].roll;
 								break;
-							case "9": 
+							case "11": 
 								yAxisData = $scope.records._embedded.recordDatas[i].aoa;
 								break;
-							case "10": 
+							case "12": 
 								yAxisData = $scope.records._embedded.recordDatas[i].gratio;
 								break;
-							case "11": 
+							case "13": 
 								yAxisData = $scope.records._embedded.recordDatas[i].xaccel;
 								break;
-							case "12": 
+							case "14": 
 								yAxisData = $scope.records._embedded.recordDatas[i].yaccel;
 								break;
-							case "13": 
+							case "15": 
 								yAxisData = $scope.records._embedded.recordDatas[i].zaccel;
 								break;
 							default:
@@ -363,6 +363,10 @@ angular.module('stars')
 		    	}
 				
 		    	createXY();
+		    	
+		    	
+		    	$scope.yLabel = "Y Axis:";
+		    	$scope.xLabel = "X Axis:";
 		    	
 		    	$scope.timeTitle = "Time: ";
 				$scope.altitudeTitle = "Altitude: ";
@@ -535,43 +539,43 @@ angular.module('stars')
 			
 			switch($scope.filterSetting)
 			{
-				case "1":
+				case "3":
 					yLabel = "Altitude";
 					break;
-				case "2":
+				case "4":
 					yLabel = "Flight Velocity";
 					break;
-				case "3":
+				case "5":
 					yLabel = "Vertical Velocity";
 					break;
-				case "4":
+				case "6":
 					yLabel = "Ground Velocity";
 					break;
-				case "5":
+				case "7":
 					yLabel = "Distance";
 					break;
-				case "6":
+				case "8":
 					yLabel = "Pitch";
 					break;
-				case "7":
+				case "9":
 					yLabel = "Yaw";
 					break;
-				case "8":
+				case "10":
 					yLabel = "Roll";
 					break;
-				case "9":
+				case "11":
 					yLabel = "Angle of Attack";
 					break;
-				case "10":
+				case "12":
 					yLabel = "Glide Ratio";
 					break;
-				case "11":
+				case "13":
 					yLabel = "X Accel";
 					break;
-				case "12":
+				case "14":
 					yLabel = "Y Accel";
 					break;
-				case "13":
+				case "15":
 					yLabel = "Z Accel";
 					break;
 				default:
@@ -747,7 +751,42 @@ angular.module('stars')
 		 */
 		createFilter= function()
 		{
+			 //*****************************************
+		    
+		    var formX = document.createElement("FORM");
+		    var rowX = document.createElement("input");
+		    var textnodeX = document.createTextNode("Time");
+
+		    var row2X = document.createElement("input");
+		    var textnode2X = document.createTextNode("Distance");
+
+		    formX.appendChild(rowX);
+		    formX.appendChild(textnodeX);
+		    
+		    formX.appendChild(row2X);
+		    formX.appendChild(textnode2X);
+		    
+		    document.getElementById("formX").appendChild(formX);
+		    
+		    for(var i = 0; i < 2; i++)
+		    {
+		    	 document.getElementsByTagName("input")[i].setAttribute("type", "radio");
+		    	 document.getElementsByTagName("input")[i].setAttribute("value", "" + (i+1));
+		    	 document.getElementsByTagName("input")[i].setAttribute("name", "formTestX");
+		    	 document.getElementsByTagName("input")[i].setAttribute("onClick", "xAxisRadio();");
+		    	 console.log($scope.filterSettingX);
+		    }
+		    
+		    if($scope.filterSettingX === "1" || $scope.filterSettingX == null)
+		    {
+		    	$scope.filterSettingX = "1";
+		    	
+		    	document.getElementsByTagName("input")[0].setAttribute("checked", "checked");
+		    }
+		    //***************************************
 			 var form = document.createElement("FORM");
+			
+			 
 			    var row = document.createElement("input");
 			    var textnode = document.createTextNode("Altitude");
 
@@ -826,10 +865,11 @@ angular.module('stars')
 			    
 			    form.appendChild(row13);
 			    form.appendChild(textnode13);
-			    
+//			    
 			    document.getElementById("form").appendChild(form);
-			    
-			    for(var i = 0; i < 13; i++)
+//			    document.getElementsByTagName("FORM")[0].setAttribute("class", "form-group");
+//			    
+			    for(var i = 2; i < 15; i++)
 			    {
 			    	 document.getElementsByTagName("input")[i].setAttribute("type", "radio");
 			    	 document.getElementsByTagName("input")[i].setAttribute("value", "" + (i+1));
@@ -841,41 +881,7 @@ angular.module('stars')
 			    {
 			    	$scope.filterSetting = "1";
 			    	
-			    	document.getElementsByTagName("input")[0].setAttribute("checked", "checked");
-			    }
-			    
-			    
-			    //*****************************************
-			    
-			    var formX = document.createElement("FORM");
-			    var rowX = document.createElement("input");
-			    var textnodeX = document.createTextNode("Time");
-
-			    var row2X = document.createElement("input");
-			    var textnode2X = document.createTextNode("Distance");
-
-			    formX.appendChild(rowX);
-			    formX.appendChild(textnodeX);
-			    
-			    formX.appendChild(row2X);
-			    formX.appendChild(textnode2X);
-			    
-			    document.getElementById("formX").appendChild(formX);
-			    
-			    for(var i = 13; i < 15; i++)
-			    {
-			    	 document.getElementsByTagName("input")[i].setAttribute("type", "radio");
-			    	 document.getElementsByTagName("input")[i].setAttribute("value", "" + (i+1));
-			    	 document.getElementsByTagName("input")[i].setAttribute("name", "formTestX");
-			    	 document.getElementsByTagName("input")[i].setAttribute("onClick", "xAxisRadio();");
-			    	 console.log($scope.filterSettingX);
-			    }
-			    
-			    if($scope.filterSettingX === "1" || $scope.filterSettingX == null)
-			    {
-			    	$scope.filterSettingX = "1";
-			    	
-			    	document.getElementsByTagName("input")[13].setAttribute("checked", "checked");
+			    	document.getElementsByTagName("input")[2].setAttribute("checked", "checked");
 			    }
 		}
 		

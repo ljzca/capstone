@@ -1,54 +1,59 @@
-<div id="column">
-	<h2>Records</h2>	
-	<div ng-repeat="record in recordListArray" class="record-list">
-		<p ng-click="getRecords(record);" id="recordList">{{record}}<p>
+<div style="position: relative; z-index: 999; ">
+	
+	<div id="column">
+		<h2>Records</h2>	
+		<div ng-repeat="record in recordListArray" class="record-list">
+			<p ng-click="getRecords(record);" id="recordList">{{record}}<p>
+		</div>
 	</div>
+		
+	<div class="record-display">
+		
+		<h3>{{recordName}}</h3>
+		<h4>{{recordDate}}</h4>
+		<p>{{description}}</p>
+		<div id="logo">
+			<p style="text-align:center;" id="logoPic"><img src="images/logoFade.png" alt="STARS Logo" style="width:40%;height:40%; margin-top: 30px;"></p>
+		</div>
+		
+		<b>{{xLabel}}</b>
+		<div id="formX"></div>
+		
+		<b>{{yLabel}}</b>
+		<div id="form"></div>
+		
+		<br>
+		
+		<table>
+			<tr>
+				<td id="statColumn"><div id="stats">
+					<table>
+						<tr><td><b>{{timeTitle}}</b></td><td id="statData" align="right">{{time}}</td></tr>
+						<tr><td><b>{{altitudeTitle}}</b></td><td id="statData" align="right">{{altitude}}</td></tr>
+						<tr><td><b>{{aoaTitle}}</b></td><td id="statData" align="right">{{aoa}}</td></tr>
+						<tr><td><b>{{fvelocityTitle}}</b></td><td id="statData" align="right">{{fvelocity}}</td></tr>
+						<tr><td><b>{{vvelocityTitle}}</b></td><td id="statData" align="right">{{vvelocity}}</td></tr>
+						<tr><td><b>{{gvelocityTitle}}</b></td><td id="statData" align="right">{{gvelocity}}</td></tr>
+						<tr><td><b>{{gratioTitle}}</b></td><td id="statData" align="right">{{gratio}}</td></tr>
+						<tr><td><b>{{headingTitle}}</b></td><td id="statData" align="right">{{heading}}</td></tr>
+						<tr><td><b>{{latitudeTitle}}</b></td><td id="statData" align="right">{{latitude}}</td></tr>
+						<tr><td><b>{{longitudeTitle}}</b></td><td id="statData" align="right">{{longitude}}</td></tr>
+						<tr><td><b>{{pitchTitle}}</b></td><td id="statData" align="right">{{pitch}}</td></tr>
+						<tr><td><b>{{yawTitle}}</b></td><td id="statData" align="right">{{yaw}}</td></tr>
+						<tr><td><b>{{rollTitle}}</b></td><td id="statData" align="right">{{roll}}</td></tr>
+						<tr><td><b>{{temperatureTitle}}</b></td><td id="statData" align="right">{{temperature}}</td></tr>
+						<tr><td><b>{{xaccelTitle}}</b></td><td id="statData" align="right">{{xaccel}}</td></tr>
+						<tr><td><b>{{yaccelTitle}}</b></td><td id="statData" align="right">{{yaccel}}</td></tr>
+						<tr><td><b>{{zaccelTitle}}</b></td><td id="statData" align="right">{{zaccel}}</td></tr>
+					</table>
+					</div>	
+				</td>
+				<td id="chartColumn">
+					<div id="chart"></div>
+				</td>
+			</tr>
+		</table>
+		
+		<div id="map"></div>
+	</div>	
 </div>
-	
-<div class="record-display">
-	
-	<h3>{{recordName}}</h3>
-	<h4>{{recordDate}}</h4>
-	<p>{{description}}</p>
-	<div id="logo">
-		<p style="text-align:center;" id="logoPic"><img src="images/logoFade.png" alt="STARS Logo" style="width:40%;height:40%; margin-top: 30px;"></p>
-	</div>
-	
-	
-	<div id="form"></div>
-	<div id="formX"></div>
-	
-	<br>
-	
-	<table>
-		<tr>
-			<td id="statColumn"><div id="stats">
-				<table>
-					<tr><td><b>{{timeTitle}}</b></td><td id="statData" align="right">{{time}}</td></tr>
-					<tr><td><b>{{altitudeTitle}}</b></td><td id="statData" align="right">{{altitude}}</td></tr>
-					<tr><td><b>{{aoaTitle}}</b></td><td id="statData" align="right">{{aoa}}</td></tr>
-					<tr><td><b>{{fvelocityTitle}}</b></td><td id="statData" align="right">{{fvelocity}}</td></tr>
-					<tr><td><b>{{vvelocityTitle}}</b></td><td id="statData" align="right">{{vvelocity}}</td></tr>
-					<tr><td><b>{{gvelocityTitle}}</b></td><td id="statData" align="right">{{gvelocity}}</td></tr>
-					<tr><td><b>{{gratioTitle}}</b></td><td id="statData" align="right">{{gratio}}</td></tr>
-					<tr><td><b>{{headingTitle}}</b></td><td id="statData" align="right">{{heading}}</td></tr>
-					<tr><td><b>{{latitudeTitle}}</b></td><td id="statData" align="right">{{latitude}}</td></tr>
-					<tr><td><b>{{longitudeTitle}}</b></td><td id="statData" align="right">{{longitude}}</td></tr>
-					<tr><td><b>{{pitchTitle}}</b></td><td id="statData" align="right">{{pitch}}</td></tr>
-					<tr><td><b>{{yawTitle}}</b></td><td id="statData" align="right">{{yaw}}</td></tr>
-					<tr><td><b>{{rollTitle}}</b></td><td id="statData" align="right">{{roll}}</td></tr>
-					<tr><td><b>{{temperatureTitle}}</b></td><td id="statData" align="right">{{temperature}}</td></tr>
-					<tr><td><b>{{xaccelTitle}}</b></td><td id="statData" align="right">{{xaccel}}</td></tr>
-					<tr><td><b>{{yaccelTitle}}</b></td><td id="statData" align="right">{{yaccel}}</td></tr>
-					<tr><td><b>{{zaccelTitle}}</b></td><td id="statData" align="right">{{zaccel}}</td></tr>
-				</table>
-				</div>	
-			</td>
-			<td id="chartColumn">
-				<div id="chart"></div>
-			</td>
-		</tr>
-	</table>
-	
-	<div id="map"></div>
-</div>	

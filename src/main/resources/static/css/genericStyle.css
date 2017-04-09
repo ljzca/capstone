@@ -31,7 +31,7 @@ html, body {
 .record-list
 {
 	left: 0;
-	top: 100px;
+
 	width: 15%;
 	word-wrap: break-word;
 }
@@ -49,9 +49,9 @@ html, body {
 .record-display
 {
 	position: absolute;
-	height: 140px;
+
 	left: 210px;
-	top: 55px;
+	top: 5px;
 	width: 80%;
 	word-wrap: break-word;
 }
@@ -71,9 +71,9 @@ html, body {
 #column
 {
 	position: absolute;
-	height: 70px;
+	
 	left: 25;
-	top: 50px;
+	
 	width: 100%;
 	word-wrap: break-word;
 }
