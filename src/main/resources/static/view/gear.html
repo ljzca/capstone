@@ -36,30 +36,27 @@
             </tr>
             <tr ng-repeat="gear in gearList">
                 <td>
-                    {{gear.brand}}
                     <div class="form-group">
-                        <select style="width:300px" ng-model="gear.brand" ng-change="getGearModels()" ng-options="brand.id for brand in brands" class="form-control">
-                        </select>
+                        <input style="width:300px" id="gb" ng-model="gear.brand" placeholder="Gear Description" class="form-control" readonly>
                     </div>
                 </td>
                 <td>
-                    {{gear.model}}
                     <div class="form-group">
-                        <select style="width:300px" id="sm" ng-model="gear.model" ng-options="model for model in models" class="form-control">
-                        </select>
+                        <input style="width:300px" id="gm" ng-model="gear.model" placeholder="Gear Description" class="form-control" readonly>
                     </div>
                 </td>
                 <td>
-                    {{gear.description}}
                     <div class="form-group">
-                        <input style="width:300px" ng-model="gear.description" id="gr" placeholder="Gear Description" class="form-control">
+                        <input style="width:300px" ng-model="gear.description" id="gd" placeholder="Gear Description" class="form-control">
                     </div>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-danger" ng-click="">- Remove</button>
+                    <button type="button" class="btn btn-info" ng-click="editGear(gear.brand,gear.model,gear.description)">Edit</button>
+                    <button type="button" class="btn btn-danger" ng-click="deleteGear(gear.brand,gear.model)">- Remove</button>
                 </td>
             </tr>
         </tbody>
     </table>
+    {{notice}}
 </div>
 </div>
