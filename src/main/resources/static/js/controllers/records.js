@@ -738,6 +738,8 @@ angular.module('stars')
 					$scope.xaccel = $scope.indexData.xaccel;
 					$scope.yaccel = $scope.indexData.yaccel;
 					$scope.zaccel = $scope.indexData.zaccel;
+					
+					setEuler($scope.pitch, $scope.roll, $scope.yaw)
 				}
 				
 				chartDraw($scope.index);

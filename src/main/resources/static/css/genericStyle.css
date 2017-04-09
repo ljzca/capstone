@@ -21,6 +21,10 @@
   height: 500px;
   width: 500px;
 }
+#euler {
+  height: 500px;
+  width: 500px;
+}
 /* Optional: Makes the sample page fill the window. */
 html, body {
   height: 100%;

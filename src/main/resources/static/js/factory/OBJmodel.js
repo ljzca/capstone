@@ -1,3 +1,5 @@
+
+
 var container;
 			var camera, scene, renderer, myObj;
 			var mouseX = 0, mouseY = 0;
@@ -8,9 +10,18 @@ var container;
 			var yaw =  45;
 			init();
 			animate();
+			
+			function setEuler(pitch, roll, yaw){
+				this.pitch = pitch;
+				this.roll = roll;
+				this.yaw = yaw;
+			}
+
+			
+			
 			function init() {
 				container = document.createElement( 'div' );
-				document.body.appendChild( container );
+				document.getElementsByTagName("div")[3].appendChild( container );
 				camera = new THREE.PerspectiveCamera( 20, window.innerWidth / window.innerHeight, 1, 2000 );
 				camera.position.z = 250;
 				// scene
