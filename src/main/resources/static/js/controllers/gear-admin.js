@@ -111,7 +111,7 @@ angular.module('stars')
             modelInstance.result.then(function () {
                 sendRequest.send(
                     'POST',
-                    'brands/'+ $scope.newModel.name.id + '/models',
+                    '/models',
                     function (result) {
                         console.log(result);
                     },
@@ -119,9 +119,13 @@ angular.module('stars')
                         $scope.notice = "There was an error creating the brand"
                     },
                     {
-                        name: $scope.newModel.name.id,
+                        id:{"name":$scope.newModel.name.id,"type":$scope.newModel.type},
+                        name: "http://localhost:8080/rest/brands/"+encodeURIComponent($scope.newModel.name.id),
                         type: $scope.newModel.type,
                         description: $scope.newModel.description
+                        // name: $scope.newModel.name.id,
+                        // type: $scope.newModel.type,
+                        // description: $scope.newModel.description
                     },
                     $cookieStore.get("username"),
                     $cookieStore.get("password")
@@ -192,6 +196,8 @@ angular.module('stars')
 
         }
 
+        //Getting brands to display in table.
+
         var getBrands = function () {
             sendRequest.send(
                 'GET',
@@ -211,10 +217,14 @@ angular.module('stars')
 
         getBrands();
 
+        //Set the selected brand to display brands models.
+
         $scope.setSelected = function (selectedBrand) {
             $scope.selected = selectedBrand.id;
             getModels();
         };
+
+        //Get the models for the users
 
         var getModels = function () {
             sendRequest.send(
@@ -262,41 +272,33 @@ angular.module('stars')
         //Deleting Model functionality
 
         $scope.deleteModel = function(modelname){
+            console.log(modelname);
             sendRequest.send(
-                'DELETE',
-                'brands/'+$scope.selected + '/models/'+ modelname,
+                'GET',
+                'brands/'+$scope.selected,
                 function(result){
-                    getModels();
-                    $scope.notice = "You've successfully deleted " + modelname;
+
+                    sendRequest.send(
+                        'DELETE',
+                        'models/'+encodeURIComponent(result.data.id + "&" +modelname),
+                        function (result) {
+                            getModels();
+                        },
+                        function (error) {
+                            console.log("Its bad!");
+                        },
+                        null,
+                        $cookieStore.get("username"),
+                        $cookieStore.get("password")
+                    );
                 },
                 function (error) {
-                    $scope.notice = "An error occurred when deleting " + modelname;
+
                 },
                 null,
                 $cookieStore.get("username"),
                 $cookieStore.get("password")
-            )
+            );
         };
 
-        //TEST CREATING NEW MODEL
-
-        $scope.testButton = function () {
-            sendRequest.send(
-                'POST',
-                'brands/Test2/models',
-                function (result) {
-                    console.log("good");
-                },
-                function (error) {
-                    console.log("bad");
-                },
-                {
-                    name: "test",
-                    type: "test",
-                    description: "test"
-                },
-                $cookieStore.get("username"),
-                $cookieStore.get("password")
-            )
-        }
     });

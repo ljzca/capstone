@@ -49,6 +49,7 @@ angular.module('stars')
                     $scope.models = [];
                     for(var i=0;i<result.data._embedded.models.length;i++){
                         var resultString = result.data._embedded.models[i]._links.model.href;
+                        console.log(resultString);
                         $scope.models.push(decodeURIComponent(resultString.substring(resultString.indexOf("&")+1)));
                     }
                 },
