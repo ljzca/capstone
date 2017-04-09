@@ -8,10 +8,10 @@ var container;
 			var pitch =  45;
 			var roll =  10;
 			var yaw =  45;
-			init();
-			animate();
+//			init();
+//			animate();
 			
-			function setEuler(pitch, roll, yaw){
+			var setEuler = function(pitch, roll, yaw){
 				this.pitch = pitch;
 				this.roll = roll;
 				this.yaw = yaw;
@@ -19,9 +19,13 @@ var container;
 
 			
 			
-			function init() {
+			var init = function() 
+			{
 				container = document.createElement( 'div' );
-				document.getElementsByTagName("div")[3].appendChild( container );
+				container.setAttribute("id", "eulerDisplay");
+				
+				document.getElementById("euler").appendChild( container );
+//				document.getElementsByTagName("div")[4].setAttribute("id", "eulerDisplay");
 				camera = new THREE.PerspectiveCamera( 20, window.innerWidth / window.innerHeight, 1, 2000 );
 				camera.position.z = 250;
 				// scene
@@ -69,17 +73,17 @@ var container;
 
 				renderer = new THREE.WebGLRenderer();
 				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( window.innerWidth/4, window.innerHeight/4);
+				renderer.setSize( 711, 400);
 				container.appendChild( renderer.domElement );
 				//
 			}
 
 			//
-			function animate() {
+			var animate = function() {
 				requestAnimationFrame( animate );
 				render();
 			}
-			function render() {
+			var render = function() {
 				myObj.rotation.y = roll * (Math.PI/180);
 				myObj.rotation.x = pitch * (Math.PI/180) + (90 * (Math.PI/180));
 				myObj.rotation.z = yaw * (Math.PI/180) + (180 * (Math.PI/180));

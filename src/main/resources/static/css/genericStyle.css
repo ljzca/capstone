@@ -1,47 +1,49 @@
-.error
-{
+.error {
 	color: red;
 	font-style: italic;
 }
 
-.success
-{
+.success {
 	color: green;
 	font-style: italic;
 }
 
-.status
-{
+.status {
 	font-style: italic;
 }
 
 /* Always set the map height explicitly to define the size of the div
  * element that contains the map. */
 #map {
-  height: 500px;
-  width: 500px;
+	height: 500px;
+	width: 500px;
 }
+
 #euler {
-  height: 500px;
-  width: 500px;
+	height: 500px;
+	width: 500px;
 }
+
+#eulerDisplay {
+	height: 100%;
+	width: 100%;
+}
+
 /* Optional: Makes the sample page fill the window. */
 html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
+	overflow: auto;
+	height: 100%;
+	margin: 0;
+	padding: 0;
 }
 
-.record-list
-{
+.record-list {
 	left: 0;
-
 	width: 15%;
 	word-wrap: break-word;
 }
 
-.record-list-copy
-{
+.record-list-copy {
 	position: fixed;
 	height: 132px;
 	left: 0;
@@ -50,54 +52,43 @@ html, body {
 	word-wrap: break-word;
 }
 
-.record-display
-{
+.record-display {
 	position: absolute;
-
 	left: 210px;
 	top: 5px;
 	width: 80%;
 	word-wrap: break-word;
 }
 
-#chart
-{
-    height: 500px;
-    width: 100%;
+#chart {
+	height: 500px;
+	width: 100%;
 }
 
-#recordList:hover
-{
-    text-decoration: underline;
-    color: blue;
+#recordList:hover {
+	text-decoration: underline;
+	color: blue;
 }
 
-#column
-{
+#column {
 	position: absolute;
-	
 	left: 25;
-	
 	width: 100%;
 	word-wrap: break-word;
 }
 
-#stats
-{
+#stats {
 	width: 200px;
 }
 
-#chartColumn
-{
+#chartColumn {
 	width: 100%;
 }
 
-#statColumn
-{
+#statColumn {
 	width: 200px;
 }
 
-#statData
-{
+#statData {
 	align: "right";
 }
