@@ -23,9 +23,11 @@
 		<b>{{xLabel}}</b>
 		<div id="formX"></div>
 
-		<b>{{yLabel}}</b>
-		<div id="form"></div>
-
+		<div class="form-group">
+			<b>{{yLabel}}</b>
+			<div id="form"></div>
+		</div>
+		
 		<br>
 
 		<table>
@@ -35,6 +37,10 @@
 							<tr>
 								<td><b>{{timeTitle}}</b></td>
 								<td id="statData" align="right">{{time}}</td>
+							</tr>
+							<tr>
+								<td><b>{{distanceTitle}}</b></td>
+								<td id="statData" align="right">{{distance}}</td>
 							</tr>
 							<tr>
 								<td><b>{{altitudeTitle}}</b></td>
@@ -114,5 +120,7 @@
 				<td><div id="euler"></div></td>
 			</tr>
 		</table>
-
+		<br>
+		<br>
 	</div>
+	

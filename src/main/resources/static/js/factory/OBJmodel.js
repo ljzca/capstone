@@ -75,6 +75,7 @@ var container;
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( 711, 400);
 				container.appendChild( renderer.domElement );
+				document.getElementById("euler").setAttribute("style", "background-color: black");
 				//
 			}
 

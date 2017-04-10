@@ -21,12 +21,13 @@
 
 #euler {
 	height: 500px;
-	width: 500px;
+	width: 711px;
 }
 
 #eulerDisplay {
-	height: 100%;
-	width: 100%;
+	width: 711px;
+	height: 400px;
+	vertical-align: middle;
 }
 
 /* Optional: Makes the sample page fill the window. */
@@ -43,15 +44,6 @@ html, body {
 	word-wrap: break-word;
 }
 
-.record-list-copy {
-	position: fixed;
-	height: 132px;
-	left: 0;
-	top: 100px;
-	width: 200px;
-	word-wrap: break-word;
-}
-
 .record-display {
 	position: absolute;
 	left: 210px;
@@ -62,7 +54,7 @@ html, body {
 
 #chart {
 	height: 500px;
-	width: 100%;
+	width: 1018px;
 }
 
 #recordList:hover {
@@ -82,7 +74,7 @@ html, body {
 }
 
 #chartColumn {
-	width: 100%;
+	width: 1018px;
 }
 
 #statColumn {

@@ -388,6 +388,7 @@ angular.module('stars')
 		    	
 		    	$scope.timeTitle = "Time: ";
 				$scope.altitudeTitle = "Altitude: ";
+				$scope.distanceTitle = "Distance: ";
 				$scope.aoaTitle = "Angle of Attack: ";
 				$scope.fvelocityTitle = "Flight Velocity: ";
 				$scope.gratioTitle = "Glide Ratio: ";
@@ -561,46 +562,46 @@ angular.module('stars')
 			switch($scope.filterSetting)
 			{
 				case "3":
-					yLabel = "Altitude";
+					yLabel = "Altitude (m)";
 					break;
 				case "4":
-					yLabel = "Flight Velocity";
+					yLabel = "Flight Velocity (km/h)";
 					break;
 				case "5":
-					yLabel = "Vertical Velocity";
+					yLabel = "Vertical Velocity (km/h)";
 					break;
 				case "6":
-					yLabel = "Ground Velocity";
+					yLabel = "Ground Velocity (km/h)";
 					break;
 				case "7":
-					yLabel = "Distance";
+					yLabel = "Distance (km)";
 					break;
 				case "8":
-					yLabel = "Pitch";
+					yLabel = "Pitch (" + '\xB0' + ")";
 					break;
 				case "9":
-					yLabel = "Yaw";
+					yLabel = "Yaw (" + '\xB0' + ")";
 					break;
 				case "10":
-					yLabel = "Roll";
+					yLabel = "Roll (" + '\xB0' + ")";
 					break;
 				case "11":
-					yLabel = "Angle of Attack";
+					yLabel = "Angle of Attack (" + '\xB0' + ")";
 					break;
 				case "12":
 					yLabel = "Glide Ratio";
 					break;
 				case "13":
-					yLabel = "X Accel";
+					yLabel = "X Accel (m/s" +'\xB2' + ")";
 					break;
 				case "14":
-					yLabel = "Y Accel";
+					yLabel = "Y Accel (m/s" +'\xB2' + ")";
 					break;
 				case "15":
-					yLabel = "Z Accel";
+					yLabel = "Z Accel (m/s" +'\xB2' + ")";
 					break;
 				default:
-					yLabel = "Altitude";
+					yLabel = "Altitude (m)";
 					break;
 			}
 			
@@ -742,30 +743,32 @@ angular.module('stars')
 					dateString = newDate.toJSON();
 					
 					$scope.time = newDate.toJSON().substring(dateString.indexOf("T")+1, dateString.indexOf("T") + 12);
-					$scope.altitude = $scope.indexData.altitude;
-					$scope.aoa = $scope.indexData.aoa;
-					$scope.fvelocity = (($scope.indexData.fvelocity * 18)/5).toFixed(2);
+					$scope.altitude = $scope.indexData.altitude + " m";
+					$scope.distance = $scope.indexData.distance.toFixed(2) + " km";
+					$scope.aoa = $scope.indexData.aoa + '\xB0';
+					$scope.fvelocity = (($scope.indexData.fvelocity * 18)/5).toFixed(2) + " km/h";
 					$scope.gratio = $scope.indexData.gratio;
-					$scope.gvelocity = (($scope.indexData.gvelocity * 18)/5).toFixed(2);
-					$scope.heading = $scope.indexData.heading;
-					$scope.latitude = $scope.indexData.latitude;
-					$scope.longitude = $scope.indexData.longitude;
-					$scope.pitch = $scope.indexData.pitch;
-					$scope.yaw = $scope.indexData.yaw;
-					$scope.roll = $scope.indexData.roll;
-					$scope.temperature = $scope.indexData.temperature;
-					$scope.vvelocity = (($scope.indexData.vvelocity * 18)/5).toFixed(2);
-					$scope.xaccel = $scope.indexData.xaccel;
-					$scope.yaccel = $scope.indexData.yaccel;
-					$scope.zaccel = $scope.indexData.zaccel;
+					$scope.gvelocity = (($scope.indexData.gvelocity * 18)/5).toFixed(2) + " km/h";
+					$scope.heading = $scope.indexData.heading + '\xB0';
+					$scope.latitude = $scope.indexData.latitude + '\xB0';
+					$scope.longitude = $scope.indexData.longitude + '\xB0';
+					$scope.pitch = $scope.indexData.pitch + '\xB0';
+					$scope.yaw = $scope.indexData.yaw + '\xB0';
+					$scope.roll = $scope.indexData.roll + '\xB0';
+					$scope.temperature = $scope.indexData.temperature + '\xB0' + 'C';
+					$scope.vvelocity = (($scope.indexData.vvelocity * 18)/5).toFixed(2) + " km/h";
+					$scope.xaccel = $scope.indexData.xaccel + " m/s" + '\xB2';
+					$scope.yaccel = $scope.indexData.yaccel + " m/s" + '\xB2';
+					$scope.zaccel = $scope.indexData.zaccel + " m/s" + '\xB2';
 					
-					
-					setEuler($scope.pitch, $scope.roll, $scope.yaw);
+					setEuler($scope.indexData.pitch, $scope.indexData.roll, $scope.indexData.yaw);
 					animate();
+					
 					
 				}
 				
 				chartDraw($scope.index);
+				
 			});
 		}
 		
@@ -799,6 +802,8 @@ angular.module('stars')
 		    	 document.getElementsByTagName("input")[i].setAttribute("value", "" + (i+1));
 		    	 document.getElementsByTagName("input")[i].setAttribute("name", "formTestX");
 		    	 document.getElementsByTagName("input")[i].setAttribute("onClick", "xAxisRadio();");
+		    	 document.getElementsByTagName("input")[i].setAttribute("class", "form-group");
+		    		 
 		    	 console.log($scope.filterSettingX);
 		    }
 		    
