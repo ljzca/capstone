@@ -24,7 +24,6 @@ angular.module('stars')
                 'users/' + $cookieStore.get("username"),
                 function (result) {
                     $scope.username = $cookieStore.get("username");
-                    $scope.password = $cookieStore.get("password");
                     $scope.email = result.data.email;
                     $scope.firstname = result.data.firstname;
                     $scope.lastname = result.data.lastname;
@@ -45,10 +44,22 @@ angular.module('stars')
         selfReflect();
 
         $scope.updateProfile = function () {
+            var userToBeUpdated = {
+                username: $cookieStore.get("username"),
+                email: $scope.email,
+                firstname: $scope.firstname,
+                lastname: $scope.lastname,
+                sex: $scope.gender.code,
+                height: $scope.height,
+                weight: $scope.weight
+            };
+
+            if ($scope.password.length > 0)
+                userToBeUpdated.password = $scope.password;
 
             if ($scope.confirmpassword === $cookieStore.get("password")) {
                 sendRequest.send(
-                    'PUT',
+                    'PATCH',
                     'users/' + $cookieStore.get("username"),
                     function (result) {
                         if ($scope.username === $cookieStore.get("username") && $scope.password && $scope.confirmpassword) {
@@ -56,7 +67,6 @@ angular.module('stars')
                         }
                         $scope.errMsg = null;
                         $scope.notice = "You have updated your profile";
-                        $scope.password = $scope.password;
                         $scope.confirmpassword = "";
                     },
                     function (error) {
@@ -68,16 +78,7 @@ angular.module('stars')
                             $scope.notice = "You haven't logged in";
                         }
                     },
-                    {
-                        username: $cookieStore.get("username"),
-                        password: $scope.password,
-                        email: $scope.email,
-                        firstname: $scope.firstname,
-                        lastname: $scope.lastname,
-                        sex: $scope.gender.code,
-                        height: $scope.height,
-                        weight: $scope.weight
-                    },
+                    userToBeUpdated,
                     $cookieStore.get("username"),
                     $cookieStore.get("password")
                 );
