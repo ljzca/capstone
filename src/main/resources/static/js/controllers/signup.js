@@ -5,10 +5,12 @@ angular.module('stars')
     	
     	//Gender drop down properties 
     	$scope.gender =  {
-    			code: 'Male',
+    			code: 'Unknown',
     			genders: [
     				{id: 'Male', name: 'Male'},
-    				{id: 'Female', name: 'Female'}
+                    {id: 'Female', name: 'Female'},
+    				{id: 'Other', name: 'Other'},
+    				{id: 'Unknown', name: 'Unknown'}
     			]
     		};
 
