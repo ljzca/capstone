@@ -1,7 +1,8 @@
 package ca.sait.stars.security.rules;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -10,21 +11,21 @@ import ca.sait.stars.domains.User;
 /**
  * This class is for checking if user has enough privilege to set a specific
  * role
- * 
- * @author william
  *
+ * @author william
  */
 @Service
 public class RoleCheck {
 
     @Autowired
-    private CrudRepository<User, String> ur;
+    JdbcTemplate jdbcTemplate;
 
     public boolean checkRole(Authentication authentication, User user) {
         try {
-            User caller = ur.findOne(authentication.getName());
-            if (caller.getIsAdmin())
+            final SqlRowSet srs = jdbcTemplate.queryForRowSet("SELECT is_admin FROM stars_user WHERE username=?", authentication.getName());
+            if (srs.next() && srs.getBoolean("is_admin"))
                 return true;
+
         } catch (Exception e) {
             // silent catch for non-login registration
         }
