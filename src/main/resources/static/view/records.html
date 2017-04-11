@@ -1,126 +1,176 @@
 <div style="position: relative; z-index: 999;">
 
-	<div id="column">
-		<h2>Records</h2>
-		<div ng-repeat="record in recordListArray" class="record-list">
-			<p ng-click="getRecords(record);" id="recordList">{{record}}
-			<p>
-		</div>
-	</div>
+    <div id="column">
+        <h2>Records</h2>
+        <div ng-repeat="record in recordListArray" class="record-list">
+            <p ng-click="getRecords(record);" id="recordList">{{record}}
+            <p>
+        </div>
+    </div>
 
-	<div class="record-display">
+    <div class="record-display">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                    <span class="pull-left">
+                    <h3>{{recordName}}</h3>
+                    </span>
+                </div>
+                <div class="col-md-3 fix-gutters">
+                    <span class="pull-right" ng-if="buttonDisplay">
+                        <button type="button" class="btn btn-info" ng-click="editRecordModal()">Edit</button>
+                        <button type="button" class="btn btn-danger" ng-click="deleteRecord()">Delete</button>
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <h4>{{recordDate}}</h4>
+                </div>
+                <div class="col-md-4"></div>
+                <div class="col-md-6">
+                    <p>{{description}}</p>
+                </div>
+                <div class="col-md-6"></div>
+            </div>
 
-		<h3>{{recordName}}</h3>
-		<h4>{{recordDate}}</h4>
-		<p>{{description}}</p>
-		<div id="logo">
-			<p style="text-align: center;" id="logoPic">
-				<img src="images/logoFade.png" alt="STARS Logo"
-					style="width: 40%; height: 40%; margin-top: 30px;">
-			</p>
-		</div>
+            <div id="logo">
+                <p style="text-align: center;" id="logoPic">
+                    <img src="images/logoFade.png" alt="STARS Logo"
+                         style="width: 40%; height: 40%; margin-top: 30px;">
+                </p>
+            </div>
 
-		<b>{{xLabel}}</b>
-		<div id="formX"></div>
+            <b>{{xLabel}}</b>
+            <div id="formX"></div>
 
-		<div class="form-group">
-			<b>{{yLabel}}</b>
-			<div id="form"></div>
-		</div>
-		
-		<br>
+            <div class="form-group">
+                <b>{{yLabel}}</b>
+                <div id="form"></div>
+            </div>
 
-		<table>
-			<tr>
-				<td id="statColumn"><div id="stats">
-						<table>
-							<tr>
-								<td><b>{{timeTitle}}</b></td>
-								<td id="statData" align="right">{{time}}</td>
-							</tr>
-							<tr>
-								<td><b>{{distanceTitle}}</b></td>
-								<td id="statData" align="right">{{distance}}</td>
-							</tr>
-							<tr>
-								<td><b>{{altitudeTitle}}</b></td>
-								<td id="statData" align="right">{{altitude}}</td>
-							</tr>
-							<tr>
-								<td><b>{{aoaTitle}}</b></td>
-								<td id="statData" align="right">{{aoa}}</td>
-							</tr>
-							<tr>
-								<td><b>{{fvelocityTitle}}</b></td>
-								<td id="statData" align="right">{{fvelocity}}</td>
-							</tr>
-							<tr>
-								<td><b>{{vvelocityTitle}}</b></td>
-								<td id="statData" align="right">{{vvelocity}}</td>
-							</tr>
-							<tr>
-								<td><b>{{gvelocityTitle}}</b></td>
-								<td id="statData" align="right">{{gvelocity}}</td>
-							</tr>
-							<tr>
-								<td><b>{{gratioTitle}}</b></td>
-								<td id="statData" align="right">{{gratio}}</td>
-							</tr>
-							<tr>
-								<td><b>{{headingTitle}}</b></td>
-								<td id="statData" align="right">{{heading}}</td>
-							</tr>
-							<tr>
-								<td><b>{{latitudeTitle}}</b></td>
-								<td id="statData" align="right">{{latitude}}</td>
-							</tr>
-							<tr>
-								<td><b>{{longitudeTitle}}</b></td>
-								<td id="statData" align="right">{{longitude}}</td>
-							</tr>
-							<tr>
-								<td><b>{{pitchTitle}}</b></td>
-								<td id="statData" align="right">{{pitch}}</td>
-							</tr>
-							<tr>
-								<td><b>{{yawTitle}}</b></td>
-								<td id="statData" align="right">{{yaw}}</td>
-							</tr>
-							<tr>
-								<td><b>{{rollTitle}}</b></td>
-								<td id="statData" align="right">{{roll}}</td>
-							</tr>
-							<tr>
-								<td><b>{{temperatureTitle}}</b></td>
-								<td id="statData" align="right">{{temperature}}</td>
-							</tr>
-							<tr>
-								<td><b>{{xaccelTitle}}</b></td>
-								<td id="statData" align="right">{{xaccel}}</td>
-							</tr>
-							<tr>
-								<td><b>{{yaccelTitle}}</b></td>
-								<td id="statData" align="right">{{yaccel}}</td>
-							</tr>
-							<tr>
-								<td><b>{{zaccelTitle}}</b></td>
-								<td id="statData" align="right">{{zaccel}}</td>
-							</tr>
-						</table>
-					</div></td>
-				<td id="chartColumn">
-					<div id="chart"></div>
-				</td>
-			</tr>
-		</table>
+            <br>
 
-		<table>
-			<tr>
-				<td><div id="map"></div></td>
-				<td><div id="euler"></div></td>
-			</tr>
-		</table>
-		<br>
-		<br>
-	</div>
-	
+            <table>
+                <tr>
+                    <td id="statColumn">
+                        <div id="stats">
+                            <table>
+                                <tr>
+                                    <td><b>{{timeTitle}}</b></td>
+                                    <td id="statData" align="right">{{time}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>{{distanceTitle}}</b></td>
+                                    <td id="statData" align="right">{{distance}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>{{altitudeTitle}}</b></td>
+                                    <td id="statData" align="right">{{altitude}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>{{aoaTitle}}</b></td>
+                                    <td id="statData" align="right">{{aoa}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>{{fvelocityTitle}}</b></td>
+                                    <td id="statData" align="right">{{fvelocity}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>{{vvelocityTitle}}</b></td>
+                                    <td id="statData" align="right">{{vvelocity}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>{{gvelocityTitle}}</b></td>
+                                    <td id="statData" align="right">{{gvelocity}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>{{gratioTitle}}</b></td>
+                                    <td id="statData" align="right">{{gratio}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>{{headingTitle}}</b></td>
+                                    <td id="statData" align="right">{{heading}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>{{latitudeTitle}}</b></td>
+                                    <td id="statData" align="right">{{latitude}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>{{longitudeTitle}}</b></td>
+                                    <td id="statData" align="right">{{longitude}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>{{pitchTitle}}</b></td>
+                                    <td id="statData" align="right">{{pitch}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>{{yawTitle}}</b></td>
+                                    <td id="statData" align="right">{{yaw}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>{{rollTitle}}</b></td>
+                                    <td id="statData" align="right">{{roll}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>{{temperatureTitle}}</b></td>
+                                    <td id="statData" align="right">{{temperature}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>{{xaccelTitle}}</b></td>
+                                    <td id="statData" align="right">{{xaccel}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>{{yaccelTitle}}</b></td>
+                                    <td id="statData" align="right">{{yaccel}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>{{zaccelTitle}}</b></td>
+                                    <td id="statData" align="right">{{zaccel}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                    <td id="chartColumn">
+                        <div id="chart"></div>
+                    </td>
+                </tr>
+            </table>
+
+            <table>
+                <tr>
+                    <td>
+                        <div id="map"></div>
+                    </td>
+                    <td>
+                        <div id="euler"></div>
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <br>
+        </div>
+    </div>
+    <script type="text/ng-template" id="editRecord.html">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit Record</h3>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="bn">Record Name</label>
+                    <input style="width:300px" type="text" class="form-control" id="rn" placeholder="Record Name"
+                           ng-model="newRecord.title" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="bd">Record Description</label>
+                    <input style="width:300px" type="text" class="form-control" id="rd" placeholder="Record Description"
+                           ng-model="newRecord.description">
+                </div>
+                <button class="btn btn-primary" type="button" ng-click="ok()">Save</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+        </div>
+    </script>
+</div>

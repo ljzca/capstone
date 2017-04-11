@@ -89,3 +89,8 @@ html, body {
  	background-color: whitesmoke;
  }
  
+.fix-gutters > [class*="col-"] {
+	padding-right: 0;
+	padding-left: 0;
+}
+ 
