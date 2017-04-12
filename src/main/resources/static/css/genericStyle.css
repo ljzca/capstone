@@ -12,8 +12,6 @@
 	font-style: italic;
 }
 
-/* Always set the map height explicitly to define the size of the div
- * element that contains the map. */
 #map {
 	height: 500px;
 	width: 500px;
@@ -30,7 +28,6 @@
 	vertical-align: middle;
 }
 
-/* Optional: Makes the sample page fill the window. */
 html, body {
 	overflow: auto;
 	height: 100%;
