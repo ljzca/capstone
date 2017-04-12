@@ -717,7 +717,6 @@ angular.module('stars')
                 $scope.fvelocity = (($scope.indexData.fvelocity * 18) / 5).toFixed(2) + " km/h";
                 $scope.gratio = $scope.indexData.gratio;
                 $scope.gvelocity = (($scope.indexData.gvelocity * 18) / 5).toFixed(2) + " km/h";
-                $scope.heading = $scope.indexData.heading + '\xB0';
                 $scope.latitude = $scope.indexData.latitude + '\xB0';
                 $scope.longitude = $scope.indexData.longitude + '\xB0';
                 $scope.pitch = $scope.indexData.pitch + '\xB0';
@@ -728,6 +727,46 @@ angular.module('stars')
                 $scope.xaccel = $scope.indexData.xaccel + " m/s" + '\xB2';
                 $scope.yaccel = $scope.indexData.yaccel + " m/s" + '\xB2';
                 $scope.zaccel = $scope.indexData.zaccel + " m/s" + '\xB2';
+                
+                // Determine the direction that the heading indicates for the live stats
+                $scope.heading = parseFloat(($scope.indexData.heading*-1) + 180).toFixed(2);                
+                if($scope.heading >= 338 && $scope.heading <= 360 || $scope.heading >= 0 && $scope.heading <= 22)
+                {
+            		$scope.heading = $scope.heading + '\xB0' + " N";
+                }
+                else if($scope.heading > 22 && $scope.heading <= 67)
+            	{
+                	$scope.heading = $scope.heading + '\xB0' + " NE";
+            	}
+                else if($scope.heading > 67 && $scope.heading <= 111)
+            	{
+                	$scope.heading = $scope.heading + '\xB0' + " E";
+            	}
+                else if($scope.heading > 111 && $scope.heading <= 156)
+            	{
+                	$scope.heading = $scope.heading + '\xB0' + " SE";
+            	}
+                else if($scope.heading > 156 && $scope.heading <= 201)
+            	{
+                	$scope.heading = $scope.heading + '\xB0' + " S";
+            	}
+                else if($scope.heading > 201 && $scope.heading <= 247)
+            	{
+                	$scope.heading = $scope.heading + '\xB0' + " SW";
+            	}
+                else if($scope.heading > 247 && $scope.heading <= 291)
+            	{
+                	$scope.heading = $scope.heading + '\xB0' + " W";
+            	}
+                else if($scope.heading > 291 && $scope.heading <= 337)
+            	{
+                	$scope.heading = $scope.heading + '\xB0' + " NW";
+            	}               
+                else
+            	{
+                	console.log($scope.heading);
+            	}
+
 
                 // Animate the 3D Euler model
                 setEuler($scope.indexData.pitch, $scope.indexData.roll, $scope.indexData.yaw);
