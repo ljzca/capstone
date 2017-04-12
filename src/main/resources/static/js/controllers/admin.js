@@ -1,8 +1,11 @@
 angular.module('stars')
 
 	.controller("adminCtrl", ["$scope", "$cookieStore", "$location", "sendRequest", function ($scope, $cookieStore, $location, sendRequest) {
+
+		//Resetting the navbar
 		setNavBar();
 
+		//Setting all Scope variables
 		$scope.isCreation = true;
 		$scope.username = "";
 		$scope.password = "";
@@ -10,6 +13,7 @@ angular.module('stars')
 		$scope.lastname = "";
 		$scope.email = "";
 
+		//Setting all the values for the gender drop down
 		$scope.gender = {
 			code: 'Unknown',
 			genders: [
@@ -20,6 +24,7 @@ angular.module('stars')
 			]
 		};
 
+		//GetUsers function that returns all the users in the DB
 		var getUsers = function () {
 			sendRequest.send(
 				'GET',
@@ -38,6 +43,7 @@ angular.module('stars')
 
 		getUsers();
 
+		//Function to promote users
 		$scope.promoteUser = function (username) {
 
 			var newUser = {};
@@ -65,6 +71,7 @@ angular.module('stars')
 			)
 		};
 
+		//function to demote users
 		$scope.demoteUser = function (username) {
 
 			var newUser = {};
@@ -96,10 +103,12 @@ angular.module('stars')
 			)
 		};
 
+		//function to edit users
 		$scope.editUser = function (username) {
 
 			$scope.isCreation = false;
 
+			//looks thru all users till it finds a user with the proper id
 			$scope.users.forEach(function (user) {
 				if (username === user.id) {
 					$scope.username = user.id;
@@ -115,6 +124,7 @@ angular.module('stars')
 			});
 		};
 
+		//function to save User information in the input fields
 		$scope.saveUser = function (username) {
 			var userToBeSaved = {
 				username: $scope.username,
@@ -127,8 +137,8 @@ angular.module('stars')
 				isAdmin: $scope.isAdmin
 			};
 
+			//function determines whether the user put anything in the new password field.
 			if ($scope.password.length > 0) {
-				console.log($scope.password.length);
 				userToBeSaved.password = $scope.password;
 			}
 
@@ -164,6 +174,7 @@ angular.module('stars')
 			)
 		};
 
+		//function to delete user
 		$scope.deleteUser = function (username) {
 			sendRequest.send(
 				'DELETE',
@@ -185,6 +196,7 @@ angular.module('stars')
 			)
 		};
 
+		//function to create a user
 		$scope.createUser = function () {
 
 			sendRequest.send(

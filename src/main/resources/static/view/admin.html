@@ -1,6 +1,7 @@
 <h1>User Management</h1>
 <div ng-controller="adminCtrl">
-	
+
+	<!--Table with all the users-->
 	<div class="table-responsive">
 		<table class="table table-hover">
 			<thead>
@@ -34,6 +35,8 @@
 		</table>
 	</div>
 	<div>{{notice}}</div>
+
+	<!--If creation isn't flagged then the create User will turn into edit user-->
 	<h2 ng-if="isCreation">Create User</h2>
 	<h2 ng-if="!isCreation">Edit User</h2>
 	<div>

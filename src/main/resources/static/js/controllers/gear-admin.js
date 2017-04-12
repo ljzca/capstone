@@ -3,11 +3,13 @@ angular.module('stars')
     .controller("gearAdminCtrl", function ($scope, $cookieStore, $location, sendRequest, $uibModal) {
         setNavBar();
 
+        //Template object for brand modal fields
         $scope.newBrand = {
             name: null,
             description: null
         };
 
+        //Template object for model modal fields
         $scope.newModel = {
             name: null,
             type: null,
@@ -18,6 +20,7 @@ angular.module('stars')
 
         $scope.showCreateBrandModal = function (size) {
 
+            //Modal Instance controller
             var modelInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -41,14 +44,13 @@ angular.module('stars')
                     }
                 }
             });
-
+            //Modal Instance result set
             modelInstance.result.then(function () {
                 console.log($scope.brand);
                 sendRequest.send(
                     'POST',
                     'brands',
                     function (result) {
-                        console.log(result.data);
                         getBrands();
                     },
                     function (error) {
@@ -69,6 +71,7 @@ angular.module('stars')
 
         $scope.showCreateModelModal = function (size) {
 
+            //Modal Instance controller
             var modelInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -84,7 +87,6 @@ angular.module('stars')
                             $scope.brands = result.data._embedded.brands;
                         },
                         function (error) {
-                            console.log("Error loading brands into modal dropdown");
                         },
                         null,
                         $cookieStore.get("username"),
@@ -108,12 +110,13 @@ angular.module('stars')
                 }
             });
 
+            //Modal Instance result set
             modelInstance.result.then(function () {
                 sendRequest.send(
                     'POST',
                     '/models',
                     function (result) {
-                        console.log(result);
+
                     },
                     function (error) {
                         $scope.notice = "There was an error creating the brand"
@@ -128,17 +131,16 @@ angular.module('stars')
                     $cookieStore.get("password")
                 );
             }, function () {
-                console.log("There was an error");
             });
         };
 
 
         $scope.showEditBrandModal = function(brand, size){
 
-            console.log(brand);
-
+            //variable to hold brand id before it is changed by the user.
             var staticBrand = brand.id;
 
+            //Modal instance controller
             var modelInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -163,7 +165,7 @@ angular.module('stars')
                     }
                 }
             });
-
+            //modal Instance result set
             modelInstance.result.then(function () {
                 console.log(brand);
                 console.log(staticBrand);
@@ -171,7 +173,6 @@ angular.module('stars')
                     'PUT',
                     'brands/'+staticBrand,
                     function (result) {
-                        console.log(result.data);
                         getBrands();
                     },
                     function (error) {
@@ -189,18 +190,12 @@ angular.module('stars')
 
         };
 
-        $scope.showEditModelModal = function () {
-
-        }
-
         //Getting brands to display in table.
-
         var getBrands = function () {
             sendRequest.send(
                 'GET',
                 'brands',
                 function (result) {
-                    console.log(result.data);
                     $scope.brands = result.data._embedded.brands;
                 },
                 function (error) {
@@ -282,7 +277,6 @@ angular.module('stars')
                             getModels();
                         },
                         function (error) {
-                            console.log("Its bad!");
                         },
                         null,
                         $cookieStore.get("username"),
