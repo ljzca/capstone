@@ -3,17 +3,22 @@
 	<br>
 	<table>
 		<tr>
-			<td style="width: 300px;"><label for="ur">Upload Record
-					File (.csv):</label></td>
+			<td style="width: 300px;">
+			
+			<!-- Upload a file -->
+			<label for="ur">Upload Record File (.csv):</label></td>
 			<td style="width: 300px;">
 				<div class="form-group">
 					<input class="btn btn-default btn-file" id="ur" type="file"
 						file-model="myFile" />
 				</div>
 			</td>
+			
+			<!-- Display errors relating to file upload -->
 			<td style="width: 0px;"><p class="error">{{fileError}}</p></td>
 		</tr>
 		<tr>
+			<!-- Input for the Record title -->
 			<td style="width: 300px;"><label>Title:</label></td>
 			<td style="width: 300px;">
 				<div class="form-group">
@@ -21,9 +26,12 @@
 						style="width: 300px;">
 				</div>
 			</td>
+			
+			<!-- Display issues relating to the title-->
 			<td><p class="error">{{titleError}}</p></td>
 		</tr>
 		<tr>
+			<!-- Input for the Record description -->
 			<td style="width: 300px;"><label>Description:</label></td>
 			<td style="width: 300px;">
 				<div class="form-group">
@@ -33,9 +41,12 @@
 			</div>
 		</tr>
 		<tr>
+			<!-- Upload the new record -->
 			<td><button class="btn btn-info" ng-click="uploadFile()">Upload</button></td>
 		</tr>
 	</table>
+	
+	<!-- Display any successes or errors -->
 	<br> <label class="status">{{success}}</label>
 	<br> <label class="status">{{error}}</label>
 </div>

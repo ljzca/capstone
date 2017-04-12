@@ -1,20 +1,26 @@
-<div style="position: relative; z-index: 999;">
-
+<div style="position: relative;">
+	
+	<!-- List the available records -->
     <div id="column">
         <h2>Records</h2>
         <div ng-repeat="record in recordListArray" class="record-list">
             <p ng-click="displayRecord(record);" id="recordList">{{record}}</p>
         </div>
     </div>
-
+    
+	<!-- Display the record -->
     <div class="record-display">
         <div class="container">
+        	<!-- Display basic record information -->
             <div class="row">
                 <div class="col-md-9">
                     <span class="pull-left">
-                    <h3>{{recordName}}</h3>
+                    	<!-- Display the record title -->
+                    	<h3>{{recordName}}</h3>
                     </span>
                 </div>
+                
+                <!-- Display the Edit and Delete buttons -->
                 <div class="col-md-3 fix-gutters">
                     <span class="pull-right" ng-if="buttonDisplay">
                         <button type="button" class="btn btn-info" ng-click="editRecordModal()">Edit</button>
@@ -23,16 +29,19 @@
                 </div>
             </div>
             <div class="row">
+            	<!-- Display the record date -->
                 <div class="col-md-8">
                     <h4>{{recordDate}}</h4>
                 </div>
                 <div class="col-md-4"></div>
-                <div class="col-md-6">
-                    <p>{{description}}</p>
-                </div>
+                	<!-- Display the record description -->
+	                <div class="col-md-6">
+	                    <p>{{description}}</p>
+	                </div>
                 <div class="col-md-6"></div>
             </div>
 
+			<!-- Display the faded logo when the page loads -->
             <div id="logo">
                 <p style="text-align: center;" id="logoPic">
                     <img src="images/logoFade.png" alt="STARS Logo"
@@ -40,11 +49,13 @@
                 </p>
             </div>
 			
+			<!-- Holds the X Axis radio buttons -->
 			<div class="form-group">
 	            <b>{{xLabel}}</b>
 	            <div id="formX"></div>
             </div>
 
+			<!-- Holds the Y Axis radio buttons -->
             <div class="form-group">
                 <b>{{yLabel}}</b>
                 <div id="formY"></div>
@@ -54,6 +65,7 @@
 
             <table>
                 <tr>
+                	<!-- Displays the Records Stats -->
                     <td id="statColumn">
                         <div id="stats">
                             <table>
@@ -133,6 +145,7 @@
                         </div>
                     </td>
                     <td id="chartColumn">
+                        <!-- Displays the chart -->
                         <div id="chart"></div>
                     </td>
                 </tr>
@@ -141,9 +154,11 @@
             <table>
                 <tr>
                     <td>
+                    	<!-- Displays the Google Map -->
                         <div id="map"></div>
                     </td>
                     <td>
+                    	<!-- Displays the 3D Euler Model -->
                         <div id="euler"></div>
                     </td>
                 </tr>
@@ -152,6 +167,8 @@
             <br>
         </div>
     </div>
+    
+    <!-- Layout of the Modal for edit record -->
     <script type="text/ng-template" id="editRecord.html">
         <div class="modal-dialog">
             <div class="modal-header">
@@ -175,3 +192,5 @@
         </div>
     </script>
 </div>
+
+

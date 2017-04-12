@@ -731,7 +731,7 @@ angular.module('stars')
 
                 // Animate the 3D Euler model
                 setEuler($scope.indexData.pitch, $scope.indexData.roll, $scope.indexData.yaw);
-                animate();
+                render();
             }
 
             // Draw the vertical red line
