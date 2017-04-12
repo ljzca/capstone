@@ -2,6 +2,7 @@
 
 <div ng-controller="profCtrl">
 
+    <!--Form information for account info-->
     <h2>Account Information</h2>
 
     <div class="form-group">
@@ -19,6 +20,7 @@
         <input style="width:300px" type="text" class="form-control" id="em" placeholder="Email" ng-model="email">
     </div>
 
+    <!--Form information for profile information-->
     <h2>Profile Information</h2>
 
     <div class="form-group">
@@ -53,6 +55,7 @@
         <input style="width:300px" type="password" class="form-control" id="curPass" placeholder="Current Password" ng-model="confirmpassword">
     </div>
 
+    <!--Button to be clicked to submit information-->
     <div ng-repeat="msg in errMsg.messages">{{msg}}</div>
     <div>{{notice}}</div>
     <a class="btn btn-success" ng-click="updateProfile()">Save</a>

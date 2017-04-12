@@ -2,10 +2,13 @@ angular.module('stars')
 
     .controller("profCtrl", ["$scope", "$cookieStore", "$location", "sendRequest", function ($scope, $cookieStore, $location, sendRequest) {
 
+        //Re-apply Navbar to ensure that its functioning properly
         setNavBar();
 
+        //Set scope of username
         $scope.username = $cookieStore.get("username");
 
+        //Fill out values of gender drop down.
         $scope.gender = {
             code: 'Unknown',
             genders: [
@@ -32,7 +35,6 @@ angular.module('stars')
                     $scope.weight = result.data.weight;
                 },
                 function (error) {
-                    console.log("Error!");
                     $scope.errMsg = "You didn't login in";
                 },
                 null,
@@ -43,6 +45,7 @@ angular.module('stars')
 
         selfReflect();
 
+        //Function to update the profile
         $scope.updateProfile = function () {
             var userToBeUpdated = {
                 username: $cookieStore.get("username"),
@@ -54,9 +57,11 @@ angular.module('stars')
                 weight: $scope.weight
             };
 
+            //if statement to check the newpassword fields length
             if ($scope.password.length > 0)
                 userToBeUpdated.password = $scope.password;
 
+            //if statement prevents the user from updating profile without password.
             if ($scope.confirmpassword === $cookieStore.get("password")) {
                 sendRequest.send(
                     'PATCH',
@@ -71,7 +76,6 @@ angular.module('stars')
                     },
                     function (error) {
                         if (error.status === 406) {
-                            console.log(error.data);
                             $scope.errMsg = error.data;
                             $scope.notice = "";
                         } else {
@@ -83,8 +87,6 @@ angular.module('stars')
                     $cookieStore.get("password")
                 );
             } else {
-                console.log($cookieStore.get('password'));
-                console.log($scope.confirmpassword);
                 $scope.notice = "Your current password is incorrect!"
             }
         };
