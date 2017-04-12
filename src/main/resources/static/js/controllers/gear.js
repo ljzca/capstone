@@ -67,7 +67,7 @@ angular.module('stars')
                     for (var i = 0; i < result.data._embedded.gears.length; i++) {
                         var resultString = result.data._embedded.gears[i]._links.gear.href;
                         console.log(resultString);
-                        resultString = decodeURIComponent(resultString.substring(28));
+                        resultString = decodeURIComponent(resultString.substring(resultString.lastIndexOf("/")+1));
                         console.log(resultString);
                         var gearString = resultString.split("&");
                         var gearObj = {
