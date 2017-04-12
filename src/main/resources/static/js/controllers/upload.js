@@ -9,16 +9,28 @@ angular.module('stars')
 .controller('upload', ['$scope', '$cookieStore' ,'fileUpload', 'sendRequest', 'parser', 'constants', function($scope, $cookieStore, fileUpload, sendRequest, parser, constants){
 	setNavBar();
 	
-    $scope.uploadFile = function(){
-        var file = $scope.myFile;
+	/**
+	 * This function can be called to upload the given file to the database
+	 */
+    $scope.uploadFile = function()
+    {
+    	var file = $scope.myFile; // The file to be uploaded
+        
+    	//If the user uploaded a file into the file input
         if(file != null && file != "")
         {
-	        var valid = true;
+	        var valid = true; // Determines if the file is valid
+	        
+	        //Read the text from the file
 	        read = new FileReader();
 	        read.readAsText(file);
+	        
+	        /**
+	         * This function will run after the file is read
+	         */
 	        read.onloadend = function()
 	        {
-	            $scope.result = (read.result);
+	            $scope.result = (read.result); // The contents of the file uploaded
 	            
 	            //Checks for a valid file.
 	            if($scope.result == null || $scope.result == "")
@@ -26,6 +38,7 @@ angular.module('stars')
 	            	$scope.fileError = "Please select a valid file.";
 	            	valid = false;
 	            }
+	            //Remove the file error if the file is valid
 	            else
 	            {
 	            	$scope.fileError = null;
@@ -37,101 +50,63 @@ angular.module('stars')
 	            	$scope.titleError = "Please enter a title.";
 	            	valid = false;
 	            }
+	            //Remove the title error if the title is valid
 	            else
 	            {
 	            	$scope.titleError = "";
 	            }
 	            
+	            //If the file has a valid file and name...
 	            if(valid)
 	            {
+	            	//Remove both error messages
 	            	$scope.fileError = null;
 	            	$scope.titleError = null;
-	            	$scope.success = "Uploading...";
+	            	
+	            	//Create the record in the database
 		            sendRequest.send
 		            (
 		            		'POST',
 		            		'records',
-		            		function(result){
-		            			console.log("*********************** SUCCESS ***************************");
-//		            			console.log(result);
-		            			
-		            			console.log("Testing Result...")
-//		            			console.log($scope.result);
-		            			
+		            		function(result)
+		            		{
+		            			//Pass the username, title, and file contents to the parser to be parsed into an array of objects
 		            			var objects = parser.parse($cookieStore.get('username'), $scope.title, $scope.result);
-		            			
-		            			console.log("Testing Objects...")
-		            			console.log(objects);
-		            			
-		            			var loopValid = true;
-		            			
-		            			try
+		            
+	            				//Sets the success message
+	            				$scope.success = "Uploading...";
+		            		
+	            				//Begin uploading the data to the record
+	            				for(var i = 0; i < objects.length-1; i++)
 		            			{
-			            			for(var i = 0; i < objects.length-1; i++)
-			            			{
-				            				sendRequest.send
-				            				(
-				            						'POST',
-				            	            		'recordDatas',
-				            	            		function(){
-				            							console.log("*************** GREAT SUCCESS ****************");
-
-				            							if(i == objects.length-1)
-				            							{
-				            								$scope.success = "Uploading...";
-				            							}		
-				            						},
-				            	            		function(error){
-				            							console.log("*************** EPIC FAILURE ****************");
-				            							console.log(error);
-				            							$scope.success = "Error uploading record";
-				            							loopValid = false;	
-				            						},
-				            						objects[i],
-				            	            		$cookieStore.get('username'),
-				            	            		$cookieStore.get('password')
-				            				);
-			            				
-			            				if(loopValid === false)
-			            				{
-			            					throw "Bad Record";
-			            				}
-			            			}
-		            			}
-		            			catch(e)
-		            			{
-	            					$scope.success = "Error uploading record 1";
-	            					sendRequest.send
+		            				sendRequest.send
 		            				(
-		            						'DELETE',
-		            	            		'recordDatas/'+ $cookieStorer.get('username') + '&' + $scope.title,
-		            	            		function(){
-		            							console.log("*************** Failed Upload ****************");
-		            							$scope.success = "Error uploading record";
+		            						'POST',
+		            	            		'recordDatas',
+		            	            		function(){},
+		            	            		function(error)
+		            	            		{
+		            							$scope.error = "One or more lines in the record may be corrupted.";
 		            						},
-		            	            		function(error){
-		            							console.log("*************** Failed Upload ****************");
-		            							console.log(error);
-		            							$scope.success = "Error uploading record";
-		            						},
-		            						null,
+		            						objects[i], // Pass each row of data to the record
 		            	            		$cookieStore.get('username'),
 		            	            		$cookieStore.get('password')
 		            				);
+
 		            			}
 		            		},
-		            		function(error){
-		            			console.log("*********************** FAILURE ***************************");
-		            			console.log(error);
-		            			$scope.titleError = "Duplicate record name";
+		            		function(error)
+		            		{
+		            			// The upload will fail if the record title already exists in the database
+		            			$scope.titleError = "Duplicate record title";
 		            		},
 		            		{
 		            			id:
 		            			{
-		            				owner: $cookieStore.get('username'),
-		                			title: $scope.title
+		            				owner: $cookieStore.get('username'),	//Set the owner of the record
+		                			title: $scope.title		//Set the title of the record
 		            			},
-		            			description: $scope.description
+		            			description: $scope.description //Set the description of the record
 		            		},
 		            		$cookieStore.get('username'),
 		            		$cookieStore.get('password')
@@ -140,17 +115,18 @@ angular.module('stars')
 	        }
         }
         
+        // If no file is uploaded to the file input
         else
         {
+        	// Set the file error
         	$scope.fileError = "Please select a valid file.";
         	
+        	// If the user did not enter a title
 	        if($scope.title == null || $scope.title == "")
 	        	$scope.titleError = "Please enter a title.";
         }
-        
-        
-        //******************** Upload Complete ***************************
-        
+  
+        //This GET request is used to determine when the upload is completed
         setTimeout(function(){
 	        sendRequest.send
 	        (
@@ -158,32 +134,14 @@ angular.module('stars')
 	        	'records/'+ $cookieStore.get('username') + '&' + $scope.title + '/recordData',
 	        	function(success)
 	        	{
-	        		console.log("****** THATS GREAT ********");
-	        		console.log(success.data._embedded.recordDatas.length);
 	        		$scope.success = "Record uploaded";
-	        		$scope.dbComplete = true;
 	        	},
 	        	function()
-	        	{
-	        		console.log("****** OH NO **********");
-	        	},
+	        	{},
 	        	null,
         		$cookieStore.get('username'),
         		$cookieStore.get('password')
 	        );
-        }, 10000);
-    };
-    
-//    $scope.testFunction = function()
-//    {
-//    	 $cookieStore.put("username", "matt");
-//    	 $cookieStore.put("password", "password");
-//    }
-//    
-//    $scope.testFunction2 = function()
-//    {
-//    	 $cookieStore.put("username", "steve");
-//    	 $cookieStore.put("password", "password");
-//    }
-    
+        }, 1000);
+    };    
 }]);

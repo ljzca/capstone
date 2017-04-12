@@ -3,7 +3,6 @@ angular.module('stars')
     .service("sendRequest", ['$base64', '$http', 'constants', function ($base64, $http, constants) {
 
         this.send = function (method, url, sucess, fail, data, username, password) {
-        	console.log(data);
             var req = {
                 method: method,
                 url: constants.rootURL + url,

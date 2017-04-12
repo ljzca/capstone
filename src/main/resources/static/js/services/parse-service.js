@@ -6,7 +6,6 @@ angular.module('stars')
 	//Parsing function
 	this.parse = function (username, title, data) {
 		
-		console.log(data);
 		var cleanData = [];
 		var objectArray = [];
 		
