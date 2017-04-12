@@ -32,6 +32,9 @@ public class Brand extends AbstractDomain<String> {
 	@Lob
 	private String description;
 
+	/**
+	 * All the models that belong to the brand
+	 */
 	// bi-directional many-to-one association to Record
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "name")
 	private List<Model> models;

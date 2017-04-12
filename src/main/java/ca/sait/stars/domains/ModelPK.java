@@ -12,52 +12,58 @@ import javax.persistence.*;
 @Embeddable
 public class ModelPK implements Serializable {
 
-    private static final long serialVersionUID = 6641100107954248015L;
+	private static final long serialVersionUID = 6641100107954248015L;
 
-    @Column(nullable = false, insertable = false, updatable = false, length = 30)
-    private String name;
+	/**
+	 * name of the brand represents the brand
+	 */
+	@Column(nullable = false, insertable = false, updatable = false, length = 30)
+	private String name;
 
-    @Column(nullable = false, insertable = false, updatable = false, length = 30)
-    private String type;
+	/**
+	 * the model name of the model.
+	 */
+	@Column(nullable = false, insertable = false, updatable = false, length = 30)
+	private String type;
 
-    public String getName() {
-        return this.name;
-    }
+	public String getName() {
+		return this.name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getType() {
-        return this.type;
-    }
+	public String getType() {
+		return this.type;
+	}
 
-    public void setType(String type) {
-        this.type = type;
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
 
-    public boolean equals(Object other) {
-        if (this == other) {
-            return true;
-        }
-        if (!(other instanceof ModelPK)) {
-            return false;
-        }
-        ModelPK castOther = (ModelPK) other;
-        return this.name.equals(castOther.name) && this.type.equals(castOther.type);
-    }
+	public boolean equals(Object other) {
+		if (this == other) {
+			return true;
+		}
+		if (!(other instanceof ModelPK)) {
+			return false;
+		}
+		ModelPK castOther = (ModelPK) other;
+		return this.name.equals(castOther.name) && this.type.equals(castOther.type);
+	}
 
-    public int hashCode() {
-        final int prime = 31;
-        int hash = 17;
-        hash = hash * prime + this.name.hashCode();
-        hash = hash * prime + this.type.hashCode();
+	public int hashCode() {
+		final int prime = 31;
+		int hash = 17;
+		hash = hash * prime + this.name.hashCode();
+		hash = hash * prime + this.type.hashCode();
 
-        return hash;
-    }
+		return hash;
+	}
 
-    @Override
-    public String toString() {
-        return name + "&" + type;
-    }
+	@Override
+	public String toString() {
+		return name + "&" + type;
+	}
 }

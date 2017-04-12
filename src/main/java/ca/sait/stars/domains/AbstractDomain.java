@@ -10,11 +10,14 @@ import org.springframework.data.domain.Persistable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
- * Abstract domain class
+ * Abstract domain class, all managed domains should derive from this class.
+ * This class cooperates with Spring Data JPA. So in general, this class should
+ * not be changed.
  * 
  * @author William
  *
  * @param <ID>
+ *            the time of the ID
  */
 @MappedSuperclass
 public abstract class AbstractDomain<ID extends Serializable> implements Persistable<ID> {

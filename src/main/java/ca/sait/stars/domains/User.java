@@ -19,29 +19,50 @@ public class User extends AbstractDomain<String> {
 
 	private static final long serialVersionUID = 3881890201970857506L;
 
+	/**
+	 * username of the User
+	 */
 	@Id
 	@Column(unique = true, nullable = false, length = 30)
 	private String username;
 
+	/**
+	 * email address of the user
+	 */
 	@Column(length = 255, nullable = false)
 	private String email;
 
+	/**
+	 * firstname of the user
+	 */
 	@Column(length = 30, nullable = false)
 	private String firstname;
 
+	/**
+	 * lastname of the user
+	 */
 	@Column(length = 30, nullable = false)
 	private String lastname;
 
+	/**
+	 * gender of the user
+	 */
 	@Column(name = "sex", nullable = false, length = 8)
 	@Enumerated(EnumType.STRING)
 	private Sex sex;
 
+	/**
+	 * predefined genders
+	 * 
+	 * @author 689626
+	 *
+	 */
 	public enum Sex {
 		Male, Female, Other, Unknown
 	}
 
 	/**
-	 * inches
+	 * centimeter
 	 */
 	@Column
 	private double height;
@@ -52,17 +73,29 @@ public class User extends AbstractDomain<String> {
 	@Column
 	private double weight;
 
+	/**
+	 * whether or not an user is admin
+	 */
 	@Column(name = "is_admin", nullable = false)
 	private boolean isAdmin;
 
+	/**
+	 * password is bcrypt hashed
+	 */
 	@Column(length = 60, nullable = false)
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
 
+	/**
+	 * The records belong to the user
+	 */
 	// bi-directional many-to-one association to Record
 	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "owner")
 	private List<Record> records;
 
+	/**
+	 * The gears a user has
+	 */
 	// bi-directional many-to-one association to Record
 	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "owner")
 	private List<Gear> gears;

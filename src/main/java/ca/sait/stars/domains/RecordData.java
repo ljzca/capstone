@@ -15,6 +15,10 @@ public class RecordData extends AbstractDomain<RecordDataPK> {
 
 	private static final long serialVersionUID = -2179632862300221506L;
 
+	/**
+	 * The composite PK of the record data. It includes owner, tile, time
+	 * columns.
+	 */
 	@EmbeddedId
 	private RecordDataPK id;
 
@@ -57,7 +61,7 @@ public class RecordData extends AbstractDomain<RecordDataPK> {
 	/**
 	 * ground velocity
 	 * 
-	 * meter/second
+	 * kilometer/hour
 	 */
 	@Column(nullable = false)
 	private double gvelocity;
@@ -65,7 +69,7 @@ public class RecordData extends AbstractDomain<RecordDataPK> {
 	/**
 	 * vertical velocity
 	 * 
-	 * meter/second
+	 * kilometer/hour
 	 */
 	@Column(nullable = false)
 	private double vvelocity;
@@ -73,7 +77,7 @@ public class RecordData extends AbstractDomain<RecordDataPK> {
 	/**
 	 * flight velocity
 	 * 
-	 * meter/second
+	 * kilometer/hour
 	 */
 	@Column(nullable = false)
 	private double fvelocity;
@@ -131,11 +135,14 @@ public class RecordData extends AbstractDomain<RecordDataPK> {
 	private double heading;
 
 	/**
-	 * meter
+	 * kilometer
 	 */
 	@Column(nullable = false)
 	private double distance;
 
+	/**
+	 * the record which the record data belongs to
+	 */
 	// bi-directional many-to-one association to Record
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({

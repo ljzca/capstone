@@ -15,15 +15,28 @@ public class GearPK implements Serializable {
 
 	private static final long serialVersionUID = 6641100107954248015L;
 
+	/**
+	 * The name of the brand, which is the brand
+	 */
 	@Column(nullable = false, insertable = false, updatable = false, length = 30)
 	private String name;
 
+	/**
+	 * The type of the model, which is the model
+	 */
 	@Column(nullable = false, insertable = false, updatable = false, length = 30)
 	private String type;
 
+	/**
+	 * The username of the owner
+	 */
 	@Column(nullable = false, insertable = false, updatable = false, length = 30)
 	private String owner;
 
+	/**
+	 * The unique identifier of the gear. This property is added because one
+	 * user can have more than one exact same gear (same model, same brand)
+	 */
 	@Column(nullable = false, insertable = false, updatable = false, length = 60)
 	private String uuid;
 

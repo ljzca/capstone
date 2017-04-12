@@ -17,17 +17,29 @@ public class Model extends AbstractDomain<ModelPK> {
 
 	private static final long serialVersionUID = -2138350065961289313L;
 
+	/**
+	 * The composite PK of the Model, which includes name and type columns
+	 */
 	@EmbeddedId
 	private ModelPK id;
 
+	/**
+	 * The description of the model.
+	 */
 	@Lob
 	private String description;
 
+	/**
+	 * This is the brand of this model, although it was named "name"
+	 */
 	// bi-directional many-to-one association to Brand
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "name", nullable = false, insertable = false, updatable = false)
 	private Brand name;
 
+	/**
+	 * A list of the gears of the model
+	 */
 	// bi-directional many-to-one association to Gear
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "model")
 	private List<Gear> gear;

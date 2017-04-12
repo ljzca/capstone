@@ -14,9 +14,15 @@ public class RecordPK implements Serializable {
 
 	private static final long serialVersionUID = 5457540082422531295L;
 
+	/**
+	 * The username of the owner
+	 */
 	@Column(nullable = false, insertable = false, updatable = false, length = 30)
 	private String owner;
 
+	/**
+	 * The title of the record
+	 */
 	@Column(nullable = false, insertable = false, updatable = false, length = 50)
 	private String title;
 

@@ -19,17 +19,29 @@ public class Gear extends AbstractDomain<GearPK> {
 
 	private static final long serialVersionUID = 3881890201970857506L;
 
+	/**
+	 * Composite PK contains 4 columns: name, type, owner, uuid
+	 */
 	@EmbeddedId
 	private GearPK id;
 
+	/**
+	 * a description for gear
+	 */
 	@Lob
 	private String description;
 
+	/**
+	 * the User object of the owner of the gear
+	 */
 	// bi-directional many-to-one association to User
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "owner", nullable = false, insertable = false, updatable = false)
 	private User owner;
 
+	/**
+	 * The model of the gear
+	 */
 	// bi-directional many-to-one association to Model
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({
@@ -37,6 +49,11 @@ public class Gear extends AbstractDomain<GearPK> {
 			@JoinColumn(name = "type", referencedColumnName = "type", nullable = false, insertable = false, updatable = false) })
 	private Model model;
 
+	/**
+	 * Records (sport sessions) that are performed with wearing this gear.
+	 * 
+	 * In current version (v1.0), this relationship is not used.
+	 */
 	@ManyToMany(mappedBy = "gears", cascade = { MERGE, DETACH, PERSIST, REFRESH })
 	private List<Record> records;
 
@@ -78,6 +95,9 @@ public class Gear extends AbstractDomain<GearPK> {
 		return id.toString();
 	}
 
+	/**
+	 * Auto-generated uuid
+	 */
 	@PrePersist
 	protected void prepersist() {
 		if (id.getUuid() == null)

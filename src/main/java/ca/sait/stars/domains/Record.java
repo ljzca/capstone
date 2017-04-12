@@ -7,6 +7,10 @@ import java.util.List;
 /**
  * The persistent class for the stars_record database table.
  * 
+ * One record is generally a sport session which holds information of it.
+ * 
+ * Records holds RecordData which is the actual data read from the device.
+ * 
  * @author william
  *
  */
@@ -17,21 +21,36 @@ public class Record extends AbstractDomain<RecordPK> {
 
 	private static final long serialVersionUID = -4417730453088600886L;
 
+	/**
+	 * The composite id of the Record. It includes owner and title columns
+	 */
 	@EmbeddedId
 	private RecordPK id;
 
+	/**
+	 * Description of the record
+	 */
 	@Lob
 	private String description;
 
+	/**
+	 * The owner of the record.
+	 */
 	// bi-directional many-to-one association to User
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "owner", nullable = false, insertable = false, updatable = false)
 	private User owner;
 
+	/**
+	 * A list of all record data of the record
+	 */
 	// bi-directional many-to-one association to RecordData
 	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "record")
 	private List<RecordData> recordData;
 
+	/**
+	 * The gear being used in the record
+	 */
 	// bi-directional many-to-many association to Gear
 	@ManyToMany
 	@JoinTable(name = "stars_record_gear", joinColumns = {

@@ -6,6 +6,8 @@ import java.util.Date;
 /**
  * The persistent class for the stars_news_board database table.
  * 
+ * In the current version (v1.0), NewsBoard is not used.
+ * 
  * @author william
  *
  */
@@ -16,15 +18,24 @@ public class NewsBoard extends AbstractDomain<Date> {
 
 	private static final long serialVersionUID = -7887975624261414585L;
 
+	/**
+	 * The time is also the identifier of the news
+	 */
 	@Id
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(unique = true, nullable = false)
 	private Date time;
 
+	/**
+	 * The actual content.
+	 */
 	@Column(nullable = false)
 	@Lob
 	private String content;
 
+	/**
+	 * The title of the news
+	 */
 	@Column(nullable = false, length = 255)
 	private String title;
 

@@ -58,6 +58,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sameOrigin();
     }
 
+    /**
+     * This method is to set userDetailsService and password encrypt algorithm.
+     * 
+     * @param auth
+     * @throws Exception
+     */
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
 
