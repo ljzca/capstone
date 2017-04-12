@@ -3,7 +3,7 @@
     <div id="column">
         <h2>Records</h2>
         <div ng-repeat="record in recordListArray" class="record-list">
-            <p ng-click="getRecords(record);" id="recordList">{{record}}</p>
+            <p ng-click="displayRecord(record);" id="recordList">{{record}}</p>
         </div>
     </div>
 
@@ -39,13 +39,15 @@
                          style="width: 40%; height: 40%; margin-top: 30px;">
                 </p>
             </div>
-
-            <b>{{xLabel}}</b>
-            <div id="formX"></div>
+			
+			<div class="form-group">
+	            <b>{{xLabel}}</b>
+	            <div id="formX"></div>
+            </div>
 
             <div class="form-group">
                 <b>{{yLabel}}</b>
-                <div id="form"></div>
+                <div id="formY"></div>
             </div>
 
             <br>
