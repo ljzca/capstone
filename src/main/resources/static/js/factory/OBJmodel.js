@@ -65,8 +65,7 @@ var container;
 						}
 					} );
 					
-					object.rotation.x = 90 * (Math.PI/180);
-					object.rotation.z = 180 * (Math.PI/180);	
+					object.rotation.y = 90 * (Math.PI/180);
 					scene.add( object );
 				}, onProgress, onError );
 				//
@@ -85,9 +84,9 @@ var container;
 				render();
 			}
 			var render = function() {
-				myObj.rotation.y = roll * (Math.PI/180);
-				myObj.rotation.x = pitch * (Math.PI/180) + (90 * (Math.PI/180));
-				myObj.rotation.z = yaw * (Math.PI/180) + (180 * (Math.PI/180));
+				myObj.rotation.y = (roll + 90 )* (Math.PI/180);
+				myObj.rotation.x = pitch * (Math.PI/180);// + (90 * (Math.PI/180));
+				myObj.rotation.z = yaw * (Math.PI/180);// + (180 * (Math.PI/180));
 				camera.lookAt( scene.position );
 				renderer.render( scene, camera );
 			}
