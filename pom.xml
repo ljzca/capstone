@@ -11,6 +11,18 @@
     <name>STARS</name>
     <description>S.T.A.R.S. stands for Sport Telemetry and Report System, which is to be built by Capstonebro team for the research of Applied Research and Innovation Services (ARIS)</description>
     <contributors>
+    <contributor>
+            <name>Jordan Pickett</name>
+            <email>jordan.j.pickett@gmail.com</email>
+            <organization>Southern Alberta Institute of Technology</organization>
+            <organizationUrl>http://www.sait.ca/</organizationUrl>
+            <roles>
+                <role>Hardware Developer</role>
+                <role>Programmer</role>
+            </roles>
+            <timezone>MST</timezone>
+            <url>https://www.linkedin.com/in/mtrosesoftware/</url>
+        </contributor>
         <contributor>
             <name>Jianzhao Li</name>
             <email>lijianzhao@lijianzhao.com</email>
