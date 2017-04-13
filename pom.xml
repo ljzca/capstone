@@ -36,6 +36,18 @@
             <url>https://ca.linkedin.com/in/ljzca</url>
         </contributor>
         <contributor>
+        	<name>Taylor Doud</name>
+        	<email>taylor.o.doud@gmail.com</email>
+        	<organization>Southern Alnberta Institute of Technology</organization>
+        	<organizationUrl>http://www.sait.ca</organizationUrl>
+        	<roles>
+        		<role>Front-End Developer</role>
+        		<role>Programmer</role>
+       		</roles>
+       		<timezone>MST</timezone>
+       		<url>https://www.linkedin.com/in/taylordoud/</url>
+        </contributor>
+        <contributor>
             <name>Matthew Rose</name>
             <email>mtrosesoftware@gmail.com</email>
             <organization>Southern Alberta Institute of Technology</organization>
