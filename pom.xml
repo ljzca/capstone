@@ -5,7 +5,7 @@
 
     <groupId>ca.sait</groupId>
     <artifactId>stars</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.3</version>
     <packaging>jar</packaging>
 
     <name>STARS</name>
@@ -13,7 +13,7 @@
     <contributors>
         <contributor>
             <name>Jianzhao Li</name>
-            <email>jianzhao.li@edu.sait.ca</email>
+            <email>lijianzhao@lijianzhao.com</email>
             <organization>Southern Alberta Institute of Technology</organization>
             <organizationUrl>http://www.sait.ca/</organizationUrl>
             <roles>
