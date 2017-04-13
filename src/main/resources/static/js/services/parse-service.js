@@ -38,9 +38,10 @@ angular.module('stars')
 					distance: dataLine[17]
 			}
 			
-			if(! (dataLine[15] === "null")) 
-				dataObject.grratio = dataLine[15];
-				
+			
+			if(!(dataLine[15] === "null")) 
+				dataObject.gratio = dataLine[15];
+	
 			objectArray.push(dataObject);
 		}
 		return objectArray;
