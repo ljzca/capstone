@@ -1,3 +1,5 @@
+//This is the threejs library that utilizes WEBGL
+// It gives us access to the renderer and the animation
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
 	typeof define === 'function' && define.amd ? define(['exports'], factory) :
