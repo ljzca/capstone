@@ -9,9 +9,11 @@
     <packaging>jar</packaging>
 
     <name>STARS</name>
-    <description>S.T.A.R.S. stands for Sport Telemetry and Report System, which is to be built by Capstonebro team for the research of Applied Research and Innovation Services (ARIS)</description>
+    <description>S.T.A.R.S. stands for Sport Telemetry and Report System, which is to be built by Capstonebro team for
+        the research of Applied Research and Innovation Services (ARIS)
+    </description>
     <contributors>
-    <contributor>
+        <contributor>
             <name>Jordan Pickett</name>
             <email>jordan.j.pickett@gmail.com</email>
             <organization>Southern Alberta Institute of Technology</organization>
@@ -36,16 +38,16 @@
             <url>https://ca.linkedin.com/in/ljzca</url>
         </contributor>
         <contributor>
-        	<name>Taylor Doud</name>
-        	<email>taylor.o.doud@gmail.com</email>
-        	<organization>Southern Alnberta Institute of Technology</organization>
-        	<organizationUrl>http://www.sait.ca</organizationUrl>
-        	<roles>
-        		<role>Front-End Developer</role>
-        		<role>Programmer</role>
-       		</roles>
-       		<timezone>MST</timezone>
-       		<url>https://www.linkedin.com/in/taylordoud/</url>
+            <name>Taylor Doud</name>
+            <email>taylor.o.doud@gmail.com</email>
+            <organization>Southern Alnberta Institute of Technology</organization>
+            <organizationUrl>http://www.sait.ca</organizationUrl>
+            <roles>
+                <role>Front-End Developer</role>
+                <role>Programmer</role>
+            </roles>
+            <timezone>MST</timezone>
+            <url>https://www.linkedin.com/in/taylordoud/</url>
         </contributor>
         <contributor>
             <name>Matthew Rose</name>
@@ -63,7 +65,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.5.1.RELEASE</version>
-        <relativePath /> <!-- lookup parent from repository -->
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <properties>
@@ -73,6 +75,36 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>3.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>3.3.7-1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>angularjs</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>angular-base64</artifactId>
+            <version>2.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>angular-ui-bootstrap</artifactId>
+            <version>2.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>three</artifactId>
+            <version>0.84.0</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
