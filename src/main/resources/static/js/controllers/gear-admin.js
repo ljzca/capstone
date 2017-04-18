@@ -114,7 +114,7 @@ angular.module('stars')
             modelInstance.result.then(function () {
                 sendRequest.send(
                     'POST',
-                    '/models',
+                    'models',
                     function (result) {
 
                     },

@@ -7,6 +7,7 @@ angular.module('stars')
 
         //Set scope of username
         $scope.username = $cookieStore.get("username");
+        $scope.password = "";
 
         //Fill out values of gender drop down.
         $scope.gender = {
