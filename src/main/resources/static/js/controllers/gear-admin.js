@@ -1,6 +1,6 @@
 angular.module('stars')
 
-    .controller("gearAdminCtrl", function ($scope, $cookieStore, $location, sendRequest, $uibModal) {
+    .controller("gearAdminCtrl", function ($scope, $cookieStore, $location, sendRequest, $uibModal, constants) {
         setNavBar();
 
         //Template object for brand modal fields
@@ -123,7 +123,7 @@ angular.module('stars')
                     },
                     {
                         id:{"name":$scope.newModel.name.id,"type":$scope.newModel.type},
-                        name: "http://localhost:8080/rest/brands/"+encodeURIComponent($scope.newModel.name.id),
+                        name: constants.rootURL + "brands/" + encodeURIComponent($scope.newModel.name.id),
                         type: $scope.newModel.type,
                         description: $scope.newModel.description
                     },
