@@ -61,7 +61,7 @@ var init = function() {
 		texture.needsUpdate = true;
 	});
 	// This loads the model to the render scene
-	// It also initializess its original values
+	// It also initializes its original values
 	var loader = new THREE.OBJLoader(manager);
 	loader.load('obj/wingsuit3.obj', function(object) {
 		myObj = object;
@@ -87,9 +87,9 @@ var init = function() {
 //This is the render function that renders the model
 // and adjust their euler angles appropriately.
 var render = function() {
-	myObj.rotation.y = (roll + 90) * (Math.PI / 180);
-	myObj.rotation.x = pitch * (Math.PI / 180);
-	myObj.rotation.z = yaw * (Math.PI / 180);
+	myObj.rotation.y = (roll + 180) * (Math.PI / 180);
+	myObj.rotation.x = yaw * (Math.PI / 180);
+	myObj.rotation.z = pitch * (Math.PI / 180);
 	camera.lookAt(scene.position);
 	renderer.render(scene, camera);
 }
